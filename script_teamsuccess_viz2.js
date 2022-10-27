@@ -1,34 +1,34 @@
-var width = 1000
-var height= 500
-
-var svg =  d3.select("#teamsuccess_viz1")
-  .style("width", width)
+var svg_2 =  d3.select("#teamsuccess_viz2")
+  .style("width", width*0.7)
   .style("height", height)
+  .attr("x", 850)
 
-var title = svg.append("text") 
-              .text('Team Success') 
-              .attr("text-anchor", "middle") 
-              .style("font-size", '24px') 
-              .attr("dy", 20)
-              .attr("dx", width / 2);
+console.log(width)
 
-let border = svg.append("g")
+let border_2 = svg_2.append("g")
                 .append("rect")
                 .attr("stroke-width", 2)
                 .attr("stroke", "black")
                 .attr("fill", "none")
                 .attr("y", 25)
-                .attr("width", width)
+                .attr("width", width*0.7)
                 .attr("height", height-25)
 
-var temp_holder = svg.append("text")
-                    .text('<Visualization 1>')
+var title = svg_2.append("text") 
+                .text('Team Success') 
+                .attr("text-anchor", "middle") 
+                .style("font-size", '24px') 
+                .attr("dy", 20)
+                .attr("dx", border_2.attr("width") / 2);
+
+var temp_holder_2 = svg_2.append("text")
+                    .text('<Visualization 2>')
                     .attr("text-anchor", "middle")
                     .style("font-size", "12px")
-                    .attr("dx", border.attr("width")/2)
-                    .attr("dy", border.attr("height")/2)
+                    .attr("dx", border_2.attr("width")/2)
+                    .attr("dy", border_2.attr("height")/2)
 
-console.log(border.attr("width"))
+console.log(border_2.attr("width"))
 
   /*
 let bound = svg.append("g")
