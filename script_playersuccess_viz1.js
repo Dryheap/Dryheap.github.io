@@ -15,14 +15,14 @@ let playersuccess_border = playersuccess_svg.append("g")
                 .attr("height", height-25)
 
 var title = playersuccess_svg.append("text") 
-                .text('Team Success') 
+                .text('Player Success') 
                 .attr("text-anchor", "middle") 
                 .style("font-size", '24px') 
                 .attr("dy", 20)
                 .attr("dx", playersuccess_border.attr("width") / 2);
 
 var temp_holder = svg_2.append("text")
-                    .text('<Visualization 2>')
+                    .text('<Visualization 3>')
                     .attr("text-anchor", "middle")
                     .style("font-size", "12px")
                     .attr("dx", playersuccess_border.attr("width")/2)
