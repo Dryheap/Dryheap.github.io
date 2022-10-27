@@ -2,7 +2,7 @@ var spiderchart_svg =  d3.select("#spiderchart")
   .style("width", width)
   .style("height", height)
   .attr("x", 850)
-  .attr("transform", "translate(600, -505)")
+  //.attr("transform", "translate(600, -505)")
 
 
 console.log(width)
