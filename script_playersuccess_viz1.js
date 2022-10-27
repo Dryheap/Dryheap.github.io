@@ -1,11 +1,11 @@
-var svg_2 =  d3.select("#teamsuccess_viz2")
+var playersuccess_svg =  d3.select("#playersuccess_viz1")
   .style("width", width*0.7)
   .style("height", height)
-  .attr("x", 850)
+  .attr("y", 850)
 
 console.log(width)
 
-let border_2 = svg_2.append("g")
+let playersuccess_border = playersuccess_svg.append("g")
                 .append("rect")
                 .attr("stroke-width", 2)
                 .attr("stroke", "black")
@@ -14,18 +14,18 @@ let border_2 = svg_2.append("g")
                 .attr("width", width*0.7)
                 .attr("height", height-25)
 
-var title = svg_2.append("text") 
+var title = playersuccess_svg.append("text") 
                 .text('Team Success') 
                 .attr("text-anchor", "middle") 
                 .style("font-size", '24px') 
                 .attr("dy", 20)
-                .attr("dx", border_2.attr("width") / 2);
+                .attr("dx", playersuccess_border.attr("width") / 2);
 
-var temp_holder_2 = svg_2.append("text")
+var temp_holder = svg_2.append("text")
                     .text('<Visualization 2>')
                     .attr("text-anchor", "middle")
                     .style("font-size", "12px")
-                    .attr("dx", border_2.attr("width")/2)
-                    .attr("dy", border_2.attr("height")/2)
+                    .attr("dx", playersuccess_border.attr("width")/2)
+                    .attr("dy", playersuccess_border.attr("height")/2)
 
-console.log(border_2.attr("width"))
+console.log(playersuccess_border.attr("width"))
