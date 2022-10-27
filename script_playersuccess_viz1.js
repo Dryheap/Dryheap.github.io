@@ -1,5 +1,5 @@
 var playersuccess_svg =  d3.select("#playersuccess_viz1")
-  .style("width", width)
+  .style("width", width * .5)
   .style("height", height)
   .attr("y", 850)
 
@@ -11,7 +11,7 @@ let playersuccess_border = playersuccess_svg.append("g")
                 .attr("stroke", "black")
                 .attr("fill", "none")
                 .attr("y", 25)
-                .attr("width", width)
+                .attr("width", width * .7)
                 .attr("height", height-25)
 
 var title = playersuccess_svg.append("text") 
