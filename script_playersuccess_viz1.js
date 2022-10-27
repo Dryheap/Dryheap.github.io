@@ -1,5 +1,5 @@
 var playersuccess_svg =  d3.select("#playersuccess_viz1")
-  .style("width", width*0.7)
+  .style("width", width)
   .style("height", height)
   .attr("y", 850)
 
@@ -11,7 +11,7 @@ let playersuccess_border = playersuccess_svg.append("g")
                 .attr("stroke", "black")
                 .attr("fill", "none")
                 .attr("y", 25)
-                .attr("width", width*0.7)
+                .attr("width", width)
                 .attr("height", height-25)
 
 var title = playersuccess_svg.append("text") 
@@ -21,7 +21,7 @@ var title = playersuccess_svg.append("text")
                 .attr("dy", 20)
                 .attr("dx", playersuccess_border.attr("width") / 2);
 
-var temp_holder = svg_2.append("text")
+var temp_holder = playersuccess_svg.append("text")
                     .text('<Visualization 3>')
                     .attr("text-anchor", "middle")
                     .style("font-size", "12px")
