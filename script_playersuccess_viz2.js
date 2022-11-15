@@ -1,5 +1,5 @@
 var svg_2 =  d3.select("#playersuccess_viz2")
-  .style("width", width*0.3)
+  .style("width", width*0.5)
   .style("height", height)
   .attr("x", 850)
   .attr("transform", "translate(-400,0)")
@@ -12,7 +12,7 @@ let border_3 = svg_2.append("g")
                 .attr("stroke", "black")
                 .attr("fill", "none")
                 .attr("y", 25)
-                .attr("width", width*0.7)
+                .attr("width", width*0.5)
                 .attr("height", height-25)
                 .trans
 

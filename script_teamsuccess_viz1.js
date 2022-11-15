@@ -4,6 +4,7 @@ var height= 500
 var svg =  d3.select("#teamsuccess_viz1")
   .style("width", width)
   .style("height", height)
+  .attr("transform", "translate(400, 100)")
 
 var title = svg.append("text") 
               .text('Team Success') 
@@ -27,5 +28,4 @@ var temp_holder = svg.append("text")
                     .style("font-size", "12px")
                     .attr("dx", border.attr("width")/2)
                     .attr("dy", border.attr("height")/2)
-
 console.log(border.attr("width"))

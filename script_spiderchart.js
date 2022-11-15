@@ -1,7 +1,9 @@
 var spiderchart_svg =  d3.select("#spiderchart")
-  .style("width", width*0.7)
+  .style("width", width)
   .style("height", height)
   .attr("x", 850)
+  .attr("transform", "translate(900, -350)")
+
 
 console.log(width)
 
@@ -11,8 +13,17 @@ let spiderchart_border = spiderchart_svg.append("g")
                 .attr("stroke", "black")
                 .attr("fill", "none")
                 .attr("y", 25)
-                .attr("width", width*0.7)
+                .attr("width", width*0.6)
                 .attr("height", height-25)
+
+
+var title = spiderchart_svg.append("text") 
+                .text('Spider Chart') 
+                .attr("text-anchor", "middle") 
+                .style("font-size", '24px') 
+                .attr("dy", 20)
+                .attr("dx", border_2.attr("width") / 2);
+
 
 var temp_holder_2 = spiderchart_svg.append("text")
                     .text('<Spider/Radar Chart>')
