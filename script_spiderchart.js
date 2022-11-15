@@ -4,7 +4,6 @@ var spiderchart_svg =  d3.select("#spiderchart")
   .attr("x", 850)
   .attr("transform", "translate(900, -350)")
 
-
 console.log(width)
 
 let spiderchart_border = spiderchart_svg.append("g")
