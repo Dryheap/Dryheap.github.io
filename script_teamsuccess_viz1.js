@@ -42,7 +42,7 @@ d3.csv("nba_adv_data.csv").then(
     // get True Shooting Percent, etc
     // change the below to get the different values needed to be grouped together
     // can be altered to be the teams
-    var subgroups = dataset.columns.slice(8,9)
+    var subgroups = dataset.columns.slice(8,9) // usage: slice(<start_column>, <end_column>) -> will return all data for those columns
     console.log(subgroups)
 
     // get team info
