@@ -1,8 +1,8 @@
 var spiderchart_svg =  d3.select("#spiderchart")
-  .style("width", width)
+  .style("width", width*0.6)
   .style("height", height)
   .attr("x", 850)
-  .attr("transform", "translate(900, -350)")
+  //.attr("transform", "translate(900, -350)")
 
 console.log(width)
 
@@ -21,7 +21,7 @@ var title = spiderchart_svg.append("text")
                 .attr("text-anchor", "middle") 
                 .style("font-size", '24px') 
                 .attr("dy", 20)
-                .attr("dx", border_2.attr("width") / 2);
+                .attr("dx", spiderchart_border.attr("width") / 2);
 
 
 var temp_holder_2 = spiderchart_svg.append("text")

@@ -1,10 +1,10 @@
-var width = 1000
+var width = 900
 var height= 500
 
 var svg =  d3.select("#teamsuccess_viz1")
   .style("width", width)
   .style("height", height)
-  .attr("transform", "translate(400, 100)")
+  //.attr("transform", "translate(400, 100)")
 
 var title = svg.append("text") 
               .text('Team Success') 

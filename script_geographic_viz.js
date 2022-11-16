@@ -2,7 +2,7 @@ var geographic_svg =  d3.select("#geographic_viz")
   .style("width", width)
   .style("height", height)
   .attr("x", 850)
-  .attr("transform", "translate(400, -300)")  
+  //.attr("transform", "translate(400, -300)")  
 
 console.log(width)
 
@@ -21,7 +21,7 @@ var title = geographic_svg.append("text")
                           .attr("text-anchor", "middle") 
                           .style("font-size", '24px') 
                           .attr("dy", 20)
-                          .attr("dx", border_2.attr("width") / 2);
+                          .attr("dx", geographic_border.attr("width") / 2);
 
 var temp_holder_2 = geographic_svg.append("text")
                     .text('<Geographic Chart>')

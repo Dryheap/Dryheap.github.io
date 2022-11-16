@@ -2,7 +2,7 @@ var svg_2 =  d3.select("#teamsuccess_viz2")
   .style("width", width*0.7)
   .style("height", height)
   .attr("x", 850)
-  .attr("transform", "translate(300,155)")
+  //.attr("transform", "translate(300,155)")
 
 console.log(width)
 
