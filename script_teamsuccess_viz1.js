@@ -2,13 +2,15 @@ d3.csv("nba_adv_data.csv").then(
 
   function(dataset) {
 
+    console.log("HELLO")
+
     var dimensions = {
       width: 1000,
       height: 700,
       margin:{
           top: 60,
-          bottom: 70,
-          right: 10,
+          bottom: 20,
+          right: 30,
           left: 80
       }
   }
@@ -32,17 +34,22 @@ d3.csv("nba_adv_data.csv").then(
                     .attr("fill", "none")
                     .attr("y", 25)
                     .attr("width", dimensions.width)
-                    .attr("height", dimensions.height-25)
+                    .attr("height", dimensions.height)
 
 
     // This is where the fun begins
 
-    // get True Shooting Percent
-    var subgroups = dataset.columns.slice(1)
+    // get True Shooting Percent, etc
+    // change the below to get the different values needed to be grouped together
+    // can be altered to be the teams
+    var subgroups = dataset.columns.slice(8,9)
     console.log(subgroups)
 
     // get team info
-    var teams = d3.map(dataset, function(d){return(d.Tm)}).keys()
+    // this currently is used for the upper-level groupings
+    // can be altered to be True Shooting Percentage, etc
+    var teams = d3.map(dataset, function(d){console.log(d["Tm"]); return(d["Tm"])})
+
 
     console.log(teams)
 
@@ -53,12 +60,12 @@ d3.csv("nba_adv_data.csv").then(
       .padding([0.2])
 
     svg.append("g")
-      .attr("transform", "translate(0," + dimensions.height + ")")
+      .attr("transform", "translate(0," + (dimensions.height - dimensions.margin.bottom) + ")")
       .call(d3.axisBottom(x).tickSize(0));
 
     // Add Y axis
     var y = d3.scaleLinear()
-      .domain([0, 40])
+      .domain([0, 2])
       .range([dimensions.height, 0]);
 
     svg.append("g")
@@ -74,29 +81,37 @@ d3.csv("nba_adv_data.csv").then(
     var color = "#38c9b4"
 
     // draw the graph
-    svg.append("g")
-        .selectAll("g")
-        // Enter in data = loop group per group
-        .data(dataset)
-        .enter()
-        .append("g")
-          .attr("transform", function(d) { return "translate(" + x(d.group) + ",0)"; })
-        .selectAll("rect")
-        .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
-        .enter().append("rect")
-          .attr("x", function(d) { return xSubgroup(d.key); })
-          .attr("y", function(d) { return y(d.value); })
-          .attr("width", xSubgroup.bandwidth())
-          .attr("height", function(d) { return height - y(d.value); })
-          .attr("fill", function(d) { return color; });
+    var graph = svg.append("g")
+                    .selectAll("g")
+                    // Enter in data = loop group per group
+                    .data(dataset)
+                    .enter()
+                    .append("g")
+                      .attr("transform", function(d) { return "translate(" + x(d.Tm) + ",0)";})
+                    .selectAll("rect")
+                    .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
+                    .enter().append("rect")
+                      .attr("x", function(d) { return xSubgroup(d.key); })
+                      .attr("y", function(d) { return y(d.value); })
+                      .attr("width", xSubgroup.bandwidth())
+                      .attr("height", function(d) { return dimensions.height - dimensions.margin.bottom - y(d.value); })
+                      .attr("fill", function(d) { return color; })
 
-    var temp_holder = svg.append("text")
-                        .text('<Visualization 1>')
-                        .attr("text-anchor", "middle")
-                        .style("font-size", "12px")
-                        .attr("dx", border.attr("width")/2)
-                        .attr("dy", border.attr("height")/2)
-    console.log(border.attr("width"))
+
+    graph.append("text")
+          .text(function(d) { console.log(d.Tm); return d.Tm; })
+          .attr("x", function(d){
+              return x(d) + x.bandwidth()/2;
+          })
+          .attr("y", function(d){
+              return y(d) - 5;
+          })
+          .attr("font-family" , "sans-serif")
+          .attr("font-size" , "14px")
+          .attr("fill" , "black")
+          .attr("text-anchor", "middle");
+
+  
 
   }
 
