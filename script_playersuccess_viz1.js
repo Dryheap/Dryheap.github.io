@@ -13,40 +13,38 @@ d3.csv("nba_adv_data.csv").then(
       }
   }
 
-    var spiderchart_svg =  d3.select("#spiderchart")
-      .style("width", dimensions.width*0.6)
+    var playersuccess_svg =  d3.select("#playersuccess_viz1")
+      .style("width", dimensions.width * .5)
       .style("height", dimensions.height)
-      .attr("x", 850)
-      //.attr("transform", "translate(900, -350)")
+      .attr("y", 850)
 
     console.log(dimensions.width)
 
-    let spiderchart_border = spiderchart_svg.append("g")
+    let playersuccess_border = playersuccess_svg.append("g")
                     .append("rect")
                     .attr("stroke-width", 2)
                     .attr("stroke", "black")
                     .attr("fill", "none")
                     .attr("y", 25)
-                    .attr("width", dimensions.width*0.6)
+                    .attr("width", dimensions.width * .7)
                     .attr("height", dimensions.height-25)
+                    .attr("y", "100")
 
-
-    var title = spiderchart_svg.append("text") 
-                    .text('Spider Chart') 
+    var title = playersuccess_svg.append("text") 
+                    .text('Player Success') 
                     .attr("text-anchor", "middle") 
                     .style("font-size", '24px') 
                     .attr("dy", 20)
-                    .attr("dx", spiderchart_border.attr("width") / 2);
+                    .attr("dx", playersuccess_border.attr("width") / 2);
 
-
-    var temp_holder_2 = spiderchart_svg.append("text")
-                        .text('<Spider/Radar Chart>')
+    var temp_holder = playersuccess_svg.append("text")
+                        .text('<Visualization 3>')
                         .attr("text-anchor", "middle")
                         .style("font-size", "12px")
-                        .attr("dx", spiderchart_border.attr("width")/2)
-                        .attr("dy", spiderchart_border.attr("height")/2)
+                        .attr("dx", playersuccess_border.attr("width")/2)
+                        .attr("dy", playersuccess_border.attr("height")/2)
 
-    console.log(spiderchart_border.attr("width"))
+    console.log(playersuccess_border.attr("width"))
 
   }
 )

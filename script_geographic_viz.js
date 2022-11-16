@@ -19,7 +19,6 @@ d3.csv("nba_adv_data.csv").then(
       .attr("x", 850)
       //.attr("transform", "translate(400, -300)")  
 
-    console.log(width)
 
     let geographic_border = geographic_svg.append("g")
                     .append("rect")

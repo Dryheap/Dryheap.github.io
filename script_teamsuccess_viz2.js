@@ -18,7 +18,7 @@ d3.csv("nba_adv_data.csv").then(
       .attr("x", 850)
       //.attr("transform", "translate(300,155)")
 
-    console.log(width)
+    console.log(dimensions.width)
 
     let border_2 = svg_2.append("g")
                     .append("rect")
