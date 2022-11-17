@@ -11,7 +11,7 @@ d3.csv("nba_adv_data.csv").then(
           right: 10,
           left: 80
       }
-  }
+    }
 
     var spiderchart_svg =  d3.select("#spiderchart")
       .style("width", dimensions.width*0.6)
