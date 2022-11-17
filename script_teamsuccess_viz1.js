@@ -2,7 +2,6 @@ d3.csv("nba_adv_data.csv").then(
 
   function(dataset) {
 
-    console.log("HELLO")
 
     var dimensions = {
       width: 1000,
@@ -42,16 +41,18 @@ d3.csv("nba_adv_data.csv").then(
     // get True Shooting Percent, etc
     // change the below to get the different values needed to be grouped together
     // can be altered to be the teams
-    var subgroups = dataset.columns.slice(8,9) // usage: slice(<start_column>, <end_column>) -> will return all data for those columns
+    //var subgroups = dataset.columns.slice(8,9) // usage: slice(<start_column>, <end_column>) -> will return all data for those columns
+    var subgroups = d3.map(dataset, function(d){return(d["Tm"])})
     console.log(subgroups)
+
 
     // get team info
     // this currently is used for the upper-level groupings
     // can be altered to be True Shooting Percentage, etc
-    var teams = d3.map(dataset, function(d){console.log(d["Tm"]); return(d["Tm"])})
+    //var teams = d3.map(dataset, function(d){console.log(d["Tm"]); return(d["Tm"])})
+    var teams = dataset.columns.slice(8,9)
 
-
-    console.log(teams)
+    console.log(teams.values())
 
     // X-axis
     var x = d3.scaleBand()
@@ -81,7 +82,7 @@ d3.csv("nba_adv_data.csv").then(
     var color = "#38c9b4"
 
     // draw the graph
-    var graph = svg.append("g")
+    /*var graph = svg.append("g")
                     .selectAll("g")
                     // Enter in data = loop group per group
                     .data(dataset)
@@ -95,11 +96,27 @@ d3.csv("nba_adv_data.csv").then(
                       .attr("y", function(d) { return y(d.value); })
                       .attr("width", xSubgroup.bandwidth())
                       .attr("height", function(d) { return dimensions.height - dimensions.margin.bottom - y(d.value); })
-                      .attr("fill", function(d) { return color; })
+                      .attr("fill", function(d) { return color; })*/
+
+    var graph = svg.append("g")
+                      .selectAll("g")
+                      // Enter in data = loop group per group
+                      .data(dataset)
+                      .enter()
+                      .append("g")
+                        .attr("transform", function(d) { return "translate(" + x(d.Tm) + ",0)";})
+                      .selectAll("rect")
+                      .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
+                      .enter().append("rect")
+                        .attr("x", function(d) { return xSubgroup(d.key); })
+                        .attr("y", function(d) { return y(d.value); })
+                        .attr("width", xSubgroup.bandwidth())
+                        .attr("height", function(d) { return dimensions.height - dimensions.margin.bottom - y(d.value); })
+                        .attr("fill", function(d) { return color; })
 
 
     graph.append("text")
-          .text(function(d) { console.log(d.Tm); return d.Tm; })
+          .text(function(d) { return d.Tm; })
           .attr("x", function(d){
               return x(d) + x.bandwidth()/2;
           })
