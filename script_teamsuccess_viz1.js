@@ -41,16 +41,16 @@ d3.csv("nba_adv_data.csv").then(
     // get True Shooting Percent, etc
     // change the below to get the different values needed to be grouped together
     // can be altered to be the teams
-    //var subgroups = dataset.columns.slice(8,9) // usage: slice(<start_column>, <end_column>) -> will return all data for those columns
-    var subgroups = d3.map(dataset, function(d){return(d["Tm"])})
+    // TODO: Subgroups are for column headers
+    var subgroups = dataset.columns.slice(5,6) // usage: slice(<start_column>, <end_column>) -> will return all data for those columns
+    //var subgroups = d3.map(dataset, function(d){return(d["Tm"])})
     console.log(subgroups)
 
 
     // get team info
     // this currently is used for the upper-level groupings
     // can be altered to be True Shooting Percentage, etc
-    //var teams = d3.map(dataset, function(d){console.log(d["Tm"]); return(d["Tm"])})
-    var teams = dataset.columns.slice(8,9)
+    var teams = d3.map(dataset, function(d){console.log(d["Tm"]); return(d["Tm"])})
 
     console.log(teams.values())
 
@@ -66,7 +66,7 @@ d3.csv("nba_adv_data.csv").then(
 
     // Add Y axis
     var y = d3.scaleLinear()
-      .domain([0, 2])
+      .domain([0, 20])
       .range([dimensions.height, 0]);
 
     svg.append("g")
@@ -104,7 +104,7 @@ d3.csv("nba_adv_data.csv").then(
                       .data(dataset)
                       .enter()
                       .append("g")
-                        .attr("transform", function(d) { return "translate(" + x(d.Tm) + ",0)";})
+                        .attr("transform", function(d) { return "translate(" + x(d.Tm) + ",0)";}) // places the bar into correct x-position
                       .selectAll("rect")
                       .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
                       .enter().append("rect")
