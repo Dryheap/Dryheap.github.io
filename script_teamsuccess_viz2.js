@@ -1,4 +1,8 @@
-d3.csv("nba_adv_data.csv").then(
+// DEPRECATED
+// This file was hosting the Player Success Scatterplot
+// Due to confusion regarding filename ("teamsuccess"), the original code was moved
+
+/*d3.csv("nba_adv_data.csv").then(
 
   function(dataset) {
 
@@ -86,4 +90,4 @@ d3.csv("nba_adv_data.csv").then(
         .attr("transform", "translate(400, 565)")
 
   }
-)
+)*/
