@@ -20,7 +20,7 @@ d3.csv("nba_adv_data.csv").then(
       //.attr("transform", "translate(400, 100)")
 
     var title = svg.append("text") 
-                  .text('Multiple Team Success') 
+                  .text('Games Won') 
                   .attr("text-anchor", "middle") 
                   .style("font-size", '24px') 
                   .attr("dy", 20)
@@ -42,7 +42,7 @@ d3.csv("nba_adv_data.csv").then(
     // change the below to get the different values needed to be grouped together
     // can be altered to be the teams
     // TODO: Subgroups are for column headers
-    var subgroups = dataset.columns.slice(5,6) // usage: slice(<start_column>, <end_column>) -> will return all data for those columns
+    var subgroups = dataset.columns.slice(29,30) // usage: slice(<start_column>, <end_column>) -> will return all data for those columns
     //var subgroups = d3.map(dataset, function(d){return(d["Tm"])})
     console.log(subgroups)
 
@@ -66,7 +66,7 @@ d3.csv("nba_adv_data.csv").then(
 
     // Add Y axis
     var y = d3.scaleLinear()
-      .domain([0, 20])
+      .domain([0, 70])
       .range([dimensions.height, 0]);
 
     svg.append("g")
