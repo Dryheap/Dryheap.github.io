@@ -21,7 +21,7 @@ d3.csv("nba_adv_data.csv").then(
       //.attr("transform", "translate(400, 100)")
 
     var title = svg.append("text") 
-                  .text('Team Success') 
+                  .text('Multiple Team Success') 
                   .attr("text-anchor", "middle") 
                   .style("font-size", '24px') 
                   .attr("dy", 20)

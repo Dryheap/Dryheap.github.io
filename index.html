@@ -2,7 +2,52 @@
 <html>
   <head>
     <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NBA Statistics</title>
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+
+      #app {
+        display: flex;
+        margin: 2rem 1rem;
+      }
+
+      #chart {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+        padding: 1rem;
+      }
+
+      #chart, #data {
+        margin: 0 2rem;
+      }
+
+      #data ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      #data li {
+        margin-bottom: 1rem;
+        padding: 1rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+        width: 10rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+      }
+
+      .bar {
+        fill: #4f009e;
+      }
+
+      .label {
+        fill: #4f009e;
+      }
+    </style>
     <script src="https://d3js.org/d3.v7.min.js"></script>
 
   </head>
@@ -10,22 +55,65 @@
 
     <h1>Our Wonderful CPSC-4030 Project</h1>
 
+    <!-- BANNER: list of nba teams -->
+    <div id="app">
+      <div id="chart">
+        <svg id="list_of_nba_teams"></svg>
+      </div>
+    </div>
 
-    <svg id="teamsuccess_viz1"></svg>
-    <svg id="teamsuccess_viz2"></svg>
+    <!-- team visualization #1 -->
+    <div id="app">
+      <div id="chart">
+        <svg id="teamsuccess_viz1"></svg>
+      <!-- </div> -->
+    <!-- </div> -->
+    <!-- <div id="app"> -->
+      <!-- <div id="chart"> -->
+        <svg id="teamsuccess_viz2"></svg>
+      </div>
+    </div>
+
+    <!-- BANNER: drop-downs of teams and players -->
+    <!-- TODO: make a banner with drop-downs with options like {"all NBA players", "eastern conf. players", "western conf. players", etc...} -->
+
+    <!-- player visualizations -->
+    <div id="app">
+      <div id="chart">
+        <svg id="teamsuccess_viz2"></svg>
+      <!-- </div> -->
+    <!-- </div> -->
+    <!-- <div id="app"> -->
+      <!-- <div id="chart"> -->
+        <svg id="spiderchart"></svg>
+      </div>
+    </div>
+
+    <!-- geographical visualization -->
+    <div id="app">
+      <div id="chart">
+        <svg id="geographic_viz"></svg>
+      </div>
+    </div>
+
+
+    <!-- <svg id="teamsuccess_viz2"></svg> -->
     <!--<svg id="playersuccess_viz1"></svg>-->
-    <svg id="playersuccess_viz2"></svg>
-    <svg id="geographic_viz"></svg>
-    <svg id="spiderchart"></svg>
+    <!-- <svg id="playersuccess_viz2"></svg> -->
+    <!-- <svg id="geographic_viz"></svg> -->
+    <!-- <svg id="spiderchart"></svg> -->
 
     <!-- <svg width="400" height="180">
       <rect x="50" y="20" width="150" height="150"
       style="fill:blue;stroke:pink;stroke-width:5;fill-opacity:0.1;stroke-opacity:0.9" />
     </svg> -->
 
-    <script src="script_teamsuccess_viz1.js"></script>
+    <script src="list_of_nba_teams.js"></script>
+    
+        <script src="script_teamsuccess_viz1.js"></script>
+    
     <script src="script_teamsuccess_viz2.js"></script>
-    <script src="script_playersuccess_viz1.js"></script>
+    <!-- <script src="script_playersuccess_viz1.js"></script> -->
     <script src="script_spiderchart.js"></script>
     <script src="script_geographic_viz.js"></script>
   </body>
