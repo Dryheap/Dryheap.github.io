@@ -57,7 +57,7 @@ d3.csv("nba_adv_data.csv").then(
     // X-axis
     var x = d3.scaleBand()
       .domain(teams)
-      .range([0, dimensions.width])
+      .range([dimensions.margin.left, dimensions.width - dimensions.margin.right])
       .padding([0.2])
 
     svg.append("g")
@@ -67,7 +67,7 @@ d3.csv("nba_adv_data.csv").then(
     // Add Y axis
     var y = d3.scaleLinear()
       .domain([0, 70])
-      .range([dimensions.height, 0]);
+      .range([dimensions.height-dimensions.margin.bottom, dimensions.margin.top]);
 
     svg.append("g")
       .call(d3.axisLeft(y));
@@ -127,6 +127,20 @@ d3.csv("nba_adv_data.csv").then(
           .attr("font-size" , "14px")
           .attr("fill" , "black")
           .attr("text-anchor", "middle");
+
+
+  var yAxisGen = d3.axisLeft().scale(y)
+  var yAxis = svg.append("g")
+                .call(yAxisGen)
+                .style("transform", `translateX(${dimensions.margin.left}px)`)
+
+  console.log("Appended")
+
+  svg.append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "end")
+    .text("Games Won")
+    .attr("transform", "translate(40, 300) rotate(-90)")
 
   
 
