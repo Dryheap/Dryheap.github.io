@@ -38,6 +38,10 @@ d3.csv("nba_adv_data.csv").then(
 
     // This is where the fun begins
 
+    dataset.sort(function(a, b) {
+      return b.TeamWins - a.TeamWins;
+    });
+
     // get True Shooting Percent, etc
     // change the below to get the different values needed to be grouped together
     // can be altered to be the teams
