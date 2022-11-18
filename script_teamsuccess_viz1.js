@@ -1,3 +1,5 @@
+import Color from './colors.js';
+
 d3.csv("nba_adv_data.csv").then(
 
   function(dataset) {
@@ -13,6 +15,8 @@ d3.csv("nba_adv_data.csv").then(
           left: 80
       }
   }
+  console.log("Test")
+  console.log(Color.colors)
 
     var svg =  d3.select("#teamsuccess_viz1")
       .style("width", dimensions.width)
@@ -48,15 +52,13 @@ d3.csv("nba_adv_data.csv").then(
     // TODO: Subgroups are for column headers
     var subgroups = dataset.columns.slice(29,30) // usage: slice(<start_column>, <end_column>) -> will return all data for those columns
     //var subgroups = d3.map(dataset, function(d){return(d["Tm"])})
-    console.log(subgroups)
 
 
     // get team info
     // this currently is used for the upper-level groupings
     // can be altered to be True Shooting Percentage, etc
-    var teams = d3.map(dataset, function(d){console.log(d["Tm"]); return(d["Tm"])})
+    var teams = d3.map(dataset, function(d){return(d["Tm"])})
 
-    console.log(teams.values())
 
     // X-axis
     var x = d3.scaleBand()
@@ -70,7 +72,7 @@ d3.csv("nba_adv_data.csv").then(
 
     // Add Y axis
     var y = d3.scaleLinear()
-      .domain([0, 70])
+      .domain([10, 70])
       .range([dimensions.height-dimensions.margin.bottom, dimensions.margin.top]);
 
     svg.append("g")
@@ -138,7 +140,6 @@ d3.csv("nba_adv_data.csv").then(
                 .call(yAxisGen)
                 .style("transform", `translateX(${dimensions.margin.left}px)`)
 
-  console.log("Appended")
 
   svg.append("text")
     .attr("class", "y label")
