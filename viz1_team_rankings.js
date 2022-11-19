@@ -14,7 +14,7 @@ d3.csv("nba_adv_data.csv").then(
       }
   }
 
-    var svg =  d3.select("#teamsuccess_viz1")
+    var svg =  d3.select("#viz1_team_rankings")
       .style("width", dimensions.width)
       .style("height", dimensions.height)
       //.attr("transform", "translate(400, 100)")
@@ -108,13 +108,38 @@ d3.csv("nba_adv_data.csv").then(
                       .append("g")
                         .attr("transform", function(d) { return "translate(" + x(d.Tm) + ",0)";}) // places the bar into correct x-position
                       .selectAll("rect")
-                      .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
+                      // below console log prints out every player's name
+                      .data(function(d) { console.log(d.Player); return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
                       .enter().append("rect")
                         .attr("x", function(d) { return xSubgroup(d.key); })
                         .attr("y", function(d) { return y(d.value); })
                         .attr("width", xSubgroup.bandwidth())
                         .attr("height", function(d) { return dimensions.height - dimensions.margin.bottom - y(d.value); })
-                        .attr("fill", function(d) { return color; })
+                        .attr("fill", function(d) { 
+                          // console.log("d.value is " + d.value); 
+                          // R: why does d.value return "Tm" and doing something like d.Player return "undefined"?
+                          return color; 
+                        })
+                      // adding mouseover and mousout styling and tooltip
+                      .on("mouseover", function() {
+                        d3.select(this)
+                          .attr("fill", "yellow")
+                          // .attr("stroke", "black")
+                          // .attr("stroke-width", "1.2")
+                      })
+                      .on("mouseout", function() {
+                        d3.select(this)
+                          .attr("fill", "#38c9b4")
+                          // .attr("stroke", "none")
+                      })
+                      // on-click actions and styling
+                      .on("click", function() {
+                        d3.select(this)
+                          // .attr("fill", "#38c9b4")
+                          // .attr("stroke", this.color + "#222222")
+                          .attr("stroke", "black")
+                          .attr("stroke-width", "2")
+                      })
 
 
     graph.append("text")
