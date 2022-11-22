@@ -57,7 +57,7 @@ d3.csv("nba_adv_data.csv").then(
     // get team info
     // this currently is used for the upper-level groupings
     // can be altered to be True Shooting Percentage, etc
-    var teams = d3.map(dataset, function(d){return(d["Tm"])})
+    var teams = d3.map(dataset, function(d){console.log(d["Tm"]); return(d["Tm"])})
 
 
     // X-axis
@@ -103,28 +103,26 @@ d3.csv("nba_adv_data.csv").then(
                       .attr("width", xSubgroup.bandwidth())
                       .attr("height", function(d) { return dimensions.height - dimensions.margin.bottom - y(d.value); })
                       .attr("fill", function(d) { return color; })*/
+    var tmAndTeamWins = dataset.map(function(d) {
+                                return {
+                                  team: d.Tm,
+                                  wins: d.TeamWins
+                                }
+                              });
+
 
     var graph = svg.append("g")
-                      .selectAll("g")
-                      // Enter in data = loop group per group
-                      .data(dataset)
-                      .enter()
-                      .append("g")
-                        .attr("transform", function(d) { return "translate(" + x(d.Tm) + ",0)";}) // places the bar into correct x-position
                       .selectAll("rect")
-                      // below console log prints out every player's name
-                      .data(function(d) { console.log(d.Player); return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
+                      .data(new Set(tmAndTeamWins.map(function(d) { return {key: d.team, value: d.wins}; })).values())
                       .enter().append("rect")
-                        .attr("x", function(d) { return xSubgroup(d.key); })
-                        .attr("y", function(d) { return y(d.value); })
-                        .attr("width", xSubgroup.bandwidth())
+                        .attr("x", function(d) { console.log(d.key + " : " + x(d.key)); return x(d.key); })
+                        .attr("y", function(d) { console.log(d.value); return y(d.value); })
+                        .attr("width", x.bandwidth())
                         .attr("height", function(d) { return dimensions.height - dimensions.margin.bottom - y(d.value); })
                         .attr("fill", function(d) { 
-                          // console.log("d.value is " + d.value); 
-                          // R: why does d.value return "Tm" and doing something like d.Player return "undefined"?
                           return color; 
                         })
-                      // adding mouseover and mousout styling and tooltip
+                      // adding mouseover and mouseout styling and tooltip
                       .on("mouseover", function() {
                         d3.select(this)
                           .attr("fill", "yellow")
@@ -146,9 +144,10 @@ d3.csv("nba_adv_data.csv").then(
                       })
 
 
-    graph.append("text")
+    /*graph.append("text")
           .text(function(d) { return d.Tm; })
           .attr("x", function(d){
+              console.log(x(d) + x.bandwidth()/2);
               return x(d) + x.bandwidth()/2;
           })
           .attr("y", function(d){
@@ -157,7 +156,7 @@ d3.csv("nba_adv_data.csv").then(
           .attr("font-family" , "sans-serif")
           .attr("font-size" , "14px")
           .attr("fill" , "black")
-          .attr("text-anchor", "middle");
+          .attr("text-anchor", "middle");*/
 
 
   var yAxisGen = d3.axisLeft().scale(y)
