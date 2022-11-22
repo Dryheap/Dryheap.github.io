@@ -29,7 +29,7 @@ const colors = {
       },
     },
   },
-  BKN: {
+  BRK: {
     fullName: 'Brooklyn Nets',
     mainColor: 'black',
     secondaryColor: 'white',
@@ -62,7 +62,7 @@ const colors = {
       },
     },
   },
-  CHA: {
+  CHO: {
     fullName: 'Charlotte Hornets',
     mainColor: 'purple',
     secondaryColor: 'teal',
@@ -445,7 +445,7 @@ const colors = {
       white: pureWhite,
     },
   },
-  PHX: {
+  PHO: {
     fullName: 'Phoenix Suns',
     mainColor: 'orange',
     secondaryColor: 'purple',

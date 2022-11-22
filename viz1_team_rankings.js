@@ -107,7 +107,10 @@ d3.csv("nba_adv_data.csv").then(
                         .attr("width", x.bandwidth())
                         .attr("height", function(d) { return dimensions.height - dimensions.margin.bottom - y(d.value); })
                         .attr("fill", function(d) { 
-                          return color; 
+                          var teamName = d.key
+                          console.log(teamName);
+                          console.log(Color[teamName]["colors"][Color[teamName]["mainColor"]]["hex"])
+                          return Color[teamName]["colors"][Color[teamName]["mainColor"]]["hex"]; 
                         })
                       // adding mouseover and mouseout styling and tooltip
                       .on("mouseover", function() {
