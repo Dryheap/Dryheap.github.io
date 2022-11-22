@@ -1,3 +1,5 @@
+import Color from './colors.js';
+
 d3.csv("nba_adv_data.csv").then(
 
   function(dataset) {
@@ -13,6 +15,8 @@ d3.csv("nba_adv_data.csv").then(
           left: 80
       }
   }
+
+  console.log(Color["ATL"]["mainColor"])
 
     var svg =  d3.select("#viz1_team_rankings")
       .style("width", dimensions.width)
