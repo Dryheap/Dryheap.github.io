@@ -46,13 +46,6 @@ d3.csv("nba_adv_data.csv").then(
       return b.TeamWins - a.TeamWins;
     });
 
-    // get True Shooting Percent, etc
-    // change the below to get the different values needed to be grouped together
-    // can be altered to be the teams
-    // TODO: Subgroups are for column headers
-    var subgroups = dataset.columns.slice(29,30) // usage: slice(<start_column>, <end_column>) -> will return all data for those columns
-    //var subgroups = d3.map(dataset, function(d){return(d["Tm"])})
-
 
     // get team info
     // this currently is used for the upper-level groupings
@@ -77,12 +70,6 @@ d3.csv("nba_adv_data.csv").then(
 
     svg.append("g")
       .call(d3.axisLeft(y));
-
-    // x-axis Subgroup Positions
-    var xSubgroup = d3.scaleBand()
-      .domain(subgroups)
-      .range([0, x.bandwidth()])
-      .padding([0.05])
 
     // choose color
     var color = "#38c9b4"
