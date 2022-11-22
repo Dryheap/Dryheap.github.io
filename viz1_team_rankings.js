@@ -72,7 +72,7 @@ d3.csv("nba_adv_data.csv").then(
 
     // Add Y axis
     var y = d3.scaleLinear()
-      .domain([0, 70])
+      .domain([15, 70])
       .range([dimensions.height-dimensions.margin.bottom, dimensions.margin.top]);
 
     svg.append("g")
