@@ -12,13 +12,14 @@ d3.csv("nba_adv_data.csv").then(
           left: 80
       }
     }
+
+    var selectValue = "VORP"
     var svg_2 =  d3.select("#playersuccess_viz1")
       .style("width", dimensions.width)
       .style("height", dimensions.height)
       .attr("x", 850)
-      //.attr("transform", "translate(300,155)")
 
-    console.log(dimensions.width)
+
 
    let border_2 = svg_2.append("g")
                     .append("rect")
@@ -38,8 +39,6 @@ d3.csv("nba_adv_data.csv").then(
 
     var players = d3.map(dataset, function(d){return d["Player"]})
 
-    var xAccessor = d => d["WS"]
-    var yAccessor = d => d["VORP"]
 
     var xScale = d3.scaleLinear()
                    .domain([-.6, 2.7]) 
@@ -49,31 +48,63 @@ d3.csv("nba_adv_data.csv").then(
                    .domain([-.4, 1.6])
                    .range([dimensions.height-dimensions.margin.bottom, dimensions.margin.top])
   
-    var dotColor = d3.scaleLinear().domain(yScale.domain()).range(["#8790b1", "#ff6818"])
-    var dotSize = d3.scaleLinear().domain(xScale.domain()).range([2, 6])
+    var dotSize = d3.scaleLinear().domain(yScale.domain()).range([1.75, 4.25])
+
+    var text = svg_2
+    .append('text')
+    .attr("id", 'topbartext')
+    .attr("x", 500)
+    .attr("y", 20)
+    .attr("dx", "-.8em")
+    .attr("dy", ".15em")
+    .attr("font-family", "sans-serif")
+    .text("Name: ")
 
     var dots = svg_2.append("g")
                     .selectAll("circle")
                     .data(dataset, function(d){return d})
                     .enter()
                     .append("circle")
-                    .attr("cx", d => xScale(xAccessor(d)))
-                    .attr("cy", d => yScale(yAccessor(d)))
-                    .attr("r", 3)
+                    .attr("cx", d => xScale(d["WS"]))
+                    .attr("cy", d => yScale(d[selectValue]))
                     .attr("r", function(d){return dotSize(d["WS"]);})
-                    .attr("fill", function(d){return dotColor(d["VORP"]);})
-                    
+                    .attr("fill", function(d){
+                      if (d[selectValue] <= 0 ){
+                      return "red";
+                      }
+                      else{
+                        return "blue";
+                      } 
+                    })
+                    .on("mouseover", function(d, i){
+                      d3.select(this)
+                        .attr("fill", "yellow")
+                      return text.text(`Name : ${i["Player"]}`);
+                    })
+                    .on("mouseout", function(d){
+                      d3.select(this)
+                      .attr("fill", function(d){
+                        if (d[selectValue] <= 0 ){
+                        return "red";
+                        }
+                        else{
+                          return "blue";
+                        } 
+                      })
+                    })
     var xAxisGen = d3.axisBottom().scale(xScale)
     var xAxis = svg_2.append("g")
                     .call(xAxisGen)
                     .style("transform", `translateY(${dimensions.height-dimensions.margin.bottom}px)`)
                        
     var yAxisGen = d3.axisLeft().scale(yScale)
-    var yAxis = svg_2.append("g")
-                   .call(yAxisGen)
-                   .style("transform", `translateX(${dimensions.margin.left}px)`)
+
+    var changing_axis_y = svg_2.append("g")
+                            .call(yAxisGen)
+                            .style("transform", `translateX(${dimensions.margin.left}px)`)
 
     svg_2.append("text")
+       .attr("id", "og")
        .attr("class", "y label")
        .attr("text-anchor", "end")
        .text("VORP")
@@ -84,6 +115,165 @@ d3.csv("nba_adv_data.csv").then(
         .attr("text-anchor", "end")
         .text("Win Share")
         .attr("transform", "translate(400, 565)")
+
+
+
+      d3.select("#VORP").on('click', function(){
+       selectValue = "VORP"
+  
+       yScale = d3.scaleLinear()
+                .domain([-.4, 1.6])
+                .range([dimensions.height-dimensions.margin.bottom, dimensions.margin.top])
+  
+       yAxisGen = d3.axisLeft(yScale)
+  
+       changing_axis_y.transition().call(yAxisGen)
+
+       dotSize = d3.scaleLinear().domain(yScale.domain()).range([1.75, 4.25])
+  
+       dots.transition()
+        .attr("cx", d => xScale(d["WS"]))
+        .attr("cy", d => yScale(d[selectValue]))
+        .attr("r", function(d){return dotSize(d["WS"]);})
+
+       dots.attr("fill", function(d){
+          if (d[selectValue] <= 0 ){
+          return "red";
+          }
+          else{
+            return "blue";
+          } 
+        })
+        .on("mouseover", function(d, i){
+          d3.select(this)
+            .attr("fill", "yellow")
+          return text.text(`Name : ${i["Player"]}`);
+        })
+        .on("mouseout", function(d){
+          d3.select(this)
+          .attr("fill", function(d){
+            if (d[selectValue] <= 0 ){
+            return "red";
+            }
+            else{
+              return "blue";
+            } 
+          })
+        })
+
+
+        svg_2.select("#og")
+        .remove()
+        svg_2.append("text")
+        .attr("id", "og")
+        .attr("class", "y label")
+        .attr("text-anchor", "end")
+        .text("VORP")
+        .attr("transform", "translate(40, 260) rotate(-90)")
+      })
+
+
+    d3.select("#BPM").on('click', function(){
+        selectValue = "BPM"
+   
+        yScale = d3.scaleLinear()
+                 .domain([-44.9, 82.9])
+                 .range([dimensions.height-dimensions.margin.bottom, dimensions.margin.top])
+   
+        yAxisGen = d3.axisLeft(yScale)
+   
+        changing_axis_y.transition().call(yAxisGen)
+
+
+        dotSize = d3.scaleLinear().domain(xScale.domain()).range([1.75, 4.25])
+   
+        dots.transition()
+         .attr("cx", d => xScale(d["WS"]))
+         .attr("cy", d => yScale(d[selectValue]))
+         .attr("r", function(d){return dotSize(d["WS"]);})
+
+        dots.attr("fill", function(d){
+          if (d[selectValue] <= 0 ){
+          return "red";
+          }
+          else{
+            return "blue";
+          } 
+        })
+        .on("mouseover", function(d, i){
+          d3.select(this)
+            .attr("fill", "yellow")
+          return text.text(`Name : ${i["Player"]}`);
+        })
+        .on("mouseout", function(d){
+          d3.select(this)
+          .attr("fill", function(d){
+            if (d[selectValue] <= 0 ){
+            return "red";
+            }
+            else{
+              return "blue";
+            } 
+          })
+        })
+
+        svg_2.select("#og")
+        .remove()
+        svg_2.append("text")
+        .attr("id", "og")
+        .attr("class", "y label")
+        .attr("text-anchor", "end")
+        .text("BOX +/-")
+        .attr("transform", "translate(40, 260) rotate(-90)")
+ 
+       })
+
+      d3.select("#TS").on('click', function(){
+        selectValue = "TSpercent"
+   
+        yScale = d3.scaleLinear()
+                 .domain([0, 1.5])
+                 .range([dimensions.height-dimensions.margin.bottom, dimensions.margin.top])
+   
+        yAxisGen = d3.axisLeft(yScale)
+   
+        changing_axis_y.transition().call(yAxisGen)
+        dotColor = d3.scaleLinear().domain(yScale.domain()).range(["#460041", "#ff00ee"])
+  
+        dots.transition()
+         .attr("cx", d => xScale(d["WS"]))
+         .attr("cy", d => yScale(d[selectValue]))
+         .attr("r", "4.25")
+         .attr("fill", function(d){return dotColor(d[selectValue]);})
+
+
+         dots.attr("fill", function(d){return dotColor(d[selectValue]);})
+
+         .on("mouseover", function(d, i){
+           d3.select(this)
+             .attr("fill", "yellow")
+           return text.text(`Name : ${i["Player"]}`);
+         })
+         .on("mouseout", function(d){
+           d3.select(this)
+           .attr("fill", function(d){return dotColor(d[selectValue]);})
+         })
+
+        svg_2.select("#og")
+         .remove()
+        svg_2.append("text")
+         .attr("id", "og")
+         .attr("class", "y label")
+         .attr("text-anchor", "end")
+         .text("True Shooting Percent")
+         .attr("transform", "translate(40, 260) rotate(-90)")
+ 
+       })
+
+
+
+
+
 
   }
 )
