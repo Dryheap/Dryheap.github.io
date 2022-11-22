@@ -16,7 +16,7 @@ d3.csv("nba_adv_data.csv").then(
       }
   }
   console.log("Test")
-  console.log(Color.colors)
+  console.log(Color["ATL"]["mainColor"])
 
     var svg =  d3.select("#teamsuccess_viz1")
       .style("width", dimensions.width)
@@ -118,7 +118,7 @@ d3.csv("nba_adv_data.csv").then(
                         .attr("y", function(d) { return y(d.value); })
                         .attr("width", xSubgroup.bandwidth())
                         .attr("height", function(d) { return dimensions.height - dimensions.margin.bottom - y(d.value); })
-                        .attr("fill", function(d) { return color; })
+                        .attr("fill", function(d) { console.log(teams["ATL"]); return color; })
 
 
     graph.append("text")
