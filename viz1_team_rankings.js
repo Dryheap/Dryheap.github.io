@@ -71,25 +71,7 @@ d3.csv("nba_adv_data.csv").then(
     svg.append("g")
       .call(d3.axisLeft(y));
 
-    // choose color
-    var color = "#38c9b4"
 
-    // draw the graph
-    /*var graph = svg.append("g")
-                    .selectAll("g")
-                    // Enter in data = loop group per group
-                    .data(dataset)
-                    .enter()
-                    .append("g")
-                      .attr("transform", function(d) { return "translate(" + x(d.Tm) + ",0)";})
-                    .selectAll("rect")
-                    .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
-                    .enter().append("rect")
-                      .attr("x", function(d) { return xSubgroup(d.key); })
-                      .attr("y", function(d) { return y(d.value); })
-                      .attr("width", xSubgroup.bandwidth())
-                      .attr("height", function(d) { return dimensions.height - dimensions.margin.bottom - y(d.value); })
-                      .attr("fill", function(d) { return color; })*/
     var tmAndTeamWins = dataset.map(function(d) {
                                 return {
                                   team: d.Tm,
@@ -146,6 +128,7 @@ d3.csv("nba_adv_data.csv").then(
                           // .attr("fill", "#38c9b4")
                           // .attr("stroke", this.color + "#222222")
                           .attr("stroke", function(d){
+                            setTeam(d.key)
                             if (d3.select(this).attr("stroke") != "black") return "black"
                             else return "none"
                           })
