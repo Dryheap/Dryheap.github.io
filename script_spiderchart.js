@@ -20,6 +20,8 @@ d3.csv("nba_adv_data.csv").then(
       //.attr("transform", "translate(900, -350)")
 
     console.log(dimensions.width)
+    
+
 
     let spiderchart_border = spiderchart_svg.append("g")
                     .append("rect")
@@ -39,14 +41,30 @@ d3.csv("nba_adv_data.csv").then(
                     .attr("dx", spiderchart_border.attr("width") / 2);
 
 
-    var temp_holder_2 = spiderchart_svg.append("text")
-                        .text('<Spider/Radar Chart>')
-                        .attr("text-anchor", "middle")
-                        .style("font-size", "12px")
-                        .attr("dx", spiderchart_border.attr("width")/2)
-                        .attr("dy", spiderchart_border.attr("height")/2)
+    var maxValue = 500;
+    var radius = 80;
+    var center = {x:50, y: 50};
+                    
+    const radialScale = d3.scaleLinear()
+                      .domain([0, maxValue]) 
+                      .range([radius, 0]) 
+    var axis = d3.axisRight()
+                  .scale(radialScale)
+                  .ticks(5)
+    spiderchart_svg.append('g')
+       .attr('transform', `translate(${center.x},${center.y  - radius})`)
+       .call(axis);
 
-    console.log(spiderchart_border.attr("width"))
+    let val, angle;
+    for (val = 0; val <= maxValue; val += maxValue / 5) {
+      const r = radialScale(val);
+         spiderchart_svg.append('circle')
+           .attr('cx', center.x)
+           .attr('cy', center.y)
+           .attr('r', r)
+           .style('stroke', '#aaa')
+           .style('fill', 'none');
+       }
 
   }
 )
