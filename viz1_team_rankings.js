@@ -97,7 +97,7 @@ d3.csv("nba_adv_data.csv").then(
                                 }
                               });
 
-
+    
     var graph = svg.append("g")
                       .selectAll("rect")
                       .data(new Set(tmAndTeamWins.map(function(d) { return {key: d.team, value: d.wins}; })).values())
@@ -106,6 +106,7 @@ d3.csv("nba_adv_data.csv").then(
                         .attr("y", function(d) { console.log(d.value); return y(d.value); })
                         .attr("width", x.bandwidth())
                         .attr("height", function(d) { return dimensions.height - dimensions.margin.bottom - y(d.value); })
+                        .attr("stroke", "none")
                         .attr("fill", function(d) { 
                           var teamName = d.key
                           console.log(teamName);
@@ -113,15 +114,30 @@ d3.csv("nba_adv_data.csv").then(
                           return Color[teamName]["colors"][Color[teamName]["mainColor"]]["hex"]; 
                         })
                       // adding mouseover and mouseout styling and tooltip
-                      .on("mouseover", function() {
+                      .on("mouseover", function(d) {
                         d3.select(this)
-                          .attr("fill", "yellow")
+                          .attr("fill", function(d) {
+                            if (d3.select(this).attr("fill") == "#010101") return "#202020" // silly addition to make the black rect brighter
+                            return (d3.color(Color[d.key]["colors"][Color[d.key]["mainColor"]]["hex"]).brighter())
+                          })
+                          .attr("stroke", function(d) {
+                            if (d3.select(this).attr("stroke") == "black") return "black"
+                            else if (d3.select(this).attr("fill") == "#010101") return "#404040" // silly addition to make the black rect brighter
+                            else return (d3.color(Color[d.key]["colors"][Color[d.key]["mainColor"]]["hex"]).brighter(4))
+                          })
+                          .attr("stroke-width", "2")
                           // .attr("stroke", "black")
                           // .attr("stroke-width", "1.2")
                       })
-                      .on("mouseout", function() {
+                      .on("mouseout", function(d) {
                         d3.select(this)
-                          .attr("fill", "#38c9b4")
+                          .attr("fill", function(d) {
+                            return Color[d.key]["colors"][Color[d.key]["mainColor"]]["hex"]
+                          })
+                          .attr("stroke", function(d) {
+                            if (d3.select(this).attr("stroke") == "black") return "black"
+                            else return "none"
+                          })
                           // .attr("stroke", "none")
                       })
                       // on-click actions and styling
@@ -129,24 +145,13 @@ d3.csv("nba_adv_data.csv").then(
                         d3.select(this)
                           // .attr("fill", "#38c9b4")
                           // .attr("stroke", this.color + "#222222")
-                          .attr("stroke", "black")
+                          .attr("stroke", function(d){
+                            if (d3.select(this).attr("stroke") != "black") return "black"
+                            else return "none"
+                          })
                           .attr("stroke-width", "2")
                       })
 
-
-    /*graph.append("text")
-          .text(function(d) { return d.Tm; })
-          .attr("x", function(d){
-              console.log(x(d) + x.bandwidth()/2);
-              return x(d) + x.bandwidth()/2;
-          })
-          .attr("y", function(d){
-              return y(d) - 5;
-          })
-          .attr("font-family" , "sans-serif")
-          .attr("font-size" , "14px")
-          .attr("fill" , "black")
-          .attr("text-anchor", "middle");*/
 
 
   var yAxisGen = d3.axisLeft().scale(y)
