@@ -1,7 +1,7 @@
+function setTeam(team){
 d3.csv("nba_adv_data.csv").then(
 
   function(dataset) {
-
     var dimensions = {
       width: 700,
       height: 600,
@@ -19,6 +19,8 @@ d3.csv("nba_adv_data.csv").then(
       .style("height", dimensions.height)
       .attr("x", 850)
 
+      console.log(team)
+      console.log("HELLLLLLLOOOOOO")
 
 
    let border_2 = svg_2.append("g")
@@ -49,6 +51,7 @@ d3.csv("nba_adv_data.csv").then(
                    .range([dimensions.height-dimensions.margin.bottom, dimensions.margin.top])
   
     var dotSize = d3.scaleLinear().domain(yScale.domain()).range([1.75, 4.25])
+    var dotColor =  d3.scaleLinear().interpolate(d3.interpolateRgb).range(["red","#39FF14"])
 
     var text = svg_2
     .append('text')
@@ -65,16 +68,15 @@ d3.csv("nba_adv_data.csv").then(
                     .data(dataset, function(d){return d})
                     .enter()
                     .append("circle")
-                    .attr("cx", d => xScale(d["WS"]))
-                    .attr("cy", d => yScale(d[selectValue]))
-                    .attr("r", function(d){return dotSize(d["WS"]);})
+                    .attr("cx", function(d){if(d["Tm"] == team){
+                    console.log(xScale(d["WS"]))
+                    return xScale(d["WS"])}})
+                    .attr("cy", function(d){if (d["Tm"] == team){return yScale(d[selectValue]);}})
+                    .attr("r", function(d){if (d["Tm"] == team){return dotSize(d["WS"])}})
                     .attr("fill", function(d){
-                      if (d[selectValue] <= 0 ){
-                      return "red";
+                      if(d["Tm"] == team){
+                        return dotColor(d[selectValue])
                       }
-                      else{
-                        return "blue";
-                      } 
                     })
                     .on("mouseover", function(d, i){
                       d3.select(this)
@@ -84,14 +86,9 @@ d3.csv("nba_adv_data.csv").then(
                     .on("mouseout", function(d){
                       d3.select(this)
                       .attr("fill", function(d){
-                        if (d[selectValue] <= 0 ){
-                        return "red";
-                        }
-                        else{
-                          return "blue";
-                        } 
-                      })
+                      return dotColor(d[selectValue])
                     })
+                  })
     var xAxisGen = d3.axisBottom().scale(xScale)
     var xAxis = svg_2.append("g")
                     .call(xAxisGen)
@@ -130,37 +127,29 @@ d3.csv("nba_adv_data.csv").then(
        changing_axis_y.transition().call(yAxisGen)
 
        dotSize = d3.scaleLinear().domain(yScale.domain()).range([1.75, 4.25])
-  
+       dotColor =  d3.scaleLinear().interpolate(d3.interpolateRgb).range(["red","#39FF14"])
+
        dots.transition()
-        .attr("cx", d => xScale(d["WS"]))
-        .attr("cy", d => yScale(d[selectValue]))
-        .attr("r", function(d){return dotSize(d["WS"]);})
+           .attr("cx", function(d){if(d["Tm"] == team){return xScale(d["WS"])}})
+           .attr("cy", function(d){if (d["Tm"] == team){return yScale(d[selectValue]);}})
+           .attr("r", function(d){if (d["Tm"] == team){return dotSize(d["WS"])}})
 
        dots.attr("fill", function(d){
-          if (d[selectValue] <= 0 ){
-          return "red";
-          }
-          else{
-            return "blue";
-          } 
-        })
-        .on("mouseover", function(d, i){
-          d3.select(this)
-            .attr("fill", "yellow")
-          return text.text(`Name : ${i["Player"]}`);
-        })
-        .on("mouseout", function(d){
-          d3.select(this)
-          .attr("fill", function(d){
-            if (d[selectValue] <= 0 ){
-            return "red";
-            }
-            else{
-              return "blue";
-            } 
-          })
+        return dotColor(d[selectValue])
         })
 
+           .on("mouseover", function(d, i){
+          d3.select(this)
+          .attr("fill", "yellow")
+      return text.text(`Name : ${i["Player"]}`);
+      })
+
+          .on("mouseout", function(d){
+         d3.select(this)
+          .attr("fill", function(d){
+          return dotColor(d[selectValue])
+        })
+      })
 
         svg_2.select("#og")
         .remove()
@@ -185,37 +174,31 @@ d3.csv("nba_adv_data.csv").then(
         changing_axis_y.transition().call(yAxisGen)
 
 
-        dotSize = d3.scaleLinear().domain(xScale.domain()).range([1.75, 4.25])
-   
-        dots.transition()
-         .attr("cx", d => xScale(d["WS"]))
-         .attr("cy", d => yScale(d[selectValue]))
-         .attr("r", function(d){return dotSize(d["WS"]);})
+        dotSize = d3.scaleLinear().domain(xScale.domain()).range([2, 6.5])
+        dotColor =  d3.scaleLinear().interpolate(d3.interpolateRgb).range(["red","green"])
+       
+       dots.transition()
+       .attr("cx", function(d){if(d["Tm"] == team){return xScale(d["WS"])}})
+       .attr("cy", function(d){if (d["Tm"] == team){return yScale(d[selectValue]);}})
+       .attr("r", function(d){if (d["Tm"] == team){return dotSize(d["WS"])}})
 
-        dots.attr("fill", function(d){
-          if (d[selectValue] <= 0 ){
-          return "red";
-          }
-          else{
-            return "blue";
-          } 
+       dots.attr("fill", function(d){
+        return dotColor(d[selectValue])
         })
-        .on("mouseover", function(d, i){
+
+           .on("mouseover", function(d, i){
           d3.select(this)
-            .attr("fill", "yellow")
-          return text.text(`Name : ${i["Player"]}`);
-        })
-        .on("mouseout", function(d){
-          d3.select(this)
+          .attr("fill", "yellow")
+      return text.text(`Name : ${i["Player"]}`);
+      })
+
+          .on("mouseout", function(d){
+         d3.select(this)
           .attr("fill", function(d){
-            if (d[selectValue] <= 0 ){
-            return "red";
-            }
-            else{
-              return "blue";
-            } 
-          })
+          return dotColor(d[selectValue])
         })
+      })
+
 
         svg_2.select("#og")
         .remove()
@@ -241,9 +224,9 @@ d3.csv("nba_adv_data.csv").then(
         dotColor = d3.scaleLinear().domain(yScale.domain()).range(["#460041", "#ff00ee"])
   
         dots.transition()
-         .attr("cx", d => xScale(d["WS"]))
-         .attr("cy", d => yScale(d[selectValue]))
-         .attr("r", "4.25")
+        .attr("cx", function(d){if(d["Tm"] == team){return xScale(d["WS"])}})
+        .attr("cy", function(d){if (d["Tm"] == team){return yScale(d[selectValue]);}})
+        .attr("r", function(d){if (d["Tm"] == team){return dotSize(d["WS"])}})
          .attr("fill", function(d){return dotColor(d[selectValue]);})
 
 
@@ -277,3 +260,4 @@ d3.csv("nba_adv_data.csv").then(
 
   }
 )
+}
