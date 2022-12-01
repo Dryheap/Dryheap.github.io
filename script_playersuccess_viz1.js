@@ -224,22 +224,25 @@ d3.csv("nba_adv_data.csv").then(
         dots.transition()
         .attr("cx", function(d){return xScale(d["WS"])})
         .attr("cy", function(d){return yScale(d[selectValue]);})
-        .attr("r", function(d){dotSize(d["WS"])})
-         .attr("fill", function(d){return dotColor(d[selectValue]);})
-
-
-         dots.attr("fill", function(d){return dotColor(d[selectValue]);})
-
-         .on("mouseover", function(d, i){
-           d3.select(this)
-             .attr("fill", "yellow")
-           return text.text(`Name : ${i["Player"]}`);
+        .attr("r", function(d){return dotSize(d["WS"])})
+ 
+        dots.attr("fill", function(d){
+         return dotColor(d[selectValue])
          })
-         .on("mouseout", function(d){
+ 
+            .on("mouseover", function(d, i){
            d3.select(this)
-           .attr("fill", function(d){return dotColor(d[selectValue]);})
-           return text.text("Name : ")
+           .attr("fill", "yellow")
+       return text.text(`Name: ${i["Player"]}`);
+       })
+ 
+           .on("mouseout", function(d){
+          d3.select(this)
+           .attr("fill", function(d){
+           return dotColor(d[selectValue])
          })
+         return text.text("Name: ")
+       })
 
         svg_scatter.select("#og")
          .remove()
