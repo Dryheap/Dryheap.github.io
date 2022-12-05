@@ -261,7 +261,7 @@ d3.csv("nba_adv_data.csv").then(
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-function setTeam(team){
+function setTeam_PlayerViz1(team){
 d3.csv("nba_adv_data.csv").then(
 
   function(dataset) {

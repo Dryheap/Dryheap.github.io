@@ -16,7 +16,6 @@ d3.csv("nba_adv_data.csv").then(
       }
   }
 
-  console.log(Color["ATL"]["mainColor"])
 
     var svg =  d3.select("#viz1_team_rankings")
       .style("width", dimensions.width)
@@ -128,7 +127,10 @@ d3.csv("nba_adv_data.csv").then(
                           // .attr("fill", "#38c9b4")
                           // .attr("stroke", this.color + "#222222")
                           .attr("stroke", function(d){
-                            setTeam(d.key)
+                            console.log("HERE")
+                            setTeam_PlayerViz1(d.key)
+                            setTeam_TeamViz2(d.key)
+                            console.log("AFTER")
                             if (d3.select(this).attr("stroke") != "black") return "black"
                             else return "none"
                           })

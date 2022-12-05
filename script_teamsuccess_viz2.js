@@ -29,18 +29,19 @@ d3.csv("nba_adv_data.csv").then(
                   .attr("height", dimensions.height-25)
 
 
-  var title = svg_2.append("text")
+  /*var title = svg_2.append("text")
                   .attr("id", "og_team_radar_text")
                   .text("Test") 
                   .attr("text-anchor", "middle") 
                   .style("font-size", '24px') 
                   .attr("dy", 20)
-                  .attr("dx", teamviz2_border.attr("width") / 2);
+                  .attr("dx", teamviz2_border.attr("width") / 2);*/
   }
 )
 
 
-function setTeam(team) {
+function setTeam_TeamViz2(team) {
+  console.log("CALLED setTeam")
   d3.csv("nba_adv_data.csv").then(
 
     function(dataset) {
@@ -56,8 +57,8 @@ function setTeam(team) {
         }
       }
 
-      d3.select("#teamsuccess_viz2")
-        .remove()
+      //d3.select("#teamsuccess_viz2")
+      //  .remove()
         
       svg_2 =  d3.select("#teamsuccess_viz2")
         .style("width", dimensions.width)
