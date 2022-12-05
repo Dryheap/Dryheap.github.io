@@ -1,62 +1,85 @@
-/* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
 
-////////////////////////////////////////////////////////////// 
-//////////////////////// Set-Up ////////////////////////////// 
-////////////////////////////////////////////////////////////// 
+  var dimensions = {
+    width: 700,
+    height: 600,
+    margin:{
+        top: 60,
+        bottom: 70,
+        right: 10,
+        left: 100
+    }
+  }
+  var svg_2 =  d3.select("#teamsuccess_viz2")
+    .style("width", dimensions.width)
+    .style("height", dimensions.height)
+    .attr("x", 950)
+    //.attr("transform", "translate(300,155)")
+  
+  
+  let teamviz2_border = svg_2.append("g")
+                .append("rect")
+                .attr("stroke-width", 2)
+                .attr("stroke", "black")
+                .attr("fill", "none")
+                .attr("y", 25)
+                .attr("width", dimensions.width*0.6)
+                .attr("height", dimensions.height-25)
+  
+  var title = svg_2.append("text") 
+                .text("Temp") 
+                .attr("text-anchor", "middle") 
+                .style("font-size", '24px') 
+                .attr("dy", 20)
+                .attr("dx", teamviz2_border.attr("width") / 2);
 
-var margin = {top: 100, right: 100, bottom: 100, left: 100},
-    width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
-    height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+
+
+function setTeam_TeamViz2(team) {
+  console.log("CALLED setTeam")
+  d3.csv("nba_adv_data.csv").then(
+
+    function(dataset) {
+
+      var dimensions = {
+        width: 700,
+        height: 600,
+        margin:{
+            top: 60,
+            bottom: 70,
+            right: 10,
+            left: 100
+        }
+      }
+
         
-////////////////////////////////////////////////////////////// 
-////////////////////////// Data ////////////////////////////// 
-////////////////////////////////////////////////////////////// 
+      svg_2 =  d3.select("#teamsuccess_viz2")
+        .style("width", dimensions.width)
+        .style("height", dimensions.height)
+        .attr("x", 950)
+        //.attr("transform", "translate(300,155)")
 
-var data = [
-            [//iPhone
-            {axis:"Battery Life",value:0.22},
-            {axis:"Brand",value:0.28},
-            {axis:"Contract Cost",value:0.29},
-            {axis:"Design And Quality",value:0.17},
-            {axis:"Have Internet Connectivity",value:0.22},
-            {axis:"Large Screen",value:0.02},
-            {axis:"Price Of Device",value:0.21},
-            {axis:"To Be A Smartphone",value:0.50}			
-            ],[//Samsung
-            {axis:"Battery Life",value:0.27},
-            {axis:"Brand",value:0.16},
-            {axis:"Contract Cost",value:0.35},
-            {axis:"Design And Quality",value:0.13},
-            {axis:"Have Internet Connectivity",value:0.20},
-            {axis:"Large Screen",value:0.13},
-            {axis:"Price Of Device",value:0.35},
-            {axis:"To Be A Smartphone",value:0.38}
-            ],[//Nokia Smartphone
-            {axis:"Battery Life",value:0.26},
-            {axis:"Brand",value:0.10},
-            {axis:"Contract Cost",value:0.30},
-            {axis:"Design And Quality",value:0.14},
-            {axis:"Have Internet Connectivity",value:0.22},
-            {axis:"Large Screen",value:0.04},
-            {axis:"Price Of Device",value:0.41},
-            {axis:"To Be A Smartphone",value:0.30}
-            ]
-        ];
-////////////////////////////////////////////////////////////// 
-//////////////////// Draw the Chart ////////////////////////// 
-////////////////////////////////////////////////////////////// 
+      svg_2.selectAll("*").remove()
 
-var color = d3.scale.ordinal()
-    .range(["#EDC951","#CC333F","#00A0B0"]);
+      console.log(team)
+
+      teamviz2_border = svg_2.append("g")
+                    .append("rect")
+                    .attr("stroke-width", 2)
+                    .attr("stroke", "black")
+                    .attr("fill", "none")
+                    .attr("y", 25)
+                    .attr("width", dimensions.width*0.6)
+                    .attr("height", dimensions.height-25)
+
     
-var radarChartOptions = {
-    w: width,
-    h: height,
-    margin: margin,
-    maxValue: 0.5,
-    levels: 5,
-    roundStrokes: true,
-    color: color
-};
-//Call function to draw the Radar chart
+    title = svg_2.append("text") 
+                    .text(team) 
+                    .attr("text-anchor", "middle") 
+                    .style("font-size", '24px') 
+                    .attr("dy", 20)
+                    .attr("dx", teamviz2_border.attr("width") / 2);
+    }
+  )
+}
+
 RadarChart(".radarChart", data, radarChartOptions);
