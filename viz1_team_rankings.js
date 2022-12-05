@@ -4,6 +4,10 @@ d3.csv("nba_adv_data.csv").then(
 
   function(dataset) {
 
+    // Selected team variable
+    // Default is 'None'
+    // used to pass to different functions so displays selected team correctly
+    var selectedTeam = 'None'
 
     var dimensions = {
       width: 1000,
@@ -16,7 +20,6 @@ d3.csv("nba_adv_data.csv").then(
       }
   }
 
-  console.log(Color["ATL"]["mainColor"])
 
     var svg =  d3.select("#viz1_team_rankings")
       .style("width", dimensions.width)
@@ -125,12 +128,21 @@ d3.csv("nba_adv_data.csv").then(
                       // on-click actions and styling
                       .on("click", function() {
                         d3.select(this)
-                          // .attr("fill", "#38c9b4")
-                          // .attr("stroke", this.color + "#222222")
+                          // pass selectedTeam variable to the other graphs
                           .attr("stroke", function(d){
-                            setTeam(d.key)
-                            if (d3.select(this).attr("stroke") != "black") return "black"
-                            else return "none"
+                            console.log("HERE")
+                            var strokeColor = "none"
+                            if (d3.select(this).attr("stroke") != "black") {
+                              selectedTeam = d.key
+                              strokeColor = "black"
+                            }
+                            else {
+                              selectedTeam = 'None'
+                            }
+                            setTeam_PlayerViz1(selectedTeam)
+                            setTeam_TeamViz2(selectedTeam)
+                            console.log("AFTER")
+                            return strokeColor
                           })
                           .attr("stroke-width", "2")
                       })
