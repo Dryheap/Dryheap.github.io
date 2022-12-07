@@ -1,4 +1,5 @@
 
+  
   var dimensions = {
     width: 1400,
     height: 600,
@@ -35,8 +36,8 @@
 
 
 
-function setTeam_TeamViz2(team) {
-  console.log("CALLED setTeam")
+function setTeam_TeamViz2(team, teamColor) {
+  console.log("CALLED setTeam: " + teamColor)
   d3.csv("nba_adv_data.csv").then(
 
     function(dataset) {
@@ -195,7 +196,7 @@ function setTeam_TeamViz2(team) {
         console.log(teamAverages)
         let d = teamAverages;
         console.log(d)
-        let color = colors[0];
+        let color = teamColor;
         console.log(color)
         let coordinates = getPathCoordinates(d);
         console.log(coordinates)
@@ -206,30 +207,10 @@ function setTeam_TeamViz2(team) {
             .attr("x", dimensions.margin.left)
             .attr("d",line)
             .attr("stroke-width", 3)
-            .attr("stroke", color)
-            .attr("fill", color)
+            .attr("stroke", teamColor)
+            .attr("fill", teamColor)
             .attr("stroke-opacity", 1)
             .attr("opacity", 0.5);
-    /*for (var i = 0; i < teamAverages.length; i ++){
-        console.log("==========================" + i + "===================")
-        console.log(teamAverages[i])
-        let d = teamAverages[i];
-        console.log(d)
-        let color = colors[i];
-        console.log(color)
-        let coordinates = getPathCoordinates(d);
-        console.log(coordinates)
-    
-        //draw the path element
-        svg_2.append("path")
-            .datum(coordinates)
-            .attr("d",line)
-            .attr("stroke-width", 3)
-            .attr("stroke", color)
-            .attr("fill", color)
-            .attr("stroke-opacity", 1)
-            .attr("opacity", 0.5);
-    }*/
 
     }
   )

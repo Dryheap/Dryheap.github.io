@@ -140,7 +140,7 @@ d3.csv("nba_adv_data.csv").then(
                               selectedTeam = 'None'
                             }
                             setTeam_PlayerViz1(selectedTeam)
-                            setTeam_TeamViz2(selectedTeam)
+                            setTeam_TeamViz2(selectedTeam, d3.select(this).attr("fill") )
                             console.log("AFTER")
                             return strokeColor
                           })
