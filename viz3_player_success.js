@@ -170,6 +170,7 @@ function drawDefaultViz3() {
           })
             return text.text("Name: ")
         })
+          
 
           svg_scatter.select("#og")
           .remove()
@@ -382,6 +383,26 @@ else {
                         return dotColor(d[selectValue])
                       })
                       return text.text("Name: ")
+                    })
+                    .on("click", function(){
+                      d3.select(this)
+                        .attr("fill", function(d){
+                          var currFill = dotColor(d[selectValue])
+                          if (d3.select(this).attr("fill") != currFill){
+                            currPlayer = d["Player"]
+                            currFill = "yellow"
+                            console.log(d["Player"])
+                          }
+                          else{
+                            currPlayer = "none"
+                          }
+                          console.log(currFill)
+                          setPlayer_TeamViz2(currPlayer)
+                          
+                          return currFill
+
+
+                        })
                     })
 
       var xAxisGen = d3.axisBottom().scale(xScale)
