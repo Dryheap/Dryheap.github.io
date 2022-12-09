@@ -35,7 +35,7 @@ import Color from './colors.js';
 
 
 // must use "window.<func_name>" to make module function visible to other modules
-window.setTeam_TeamViz2_Set = function(teams, teamColor) {
+window.setTeam_TeamViz2 = function(teams, teamColor) {
   console.log("CALLED setTeam_Set: " + teamColor)
   d3.csv("nba_adv_data.csv").then(
 

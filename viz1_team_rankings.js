@@ -148,7 +148,7 @@ d3.csv("nba_adv_data.csv").then(
                               selectedTeams.delete(d.key)
                             }
                             setTeam_PlayerViz1(selectedTeam) // TODO: initially pass in the last value in selectedTeams
-                            setTeam_TeamViz2_Set(selectedTeams, d3.select(this).attr("fill"))
+                            setTeam_TeamViz2(selectedTeams, d3.select(this).attr("fill"))
                             //setTeam_TeamViz2(selectedTeam, d3.select(this).attr("fill") ) // TODO: pass in selectedTeams set
                             console.log("AFTER")
                             return strokeColor
