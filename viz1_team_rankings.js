@@ -9,6 +9,9 @@ d3.csv("nba_adv_data.csv").then(
     // used to pass to different functions so displays selected team correctly
     var selectedTeam = 'None'
 
+    // Selected teams set
+    var selectedTeams = new Set()
+
     var dimensions = {
       width: 1000,
       height: 700,
@@ -133,14 +136,18 @@ d3.csv("nba_adv_data.csv").then(
                             console.log("HERE")
                             var strokeColor = "none"
                             if (d3.select(this).attr("stroke") != "black") {
-                              selectedTeam = d.key
+                              selectedTeam = d.key // TODO: make selectedTeams set
+                              selectedTeams.add(d.key)
+                              console.log("SELECTED TEAMS: " + new Array(...selectedTeams).join(' '))
                               strokeColor = "black"
                             }
                             else {
                               selectedTeam = 'None'
+                              selectedTeams.delete(d.key)
                             }
-                            setTeam_PlayerViz1(selectedTeam)
-                            setTeam_TeamViz2(selectedTeam, d3.select(this).attr("fill") )
+                            setTeam_PlayerViz1(selectedTeam) // TODO: initially pass in the last value in selectedTeams
+                            setTeam_TeamViz2_Set(selectedTeams, d3.select(this).attr("fill"))
+                            //setTeam_TeamViz2(selectedTeam, d3.select(this).attr("fill") ) // TODO: pass in selectedTeams set
                             console.log("AFTER")
                             return strokeColor
                           })

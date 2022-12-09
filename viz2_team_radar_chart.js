@@ -34,10 +34,8 @@
                 .attr("dx", teamviz2_border.attr("width") / 2);
 
 
-
-
-function setTeam_TeamViz2(team, teamColor) {
-  console.log("CALLED setTeam: " + teamColor)
+function setTeam_TeamViz2_Set(teams, teamColor) {
+  console.log("CALLED setTeam_Set: " + teamColor)
   d3.csv("nba_adv_data.csv").then(
 
     function(dataset) {
@@ -65,7 +63,6 @@ function setTeam_TeamViz2(team, teamColor) {
 
       svg_2.selectAll("*").remove()
 
-      console.log(team)
 
       teamviz2_border = svg_2.append("g")
                     .append("rect")
@@ -78,7 +75,7 @@ function setTeam_TeamViz2(team, teamColor) {
 
     
     title = svg_2.append("text") 
-                    .text(team) 
+                    .text("Teams") // TODO: Change 
                     .attr("text-anchor", "middle") 
                     .style("font-size", '24px') 
                     .attr("dy", 20)
@@ -95,25 +92,21 @@ function setTeam_TeamViz2(team, teamColor) {
     // preparing the data
     let teamAverages = []
 
-    var point = {}
 
-    //features.forEach(f => point[f] = dataset[f]);
-    features.forEach(function(f) {
-        console.log(f)
-        var count = 0
-        point[f] = 0
-        console.log(point[f])
-        dataset.forEach(function(d) { // player-by-player data manipulation
-            if (d["Tm"] == team) {
-                point[f] += (parseFloat(d[f])/100) // sum feature if team is the same as selected
-                count++
-            }
-        })
-        console.log(point[f])
-        point[f] = point[f] / count
-        console.log(point[f])
-        teamAverages.push(point[f]);
-        console.log(teamAverages)
+    // getting the points for each team
+    teams.forEach (function(value) {
+      var point = []
+      var count = 0
+      dataset.forEach(function(d) { // player-by-player data manipulation
+        if (d["Tm"] == value) {
+            features.forEach(f => isNaN(point[f]) ? point[f] = (parseFloat(d[f])/100) : point[f] += (parseFloat(d[f])/100)) // sum feature if team is the same as selected
+            count++
+        }
+      })
+      //features.forEach(f => point[f] = point[f] / count) // point is now an average
+      features.forEach(f => point[f] = point[f] / count)
+      console.log(count)
+      teamAverages.push(point) // push the entire point (point contains all features averaged)
     })
 
 
@@ -181,25 +174,22 @@ function setTeam_TeamViz2(team, teamColor) {
 
     // TEMP TESTING
     function getPathCoordinates(data_point){
-        console.log("Pathcoordinates: " + data_point)
         let coordinates = [];
-        for (var i = 0; i < features.length; i++){
+        for (var i = 0; i < features.length; i++) {
             let ft_name = features[i];
             let angle = (Math.PI / 2) + (2 * Math.PI * i / features.length);
-            coordinates.push(angleToCoordinate(angle, data_point[i]));
+            coordinates.push(angleToCoordinate(angle, data_point[ft_name])); // was data_point[i]
         }
         return coordinates;
     }
 
-    // draw the radar chart lines given data
-        console.log("==========================" + i + "===================")
-        console.log(teamAverages)
-        let d = teamAverages;
+      // draw the radar chart lines given data
+      for (var i = 0; i < teams.size; i++) {
+        console.log("i: " + i)
+        let d = teamAverages[i];
         console.log(d)
         let color = teamColor;
-        console.log(color)
         let coordinates = getPathCoordinates(d);
-        console.log(coordinates)
     
         //draw the path element
         svg_2.append("path")
@@ -212,6 +202,10 @@ function setTeam_TeamViz2(team, teamColor) {
             .attr("stroke-opacity", 1)
             .attr("opacity", 0.5);
 
+      }
+
     }
   )
 }
+
+
