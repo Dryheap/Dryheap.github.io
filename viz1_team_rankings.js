@@ -1,4 +1,5 @@
 import Color from './colors.js';
+import "./viz2_team_radar_chart.js";
 
 d3.csv("nba_adv_data.csv").then(
 
@@ -11,6 +12,7 @@ d3.csv("nba_adv_data.csv").then(
 
     // Selected teams set
     var selectedTeams = new Set()
+
 
     var dimensions = {
       width: 1000,

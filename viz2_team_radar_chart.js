@@ -1,4 +1,4 @@
-
+import Color from './colors.js';
   
   var dimensions = {
     width: 1400,
@@ -31,10 +31,11 @@
                 .attr("text-anchor", "middle") 
                 .style("font-size", '24px') 
                 .attr("dy", 20)
-                .attr("dx", teamviz2_border.attr("width") / 2);
+                .attr("dx", teamviz2_border.attr("width") / 2)
 
 
-function setTeam_TeamViz2_Set(teams, teamColor) {
+// must use "window.<func_name>" to make module function visible to other modules
+window.setTeam_TeamViz2_Set = function(teams, teamColor) {
   console.log("CALLED setTeam_Set: " + teamColor)
   d3.csv("nba_adv_data.csv").then(
 
@@ -185,11 +186,11 @@ function setTeam_TeamViz2_Set(teams, teamColor) {
 
       // draw the radar chart lines given data
       for (var i = 0; i < teams.size; i++) {
-        console.log("i: " + i)
-        let d = teamAverages[i];
-        console.log(d)
-        let color = teamColor;
-        let coordinates = getPathCoordinates(d);
+        let d = teamAverages[i]
+        let teamName = Array.from(teams)[i]
+        console.log("From set: " + teamName)
+        let color = Color[teamName]["colors"][Color[teamName]["mainColor"]]["hex"];
+        let coordinates = getPathCoordinates(d)
     
         //draw the path element
         svg_2.append("path")
@@ -197,10 +198,10 @@ function setTeam_TeamViz2_Set(teams, teamColor) {
             .attr("x", dimensions.margin.left)
             .attr("d",line)
             .attr("stroke-width", 3)
-            .attr("stroke", teamColor)
-            .attr("fill", teamColor)
+            .attr("stroke", color)
+            .attr("fill", color)
             .attr("stroke-opacity", 1)
-            .attr("opacity", 0.5);
+            .attr("opacity", 0.65);
 
       }
 
