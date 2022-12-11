@@ -1,8 +1,4 @@
-d3.csv("nba_adv_data.csv").then(
-
-  function(dataset) {
-
-    var dimensions = {
+      var dimensions = {
       width: 1000,
       height: 700,
       margin:{
@@ -35,12 +31,9 @@ d3.csv("nba_adv_data.csv").then(
               .attr("dx", playviz2_border.attr("width") / 2);
     
 
-  }
-)
 
 
-
-function setPlayer_TeamViz2(player) {
+window.setPlayer_TeamViz2 = function(player) {
   console.log("CALLED setTeam")
   d3.csv("nba_adv_data.csv").then(
 
@@ -78,7 +71,7 @@ function setPlayer_TeamViz2(player) {
 
     
     title2 = svg_3.append("text") 
-                    .text(player) 
+                    .text("player") 
                     .attr("text-anchor", "middle") 
                     .style("font-size", '24px') 
                     .attr("dy", 20)
@@ -91,35 +84,33 @@ function setPlayer_TeamViz2(player) {
     // ----------------------------------------------------------------------------------------
 
     let features2 = ["DRB%","ORB%","STL%","AST%","TRB%","BLK%"]; // the features we wish to investigate (must match headers)
-
     // preparing the data
     let playerAverages = []
-
-    var point2 = {}
-
+    console.log(typeof player)
     //features.forEach(f => point[f] = dataset[f]);
-    features2.forEach(function(f) {
-        console.log(f)
-        var count2 = 0
-        point2[f] = 0
-        console.log(point2[f])
-        dataset.forEach(function(d) { // player-by-player data manipulation
-            if (d["Player"] == player) {
-                point2[f] += (parseFloat(d[f])/100) // sum feature if team is the same as selected
-                count2++
-            }
-        })
-        point2[f] = point2[f] / count2
-        playerAverages.push(point2[f]);
-        console.log(playerAverages)
+    player.forEach (function(value) {
+      console.log(value)
+      var point2 = []
+      var count2 = 0
+      dataset.forEach(function(d) { // player-by-player data manipulation
+
+        if (d["Player"] == value) {
+            features2.forEach(f => isNaN(point2[f]) ? point2[f] = (parseFloat(d[f])/100) : point2[f] += (parseFloat(d[f])/100)) // sum feature if team is the same as selected
+            count2++
+        }
+      })
+      //features.forEach(f => point[f] = point[f] / count) // point is now an average
+      features2.forEach(f => point2[f] = point2[f] / count2)
+      playerAverages.push(point2) // push the entire point (point contains all features averaged)
     })
 
 
+
     // converts polar coordinates to svg coordinates
-    function angleToCoordinate(angle2, val){
-        let x = Math.cos(angle2) * radialScale2(val);
-        let y = Math.sin(angle2) * radialScale2(val);
-        return {"x": 300 + x, "y": 300 - y};
+    function angleToCoordinate2(angle2, val){
+        let x_2 = Math.cos(angle2) * radialScale2(val);
+        let y_2 = Math.sin(angle2) * radialScale2(val);
+        return {"x": 300 + x_2, "y": 300 - y_2};
     }
 
 
@@ -138,6 +129,7 @@ function setPlayer_TeamViz2(player) {
         .attr("fill", "none")
         .attr("stroke", "gray")
         .attr("r", radialScale2(t))
+      
     )
 
     // add text for each circle
@@ -152,8 +144,8 @@ function setPlayer_TeamViz2(player) {
     for (var i = 0; i < features2.length; i++) {
         let ft_name2 = features2[i];
         let angle2 = (Math.PI / 2) + (2 * Math.PI * i / features2.length);
-        let line_coordinate2 = angleToCoordinate(angle2, 0.5);
-        let label_coordinate2 = angleToCoordinate(angle2, 0.525);
+        let line_coordinate2 = angleToCoordinate2(angle2, 0.5);
+        let label_coordinate2 = angleToCoordinate2(angle2, 0.525);
     
         //draw axis line
         svg_3.append("line")
@@ -178,25 +170,26 @@ function setPlayer_TeamViz2(player) {
 
 
     // TEMP TESTING
-    function getPathCoordinates(data_point){
+    function getPathCoordinates2(data_point){
         console.log("Pathcoordinates: " + data_point)
         let coordinates2 = [];
         for (var i = 0; i < features2.length; i++){
             let ft_name2 = features2[i];
             let angle2 = (Math.PI / 2) + (2 * Math.PI * i / features2.length);
-            coordinates2.push(angleToCoordinate(angle2, data_point[i]));
+            coordinates2.push(angleToCoordinate2(angle2, data_point[ft_name2]));
         }
+
+        console.log(coordinates2)
         return coordinates2;
     }
 
     // draw the radar chart lines given data
-        console.log("==========================" + i + "===================")
-        console.log(playerAverages)
-        let d = playerAverages;
-        console.log(d)
-        let color = colors[0];
-        console.log(color)
-        let coordinates2 = getPathCoordinates(d);
+
+    for (var i = 0; i < player.size; i ++){
+        let d = playerAverages[i];
+        let pName = Array.from(player)[i]
+        let pcolor = colors[i];
+        let coordinates2 = getPathCoordinates2(d);
         console.log(coordinates2)
     
         //draw the path element
@@ -205,30 +198,11 @@ function setPlayer_TeamViz2(player) {
             .attr("x", dimensions.margin.left)
             .attr("d",line2)
             .attr("stroke-width", 3)
-            .attr("stroke", color)
-            .attr("fill", color)
+            .attr("stroke", pcolor)
+            .attr("fill", pcolor)
             .attr("stroke-opacity", 1)
-            .attr("opacity", 0.5);
-    /*for (var i = 0; i < teamAverages.length; i ++){
-        console.log("==========================" + i + "===================")
-        console.log(teamAverages[i])
-        let d = teamAverages[i];
-        console.log(d)
-        let color = colors[i];
-        console.log(color)
-        let coordinates = getPathCoordinates(d);
-        console.log(coordinates)
-    
-        //draw the path element
-        svg_2.append("path")
-            .datum(coordinates)
-            .attr("d",line)
-            .attr("stroke-width", 3)
-            .attr("stroke", color)
-            .attr("fill", color)
-            .attr("stroke-opacity", 1)
-            .attr("opacity", 0.5);
-    }*/
+            .attr("opacity", 0.65);
+    }
 
     }
   )
