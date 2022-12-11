@@ -16,6 +16,8 @@ function drawDefaultViz3() {
             left: 80
         }
       }
+      var currPlayers = new Set()
+
 
       var selectValue = "VORP"
       svg_scatter =  d3.select("#svg2")
@@ -90,17 +92,18 @@ function drawDefaultViz3() {
                       .on("click", function(){
                         d3.select(this)
                           .attr("fill", function(d){
+                            console.log(d.Player)
                             var currFill = dotColor(d[selectValue])
                             if (d3.select(this).attr("fill") != currFill){
-                              currPlayer = d["Player"]
+                              currPlayers.add(d.Player)
                               currFill = "yellow"
-                              console.log(d["Player"])
                             }
                             else{
-                              currPlayer = "none"
+                              currPlayers = "none"
+                              currPlayers.delete(d.Player)
                             }
-                            console.log(currFill)
-                            setPlayer_TeamViz2(currPlayer)
+                            console.log(currPlayers)
+                            setPlayer_TeamViz2(currPlayers)
                             
                             return currFill
 
@@ -304,7 +307,7 @@ else {
             left: 80
         }
       }
-
+      var currPlayers2 = new Set()
       var selectValue = "VORP"
       var svg_newScatter = d3.select("#svg2").selectAll("svg > *").remove()
 
@@ -387,23 +390,23 @@ else {
                     .on("click", function(){
                       d3.select(this)
                         .attr("fill", function(d){
+                          console.log(d.Player)
                           var currFill = dotColor(d[selectValue])
                           if (d3.select(this).attr("fill") != currFill){
-                            currPlayer = d["Player"]
+                            currPlayers2.add(d.Player)
                             currFill = "yellow"
-                            console.log(d["Player"])
                           }
                           else{
-                            currPlayer = "none"
+                            currPlayers2 = "none"
+                            currPlayers2.delete(d.Player)
                           }
-                          console.log(currFill)
-                          setPlayer_TeamViz2(currPlayer)
-                          
+                          console.log(currPlayers2)
+                          setPlayer_TeamViz2(currPlayers2)
                           return currFill
-
 
                         })
                     })
+
 
       var xAxisGen = d3.axisBottom().scale(xScale)
       var xAxis = svg_newScatter2.append("g")
