@@ -1,5 +1,5 @@
       var dimensions = {
-      width: 1000,
+      width: 800,
       height: 700,
       margin:{
           top: 60,
@@ -15,13 +15,15 @@
     .attr("x", 850)
 
     let playviz2_border = svg_3.append("g")
-              .append("rect")
-              .attr("stroke-width", 2)
-              .attr("stroke", "black")
-              .attr("fill", "none")
-              .attr("y", 25)
-              .attr("width", dimensions.width*0.6)
-              .attr("height", dimensions.height-25)
+                                .append("rect")
+                                .attr("rx", 20)
+                                .attr("ry", 20)
+                                .attr("stroke-width","1px")
+                                .attr("stroke", "#5D5958")
+                                .attr("fill", "None")
+                                .attr("y", 25)
+                                .attr("width", dimensions.width)
+                                .attr("height", dimensions.height *.935)
 
     title2 = svg_3.append("text") 
               .text("Test") 
@@ -40,8 +42,8 @@ window.setPlayer_TeamViz2 = function(player) {
     function(dataset) {
 
       var dimensions = {
-        width: 1400,
-        height: 600,
+        width: 900,
+        height: 700,
         margin:{
             top: 60,
             bottom: 70,
@@ -61,14 +63,15 @@ window.setPlayer_TeamViz2 = function(player) {
 
 
       playviz2_border = svg_3.append("g")
-                    .append("rect")
-                    .attr("stroke-width", 2)
-                    .attr("stroke", "black")
-                    .attr("fill", "none")
-                    .attr("y", 25)
-                    .attr("width", dimensions.width*0.6)
-                    .attr("height", dimensions.height-25)
-
+                            .append("rect")
+                            .attr("rx", 20)
+                            .attr("ry", 20)
+                            .attr("stroke-width","1px")
+                            .attr("stroke", "#5D5958")
+                            .attr("fill", "None")
+                            .attr("y", 25)
+                            .attr("width", dimensions.width * .9)
+                            .attr("height", dimensions.height *.935)
     
     title2 = svg_3.append("text") 
                     .text("player") 
@@ -129,6 +132,7 @@ window.setPlayer_TeamViz2 = function(player) {
         .attr("fill", "none")
         .attr("stroke", "gray")
         .attr("r", radialScale2(t))
+        .attr("transform", "translate(0, 50)")
       
     )
 
@@ -137,6 +141,7 @@ window.setPlayer_TeamViz2 = function(player) {
         svg_3.append("text")
         .attr("x", 305 + dimensions.margin.left)
         .attr("y", 300 - radialScale2(t))
+        .attr("transform", "translate(0, 50)")
         .text(t.toString())
     )
 
@@ -144,8 +149,8 @@ window.setPlayer_TeamViz2 = function(player) {
     for (var i = 0; i < features2.length; i++) {
         let ft_name2 = features2[i];
         let angle2 = (Math.PI / 2) + (2 * Math.PI * i / features2.length);
-        let line_coordinate2 = angleToCoordinate2(angle2, 0.5);
-        let label_coordinate2 = angleToCoordinate2(angle2, 0.525);
+        let line_coordinate2 = angleToCoordinate2(angle2, 0.525);
+        let label_coordinate2 = angleToCoordinate2(angle2, 0.6);
     
         //draw axis line
         svg_3.append("line")
@@ -153,13 +158,15 @@ window.setPlayer_TeamViz2 = function(player) {
         .attr("y1", 300)
         .attr("x2", line_coordinate2.x + dimensions.margin.left)
         .attr("y2", line_coordinate2.y)
-        .attr("stroke","black");
+        .attr("stroke","black")
+        .attr("transform", "translate(0, 50)");
     
         //draw axis label
         svg_3.append("text")
         .attr("x", label_coordinate2.x + dimensions.margin.left)
         .attr("y", label_coordinate2.y)
-        .text(ft_name2);
+        .text(ft_name2)
+        .attr("transform", "translate(-15, 50)");
     }
 
     // preparing lines and colors
@@ -201,7 +208,8 @@ window.setPlayer_TeamViz2 = function(player) {
             .attr("stroke", pcolor)
             .attr("fill", pcolor)
             .attr("stroke-opacity", 1)
-            .attr("opacity", 0.65);
+            .attr("opacity", 0.65)
+            .attr("transform", "translate(0, 50)");
     }
 
     }
