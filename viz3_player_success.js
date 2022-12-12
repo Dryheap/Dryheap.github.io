@@ -7,8 +7,8 @@ function drawDefaultViz3() {
 
     function(dataset) {
       var dimensions = {
-        width: 700,
-        height: 600,
+        width: 860,
+        height: 675,
         margin:{
             top: 60,
             bottom: 70,
@@ -35,15 +35,17 @@ function drawDefaultViz3() {
                       .attr("stroke", "#5D5958")
                       .attr("fill", "None")
                       .attr("y", 25)
-                      .attr("width", dimensions.width)
-                      .attr("height", dimensions.height *.935)
+                      .attr("width", dimensions.width * .982)
+                      .attr("height", dimensions.height *.92)
+                      .attr("transform", "translate(15, -2.5)")
 
       var title = svg_scatter.append("text") 
                       .text('Player Success') 
                       .attr("text-anchor", "middle") 
-                      .style("font-size", '24px') 
+                      .style("font-size", '22.5px') 
                       .attr("dy", 20)
-                      .attr("dx", border_2.attr("width") / 2);
+                      .attr("dx", border_2.attr("width") / 2)
+                      .attr("transform", "translate(-4, 0)");
 
       var players = d3.map(dataset, function(d){return d["Player"]})
 
@@ -68,6 +70,7 @@ function drawDefaultViz3() {
       .attr("dy", ".15em")
       .attr("font-family", "sans-serif")
       .text("Name: ")
+      .attr("transform", "translate(140, 0)")
 
 
       var dots = svg_scatter.append("g")
@@ -136,7 +139,7 @@ function drawDefaultViz3() {
           .attr("class", "x label")
           .attr("text-anchor", "end")
           .text("Win Share")
-          .attr("transform", "translate(400, 565)")
+          .attr("transform", "translate(450, 635)")
 
 
         d3.select("#VORP").on('click', function(){
@@ -300,8 +303,8 @@ else {
 
     function(dataset) {
       var dimensions = {
-        width: 700,
-        height: 600,
+        width: 860,
+        height: 675,
         margin:{
             top: 60,
             bottom: 70,
@@ -330,15 +333,17 @@ else {
                                   .attr("stroke", "#5D5958")
                                   .attr("fill", "None")
                                   .attr("y", 25)
-                                  .attr("width", dimensions.width)
-                                  .attr("height", dimensions.height *.935)
+                                  .attr("width", dimensions.width * .982)
+                                  .attr("height", dimensions.height *.92)
+                                  .attr("transform", "translate(15, -2.5)")
 
       var title = svg_newScatter2.append("text") 
                       .text('Player Success') 
                       .attr("text-anchor", "middle") 
                       .style("font-size", '24px') 
                       .attr("dy", 20)
-                      .attr("dx", border_3.attr("width") / 2);
+                      .attr("dx", border_3.attr("width") / 2)
+                      .attr("transform", "translate(-4, 0)");
 
       var players = d3.map(dataset, function(d){return d["Player"]})
 
@@ -363,6 +368,7 @@ else {
       .attr("dy", ".15em")
       .attr("font-family", "sans-serif")
       .text("Name: ")
+      .attr("transform", "translate(140, 0)")
 
       console.log(team)
 
@@ -435,8 +441,7 @@ else {
           .attr("class", "x label")
           .attr("text-anchor", "end")
           .text("Win Share")
-          .attr("transform", "translate(400, 565)")
-
+          .attr("transform", "translate(450, 635)")
 
         d3.select("#VORP").on('click', function(){
         selectValue = "VORP"
