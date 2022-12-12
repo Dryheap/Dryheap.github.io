@@ -29,12 +29,14 @@ function drawDefaultViz3() {
 
     let border_2 = svg_scatter.append("g")
                       .append("rect")
-                      .attr("stroke-width", 2)
-                      .attr("stroke", "black")
+                      .attr("rx", 3)
+                      .attr("ry", 3)
+                      .attr("stroke-width","1px")
+                      .attr("stroke", "#5D5958")
                       .attr("fill", "None")
-                      .attr("y", 25)
+                      .attr("y", 50)
                       .attr("width", dimensions.width)
-                      .attr("height", dimensions.height)
+                      .attr("height", dimensions.height * .9)
 
       var title = svg_scatter.append("text") 
                       .text('Player Success') 
@@ -578,4 +580,3 @@ else {
   )
   }
 }
-
