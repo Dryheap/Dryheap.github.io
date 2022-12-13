@@ -202,9 +202,9 @@ window.setPlayer_TeamViz2 = function(player) {
     .attr("dx", "-.8em")
     .attr("dy", ".15em")
     .attr("font-family", "sans-serif")
+    .attr("font-size", "20")
     .text("Name: ")
-    .attr("transform", "translate(0, 0)")
-
+    .attr("transform", "translate(0, 225)")
 
 
     for (var i = 0; i < player.size; i ++){
@@ -226,8 +226,19 @@ window.setPlayer_TeamViz2 = function(player) {
             .attr("opacity", 0.65)
             .attr("transform", "translate(0, 250)")
             .on("click", function(d){
+              var myCol = "None"
               d3.select(this)
-                .attr("fill", "yellow")
+                  .attr("fill", function(){
+                    if (d3.select(this).attr("fill") != "yellow"){
+                      myCol = "yellow"
+                      return "yellow"
+                    }
+                    else{
+                      return pcolor
+                    }
+              
+              })
+              
               return textPradar.text(`Name: ${pName}`);
 
             })
