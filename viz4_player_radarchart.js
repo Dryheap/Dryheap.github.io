@@ -1,13 +1,15 @@
-      var dimensions = {
-      width: 800,
-      height: 700,
-      margin:{
-          top: 60,
-          bottom: 70,
-          right: 10,
-          left: 80
-      }
+function drawPlayerRadar(){
+  var dimensions = {
+    width: 900,
+    height: 700,
+    margin:{
+        top: 60,
+        bottom: 70,
+        right: 10,
+        left: 100
     }
+  }
+    
    // var features = ["WS", "VORP", "TS%", "BPM", "FG%"]
     var svg_3 =  d3.select("#spiderchart")
     .style("width", dimensions.width*0.6)
@@ -33,17 +35,17 @@
               .attr("dx", playviz2_border.attr("width") / 2);
     
 
-
+  }
 
 window.setPlayer_TeamViz2 = function(player) {
-  console.log("CALLED setTeam")
+  if (player == 'None'){ drawPlayerRadar()}
   d3.csv("nba_adv_data.csv").then(
-
+    
     function(dataset) {
 
       var dimensions = {
         width: 900,
-        height: 700,
+        height: 900,
         margin:{
             top: 60,
             bottom: 70,
@@ -51,6 +53,7 @@ window.setPlayer_TeamViz2 = function(player) {
             left: 100
         }
       }
+
 
         
       svg_3 =  d3.select("#spiderchart")
@@ -70,11 +73,11 @@ window.setPlayer_TeamViz2 = function(player) {
                             .attr("stroke", "#5D5958")
                             .attr("fill", "None")
                             .attr("y", 25)
-                            .attr("width", dimensions.width * .9)
-                            .attr("height", dimensions.height *.935)
-    
-    title2 = svg_3.append("text") 
-                    .text("player") 
+                            .attr("width", dimensions.width * .68)
+                            .attr("height", dimensions.height * .68)
+                            .attr("transform", "translate(90, 230)")
+
+    title2 = svg_3.append("text")
                     .attr("text-anchor", "middle") 
                     .style("font-size", '24px') 
                     .attr("dy", 20)
@@ -132,7 +135,7 @@ window.setPlayer_TeamViz2 = function(player) {
         .attr("fill", "none")
         .attr("stroke", "gray")
         .attr("r", radialScale2(t))
-        .attr("transform", "translate(0, 50)")
+        .attr("transform", "translate(0, 250)")
       
     )
 
@@ -141,7 +144,7 @@ window.setPlayer_TeamViz2 = function(player) {
         svg_3.append("text")
         .attr("x", 305 + dimensions.margin.left)
         .attr("y", 300 - radialScale2(t))
-        .attr("transform", "translate(0, 50)")
+        .attr("transform", "translate(0, 250)")
         .text(t.toString())
     )
 
@@ -159,14 +162,14 @@ window.setPlayer_TeamViz2 = function(player) {
         .attr("x2", line_coordinate2.x + dimensions.margin.left)
         .attr("y2", line_coordinate2.y)
         .attr("stroke","black")
-        .attr("transform", "translate(0, 50)");
+        .attr("transform", "translate(0, 250)");
     
         //draw axis label
         svg_3.append("text")
         .attr("x", label_coordinate2.x + dimensions.margin.left)
         .attr("y", label_coordinate2.y)
         .text(ft_name2)
-        .attr("transform", "translate(-15, 50)");
+        .attr("transform", "translate(-15, 250)");
     }
 
     // preparing lines and colors
@@ -191,6 +194,18 @@ window.setPlayer_TeamViz2 = function(player) {
     }
 
     // draw the radar chart lines given data
+    var textPradar = svg_3
+    .append('text')
+    .attr("id", 'topbartext')
+    .attr("x", 500)
+    .attr("y", 20)
+    .attr("dx", "-.8em")
+    .attr("dy", ".15em")
+    .attr("font-family", "sans-serif")
+    .text("Name: ")
+    .attr("transform", "translate(0, 0)")
+
+
 
     for (var i = 0; i < player.size; i ++){
         let d = playerAverages[i];
@@ -209,7 +224,13 @@ window.setPlayer_TeamViz2 = function(player) {
             .attr("fill", pcolor)
             .attr("stroke-opacity", 1)
             .attr("opacity", 0.65)
-            .attr("transform", "translate(0, 50)");
+            .attr("transform", "translate(0, 250)")
+            .on("click", function(d){
+              d3.select(this)
+                .attr("fill", "yellow")
+              return textPradar.text(`Name: ${pName}`);
+
+            })
     }
 
     }
