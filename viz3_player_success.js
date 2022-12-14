@@ -303,11 +303,11 @@ function drawDefaultViz3() {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-function setTeam_PlayerViz1(team){
+function setTeam_PlayerViz1(teams){
 
-console.log("Called setTeam: " + team)
+console.log("Called setTeam: " + teams)
 
-if (team == 'None') drawDefaultViz3();
+if (teams.size == 0) drawDefaultViz3();
 else {
   d3.csv("nba_adv_data.csv").then(
 
@@ -380,18 +380,17 @@ else {
       .text("Name: ")
       .attr("transform", "translate(140, 0)")
 
-      console.log(team)
 
       var dots = svg_newScatter2.append("g")
                       .selectAll("circle")
                       .data(dataset, function(d){return d})
                       .enter()
                       .append("circle")
-                      .attr("cx", function(d){if(d["Tm"] == team){return xScale(d["WS"])}})
-                      .attr("cy", function(d){if (d["Tm"] == team){return yScale(d[selectValue]);}})
-                      .attr("r", function(d){if (d["Tm"] == team){return dotSize(d["WS"])}})
+                      .attr("cx", function(d){if(teams.has(d["Tm"])){return xScale(d["WS"])}})
+                      .attr("cy", function(d){if (teams.has(d["Tm"])){return yScale(d[selectValue]);}})
+                      .attr("r", function(d){if (teams.has(d["Tm"])){return dotSize(d["WS"])}})
                       .attr("fill", function(d){
-                        if(d["Tm"] == team){
+                        if(teams.has(d["Tm"])){
                           return dotColor(d[selectValue])
                         }
                       })
@@ -480,9 +479,9 @@ else {
         dotColor =  d3.scaleLinear().interpolate(d3.interpolateRgb).range(["red","#39FF14"])
 
         dots.transition()
-            .attr("cx", function(d){if(d["Tm"] == team){return xScale(d["WS"])}})
-            .attr("cy", function(d){if (d["Tm"] == team){return yScale(d[selectValue]);}})
-            .attr("r", function(d){if (d["Tm"] == team){return dotSize(d["WS"])}})
+            .attr("cx", function(d){if(teams.has(d["Tm"])){return xScale(d["WS"])}})
+            .attr("cy", function(d){if (teams.has(d["Tm"])){return yScale(d[selectValue]);}})
+            .attr("r", function(d){if (teams.has(d["Tm"])){return dotSize(d["WS"])}})
 
         dots.attr("fill", function(d){
           return dotColor(d[selectValue])
@@ -529,9 +528,9 @@ else {
           dotColor =  d3.scaleLinear().interpolate(d3.interpolateRgb).range(["red","green"])
         
         dots.transition()
-        .attr("cx", function(d){if(d["Tm"] == team){return xScale(d["WS"])}})
-        .attr("cy", function(d){if (d["Tm"] == team){return yScale(d[selectValue]);}})
-        .attr("r", function(d){if (d["Tm"] == team){return dotSize(d["WS"])}})
+        .attr("cx", function(d){if(teams.has(d["Tm"])){return xScale(d["WS"])}})
+        .attr("cy", function(d){if (teams.has(d["Tm"])){return yScale(d[selectValue]);}})
+        .attr("r", function(d){if (teams.has(d["Tm"])){return dotSize(d["WS"])}})
 
         dots.attr("fill", function(d){
           return dotColor(d[selectValue])
@@ -575,9 +574,9 @@ else {
           dotColor = d3.scaleLinear().domain(yScale.domain()).range(["#460041", "#ff00ee"])
     
           dots.transition()
-          .attr("cx", function(d){if(d["Tm"] == team){return xScale(d["WS"])}})
-          .attr("cy", function(d){if (d["Tm"] == team){return yScale(d[selectValue]);}})
-          .attr("r", function(d){if (d["Tm"] == team){return dotSize(d["WS"])}})
+          .attr("cx", function(d){if(teams.has(d["Tm"])){return xScale(d["WS"])}})
+          .attr("cy", function(d){if (teams.has(d["Tm"])){return yScale(d[selectValue]);}})
+          .attr("r", function(d){if (teams.has(d["Tm"])){return dotSize(d["WS"])}})
           .attr("fill", function(d){return dotColor(d[selectValue]);})
 
 
