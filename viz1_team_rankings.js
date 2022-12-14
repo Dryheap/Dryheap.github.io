@@ -92,6 +92,14 @@ d3.csv("nba_adv_data.csv").then(
                                 }
                               });
 
+    // create a tooltip
+    var tooltip = d3.select("body").append("g")
+                    .style("position", "absolute")
+                    .style("visibility", "hidden")
+                    .style("background-color", "white")
+                    .style("fill", "green")
+                    .text("I'm a rectangle!");  
+
     
     var graph = svg.append("g")
                       .selectAll("rect")
@@ -104,14 +112,17 @@ d3.csv("nba_adv_data.csv").then(
                         .attr("stroke", "none")
                         .attr("fill", function(d) { 
                           var teamName = d.key
-                          console.log(teamName);
-                          console.log(Color[teamName]["colors"][Color[teamName]["mainColor"]]["hex"])
                           return Color[teamName]["colors"][Color[teamName]["mainColor"]]["hex"]; 
                         })
                       // adding mouseover and mouseout styling and tooltip
                       .on("mouseover", function(d) {
                         d3.select(this)
                           .attr("fill", function(d) {
+                            tooltip.style("visibility", "visible")
+                            var tooltipTeamName = dataset.find(function(element){ return element.Tm == d.key})["TeamFullName"]
+                            var tooltipTeamWins = dataset.find(function(element){ return element.Tm == d.key})["TeamWins"]
+                            console.log(tooltipTeamName + "Wins: " + tooltipTeamWins)
+                            tooltip.text(tooltipTeamName + ": " + tooltipTeamWins)
                             if (d3.select(this).attr("fill") == "#010101") return "#202020" // silly addition to make the black rect brighter
                             return (d3.color(Color[d.key]["colors"][Color[d.key]["mainColor"]]["hex"]).brighter())
                           })
@@ -124,7 +135,14 @@ d3.csv("nba_adv_data.csv").then(
                           // .attr("stroke", "black")
                           // .attr("stroke-width", "1.2")
                       })
+                      .on("mousemove", function(d){
+                        console.log(tooltip.style("visibility"))
+                        console.log(tooltip.style("top") + " : " + tooltip.style("left"))
+                        console.log(d3.select(this).attr("id"))
+                        return tooltip.style("top", (d3.pointer(d)[1])+"px").style("left",(d3.pointer(d)[0])+"px");
+                      })
                       .on("mouseout", function(d) {
+                        tooltip.style("visibility", "hidden")
                         d3.select(this)
                           .attr("fill", function(d) {
                             return Color[d.key]["colors"][Color[d.key]["mainColor"]]["hex"]
@@ -178,33 +196,6 @@ d3.csv("nba_adv_data.csv").then(
     .attr("text-anchor", "end")
     .text("Games Won")
     .attr("transform", "translate(40, 300) rotate(-90)")
-
-  // Append a circle
-  svg.append("circle")
-    .attr("id", "circleBasicTooltip")
-    .attr("cx", 400)
-    .attr("cy", 300)
-    .attr("r", 40)
-    .attr("fill", "#69b3a2")
-    // .attr("transform", "translate(40, 300) rotate(-90)")
-  // create a tooltip
-  var tooltip = d3.select("body").append("g")
-                .style("position", "absolute")
-                .style("visibility", "hidden")
-                .text("I'm a rectangle!");  
-
-   d3.select("#circleBasicTooltip")
-      .on("mouseover", function(){ 
-        console.log(tooltip.style("visibility"))
-        return tooltip.style("visibility", "visible");
-      })
-      .on("mousemove", function(d){
-        console.log(tooltip.style("visibility"))
-        console.log(tooltip.style("top") + " : " + tooltip.style("left"))
-        console.log(d3.pointer(d))
-        return tooltip.style("top", (d3.pointer(d)[0])+"px").style("left",(d3.pointer(d)[1])+"px");
-      })
-      .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 
   
 
