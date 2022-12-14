@@ -351,49 +351,49 @@ function drawDefaultViz3() {
             } 
             })
   
-          .on("mouseover", function(d, i){
-            d3.select(this)
-              .attr("fill", "yellow")
-            return text.text(`Name: ${i["Player"]}`);
-          })
-          .on("mouseout", function(d, i){
-            console.log("mouseout: " + i["Player"])
-            if (currPlayers.size != 0 && currPlayers.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
-            d3.select(this)
-            .attr("fill", function(d){
-              console.log(d[selectValue])
-            return dotColor(d[selectValue])
-          })
-          return text.text("Name: ")
-        })
-          .on("click", function(){
-            d3.select(this)
+            .on("mouseover", function(d, i){
+              d3.select(this)
+                .attr("fill", "yellow")
+              return text.text(`Name: ${i["Player"]}`);
+            })
+            .on("mouseout", function(d, i){
+              console.log("mouseout: " + i["Player"])
+              if (currPlayers.size != 0 && currPlayers.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
+              d3.select(this)
               .attr("fill", function(d){
-                console.log(d.Player)
-                var currFill = dotColor(d[selectValue])
-                //var currFill = d3.select(this).attr("fill")
-                // check if selected 
-                // (cannot look at currPlayers since it's not a set yet)
-                // thanks Javascript for not allowing hard-typed values!
-                if (d3.select(this).attr("stroke") == "black"){ 
-                  console.log("TEST")
-                  d3.select(this).attr("stroke", "none") // remove stroke
-                  currPlayers.delete(d.Player)
-                }
-                else{
-                  console.log("ENTERED ELSE")
-                  currPlayers.add(d.Player)
-                  currFill = "yellow"
-                  d3.select(this).attr("stroke", "black") // add stroke
-                }
-                console.log(currPlayers)
-                setPlayer_TeamViz2(currPlayers)
-                
-                return currFill
-
-
-              })
+                console.log(d[selectValue])
+              return dotColor(d[selectValue])
+            })
+            return text.text("Name: ")
           })
+            .on("click", function(){
+              d3.select(this)
+                .attr("fill", function(d){
+                  console.log(d.Player)
+                  var currFill = dotColor(d[selectValue])
+                  //var currFill = d3.select(this).attr("fill")
+                  // check if selected 
+                  // (cannot look at currPlayers since it's not a set yet)
+                  // thanks Javascript for not allowing hard-typed values!
+                  if (d3.select(this).attr("stroke") == "black"){ 
+                    console.log("TEST")
+                    d3.select(this).attr("stroke", "none") // remove stroke
+                    currPlayers.delete(d.Player)
+                  }
+                  else{
+                    console.log("ENTERED ELSE")
+                    currPlayers.add(d.Player)
+                    currFill = "yellow"
+                    d3.select(this).attr("stroke", "black") // add stroke
+                  }
+                  console.log(currPlayers)
+                  setPlayer_TeamViz2(currPlayers)
+                  
+                  return currFill
+  
+  
+                })
+            })
 
           svg_scatter.select("#og")
           .remove()
@@ -697,8 +697,6 @@ else {
           .attr("cx", function(d){if(teams.has(d["Tm"])){return xScale(d["WS"])}})
           .attr("cy", function(d){if (teams.has(d["Tm"])){return yScale(d[selectValue]);}})
           .attr("r", function(d){if (teams.has(d["Tm"])){return dotSize(d["WS"])}})
-          .attr("fill", function(d){return dotColor(d[selectValue]);})
-
 
           dots.attr("fill", function(d){
             if (d3.select(this).attr("stroke") == "black"){
