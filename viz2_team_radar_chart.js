@@ -200,7 +200,22 @@ window.setTeam_TeamViz2 = function(teams, teamColor) {
             .attr("stroke", color)
             .attr("fill", color)
             .attr("stroke-opacity", 1)
-            .attr("opacity", 0.65);
+            .attr("opacity", 0.65)
+            .on("click", function(d){
+              var myCol = "None"
+              d3.select(this)
+                  .attr("fill", function(){
+                    if (d3.select(this).attr("fill") != "yellow"){
+                      myCol = "yellow"
+                      return "yellow"
+                    }
+                    else{
+                      return color
+                    }
+              
+              })
+            })
+
 
       }
 
