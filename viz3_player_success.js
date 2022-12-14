@@ -400,32 +400,44 @@ else {
                           .attr("fill", "yellow")
                         return text.text(`Name: ${i["Player"]}`);
                       })
-                      .on("mouseout", function(d){
+                      .on("mouseout", function(d, i){
+                        console.log("mouseout: " + i["Player"])
+                        if (currPlayers2.size != 0 && currPlayers2.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
                         d3.select(this)
                         .attr("fill", function(d){
+                          console.log(d[selectValue])
                         return dotColor(d[selectValue])
                       })
                       return text.text("Name: ")
                     })
-                    .on("click", function(){
-                      d3.select(this)
-                        .attr("fill", function(d){
-                          console.log(d.Player)
-                          var currFill = dotColor(d[selectValue])
-                          if (d3.select(this).attr("fill") != currFill){
-                            currPlayers2.add(d.Player)
-                            currFill = "yellow"
-                          }
-                          else{
-                            currPlayers2 = "none"
-                            currPlayers2.delete(d.Player)
-                          }
-                          console.log(currPlayers2)
-                          setPlayer_TeamViz2(currPlayers2)
-                          return currFill
+                      .on("click", function(){
+                        d3.select(this)
+                          .attr("fill", function(d){
+                            console.log(d.Player)
+                            var currFill = dotColor(d[selectValue])
+                            //var currFill = d3.select(this).attr("fill")
+                            // check if selected 
+                            // (cannot look at currPlayers since it's not a set yet)
+                            // thanks Javascript for not allowing hard-typed values!
+                            if (d3.select(this).attr("stroke") == "black"){ 
+                              console.log("TEST")
+                              d3.select(this).attr("stroke", "none") // remove stroke
+                              currPlayers2.delete(d.Player)
+                            }
+                            else{
+                              console.log("ENTERED ELSE")
+                              currPlayers2.add(d.Player)
+                              currFill = "yellow"
+                              d3.select(this).attr("stroke", "black") // add stroke
+                            }
+                            console.log(currPlayers2)
+                            setPlayer_TeamViz2(currPlayers2)
+                            
+                            return currFill
 
-                        })
-                    })
+
+                          })
+                      })
 
 
       var xAxisGen = d3.axisBottom().scale(xScale)
