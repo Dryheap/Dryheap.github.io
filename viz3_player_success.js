@@ -7,8 +7,8 @@ function drawDefaultViz3() {
 
     function(dataset) {
       var dimensions = {
-        width: 700,
-        height: 600,
+        width: 860,
+        height: 675,
         margin:{
             top: 60,
             bottom: 70,
@@ -16,6 +16,8 @@ function drawDefaultViz3() {
             left: 80
         }
       }
+      var currPlayers = new Set()
+
 
       var selectValue = "VORP"
       svg_scatter =  d3.select("#svg2")
@@ -27,19 +29,23 @@ function drawDefaultViz3() {
 
     let border_2 = svg_scatter.append("g")
                       .append("rect")
-                      .attr("stroke-width", 2)
-                      .attr("stroke", "black")
+                      .attr("rx", 20)
+                      .attr("ry", 20)
+                      .attr("stroke-width","1px")
+                      .attr("stroke", "#5D5958")
                       .attr("fill", "None")
                       .attr("y", 25)
-                      .attr("width", dimensions.width)
-                      .attr("height", dimensions.height)
+                      .attr("width", dimensions.width * .982)
+                      .attr("height", dimensions.height *.92)
+                      .attr("transform", "translate(15, -2.5)")
 
       var title = svg_scatter.append("text") 
                       .text('Player Success') 
                       .attr("text-anchor", "middle") 
-                      .style("font-size", '24px') 
+                      .style("font-size", '22.5px') 
                       .attr("dy", 20)
-                      .attr("dx", border_2.attr("width") / 2);
+                      .attr("dx", border_2.attr("width") / 2)
+                      .attr("transform", "translate(-4, 0)");
 
       var players = d3.map(dataset, function(d){return d["Player"]})
 
@@ -64,6 +70,7 @@ function drawDefaultViz3() {
       .attr("dy", ".15em")
       .attr("font-family", "sans-serif")
       .text("Name: ")
+      .attr("transform", "translate(140, 0)")
 
 
       var dots = svg_scatter.append("g")
@@ -90,17 +97,18 @@ function drawDefaultViz3() {
                       .on("click", function(){
                         d3.select(this)
                           .attr("fill", function(d){
+                            console.log(d.Player)
                             var currFill = dotColor(d[selectValue])
                             if (d3.select(this).attr("fill") != currFill){
-                              currPlayer = d["Player"]
+                              currPlayers.add(d.Player)
                               currFill = "yellow"
-                              console.log(d["Player"])
                             }
                             else{
-                              currPlayer = "none"
+                              currPlayers = "none"
+                              currPlayers.delete(d.Player)
                             }
-                            console.log(currFill)
-                            setPlayer_TeamViz2(currPlayer)
+                            console.log(currPlayers)
+                            setPlayer_TeamViz2(currPlayers)
                             
                             return currFill
 
@@ -131,7 +139,7 @@ function drawDefaultViz3() {
           .attr("class", "x label")
           .attr("text-anchor", "end")
           .text("Win Share")
-          .attr("transform", "translate(400, 565)")
+          .attr("transform", "translate(450, 635)")
 
 
         d3.select("#VORP").on('click', function(){
@@ -170,6 +178,7 @@ function drawDefaultViz3() {
           })
             return text.text("Name: ")
         })
+          
 
           svg_scatter.select("#og")
           .remove()
@@ -294,8 +303,8 @@ else {
 
     function(dataset) {
       var dimensions = {
-        width: 700,
-        height: 600,
+        width: 860,
+        height: 675,
         margin:{
             top: 60,
             bottom: 70,
@@ -303,7 +312,7 @@ else {
             left: 80
         }
       }
-
+      var currPlayers2 = new Set()
       var selectValue = "VORP"
       var svg_newScatter = d3.select("#svg2").selectAll("svg > *").remove()
 
@@ -317,20 +326,24 @@ else {
 
 
     let border_3 = svg_newScatter2.append("g")
-                      .append("rect")
-                      .attr("stroke-width", 2)
-                      .attr("stroke", "black")
-                      .attr("fill", "None")
-                      .attr("y", 25)
-                      .attr("width", dimensions.width)
-                      .attr("height", dimensions.height)
+                                  .append("rect")
+                                  .attr("rx", 20)
+                                  .attr("ry", 20)
+                                  .attr("stroke-width","1px")
+                                  .attr("stroke", "#5D5958")
+                                  .attr("fill", "None")
+                                  .attr("y", 25)
+                                  .attr("width", dimensions.width * .982)
+                                  .attr("height", dimensions.height *.92)
+                                  .attr("transform", "translate(15, -2.5)")
 
       var title = svg_newScatter2.append("text") 
                       .text('Player Success') 
                       .attr("text-anchor", "middle") 
                       .style("font-size", '24px') 
                       .attr("dy", 20)
-                      .attr("dx", border_3.attr("width") / 2);
+                      .attr("dx", border_3.attr("width") / 2)
+                      .attr("transform", "translate(-4, 0)");
 
       var players = d3.map(dataset, function(d){return d["Player"]})
 
@@ -355,6 +368,7 @@ else {
       .attr("dy", ".15em")
       .attr("font-family", "sans-serif")
       .text("Name: ")
+      .attr("transform", "translate(140, 0)")
 
       console.log(team)
 
@@ -383,6 +397,26 @@ else {
                       })
                       return text.text("Name: ")
                     })
+                    .on("click", function(){
+                      d3.select(this)
+                        .attr("fill", function(d){
+                          console.log(d.Player)
+                          var currFill = dotColor(d[selectValue])
+                          if (d3.select(this).attr("fill") != currFill){
+                            currPlayers2.add(d.Player)
+                            currFill = "yellow"
+                          }
+                          else{
+                            currPlayers2 = "none"
+                            currPlayers2.delete(d.Player)
+                          }
+                          console.log(currPlayers2)
+                          setPlayer_TeamViz2(currPlayers2)
+                          return currFill
+
+                        })
+                    })
+
 
       var xAxisGen = d3.axisBottom().scale(xScale)
       var xAxis = svg_newScatter2.append("g")
@@ -407,8 +441,7 @@ else {
           .attr("class", "x label")
           .attr("text-anchor", "end")
           .text("Win Share")
-          .attr("transform", "translate(400, 565)")
-
+          .attr("transform", "translate(450, 635)")
 
         d3.select("#VORP").on('click', function(){
         selectValue = "VORP"
