@@ -56,11 +56,25 @@
     <h1>Our Wonderful CPSC-4030 Project</h1>
 
     <!-- BANNER: list of nba teams -->
-
+    <div id="app">
+      <div id="chart">
+        <h4>In this project, you can analyze success in the NBA both at the team and individual level. This dataset covers the NBA's 2021-2022 season's advanced statistics. 
+          The visualization system below will allow you to easily compare teams and players against each other and analyze which statisical categories in which they succeed. From this, you can determine which players and stats 
+          contribute the most when it comes to winning in the NBA. 
+          <br><br>
+          If you need more information for any team, player, or stat, there are multiple on-hover features implemented to help give you more context.
+        </h4>
+      </div>
+    </div>
 
     <!-- team visualization #1 -->
     <div id="app">
       <div id="chart">
+        <h4>
+          Select a team from the Bar Chart to display that team on the associated Radar Chart. You can make multiple selections to compare their stats.
+          <br>
+          Selecting a team will also filter Scatter Plot below to display only players for that selected team.
+        </h4>
         <svg id="viz1_team_rankings"></svg>
         <svg id="teamsuccess_viz2"></svg>
       </div>
@@ -72,7 +86,9 @@
     <!-- player visualizations -->
     <div id="app">
       <div id="chart">
+        <h4>Select a player from the Scatter Plot to display that player on the associated Radar Chart. You can make multiple selections to compare thair stats.</h4>
         <svg id="playersuccess_viz1"></svg>
+        <br>
         <button id="VORP">VORP</button>
         <button id="TS">TS%</button>
         <button id ="BPM">BPM</button>
@@ -106,7 +122,7 @@
 
     <script type="module" src="colors.js"></script> <!-- Colors for teams -->
     
-    <script src="list_of_nba_teams.js"></script>
+    <!-- <script src="list_of_nba_teams.js"></script> -->
     
     <script type="module" src="viz1_team_rankings.js"></script>
     
