@@ -166,28 +166,64 @@ function drawDefaultViz3() {
         dotSize = d3.scaleLinear().domain(yScale.domain()).range([1.75, 4.25])
         dotColor =  d3.scaleLinear().interpolate(d3.interpolateRgb).range(["red","#39FF14"])
 
+
         dots.transition()
         .attr("cx", function(d){return xScale(d["WS"])})
         .attr("cy", function(d){return yScale(d[selectValue]);})
         .attr("r", function(d){return dotSize(d["WS"])})
 
         dots.attr("fill", function(d){
+          if (d3.select(this).attr("stroke") == "black"){
+            return "yellow"
+          }
+          else{
           return dotColor(d[selectValue])
+          } 
           })
 
-            .on("mouseover", function(d, i){
+          .on("mouseover", function(d, i){
             d3.select(this)
-            .attr("fill", "yellow")
-        return text.text(`Name: ${i["Player"]}`);
-        })
-
-            .on("mouseout", function(d){
-          d3.select(this)
+              .attr("fill", "yellow")
+            return text.text(`Name: ${i["Player"]}`);
+          })
+          .on("mouseout", function(d, i){
+            console.log("mouseout: " + i["Player"])
+            if (currPlayers.size != 0 && currPlayers.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
+            d3.select(this)
             .attr("fill", function(d){
+              console.log(d[selectValue])
             return dotColor(d[selectValue])
           })
-            return text.text("Name: ")
+          return text.text("Name: ")
         })
+          .on("click", function(){
+            d3.select(this)
+              .attr("fill", function(d){
+                console.log(d.Player)
+                var currFill = dotColor(d[selectValue])
+                //var currFill = d3.select(this).attr("fill")
+                // check if selected 
+                // (cannot look at currPlayers since it's not a set yet)
+                // thanks Javascript for not allowing hard-typed values!
+                if (d3.select(this).attr("stroke") == "black"){ 
+                  console.log("TEST")
+                  d3.select(this).attr("stroke", "none") // remove stroke
+                  currPlayers.delete(d.Player)
+                }
+                else{
+                  console.log("ENTERED ELSE")
+                  currPlayers.add(d.Player)
+                  currFill = "yellow"
+                  d3.select(this).attr("stroke", "black") // add stroke
+                }
+                console.log(currPlayers)
+                setPlayer_TeamViz2(currPlayers)
+                
+                return currFill
+
+
+              })
+          })
           
 
           svg_scatter.select("#og")
@@ -222,22 +258,57 @@ function drawDefaultViz3() {
         .attr("r", function(d){return dotSize(d["WS"])})
 
         dots.attr("fill", function(d){
+          if (d3.select(this).attr("stroke") == "black"){
+            return "yellow"
+          }
+          else{
           return dotColor(d[selectValue])
+          } 
           })
 
-            .on("mouseover", function(d, i){
+          .on("mouseover", function(d, i){
             d3.select(this)
-            .attr("fill", "yellow")
-        return text.text(`Name: ${i["Player"]}`);
-        })
-
-            .on("mouseout", function(d){
-          d3.select(this)
+              .attr("fill", "yellow")
+            return text.text(`Name: ${i["Player"]}`);
+          })
+          .on("mouseout", function(d, i){
+            console.log("mouseout: " + i["Player"])
+            if (currPlayers.size != 0 && currPlayers.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
+            d3.select(this)
             .attr("fill", function(d){
+              console.log(d[selectValue])
             return dotColor(d[selectValue])
           })
           return text.text("Name: ")
         })
+          .on("click", function(){
+            d3.select(this)
+              .attr("fill", function(d){
+                console.log(d.Player)
+                var currFill = dotColor(d[selectValue])
+                //var currFill = d3.select(this).attr("fill")
+                // check if selected 
+                // (cannot look at currPlayers since it's not a set yet)
+                // thanks Javascript for not allowing hard-typed values!
+                if (d3.select(this).attr("stroke") == "black"){ 
+                  console.log("TEST")
+                  d3.select(this).attr("stroke", "none") // remove stroke
+                  currPlayers.delete(d.Player)
+                }
+                else{
+                  console.log("ENTERED ELSE")
+                  currPlayers.add(d.Player)
+                  currFill = "yellow"
+                  d3.select(this).attr("stroke", "black") // add stroke
+                }
+                console.log(currPlayers)
+                setPlayer_TeamViz2(currPlayers)
+                
+                return currFill
+
+
+              })
+          })
 
         svg_scatter.select("#og")
           .remove()
@@ -261,6 +332,9 @@ function drawDefaultViz3() {
     
           changing_axis_y.transition().call(yAxisGen)
           dotColor = d3.scaleLinear().domain(yScale.domain()).range(["#460041", "#ff00ee"])
+
+
+
     
           dots.transition()
           .attr("cx", function(d){return xScale(d["WS"])})
@@ -268,22 +342,57 @@ function drawDefaultViz3() {
           .attr("r", function(d){return dotSize(d["WS"])})
   
           dots.attr("fill", function(d){
-          return dotColor(d[selectValue])
-          })
+            if (d3.select(this).attr("stroke") == "black"){
+              return "yellow"
+            }
+            else{
+            return dotColor(d[selectValue])
+            } 
+            })
   
-              .on("mouseover", function(d, i){
+          .on("mouseover", function(d, i){
             d3.select(this)
-            .attr("fill", "yellow")
-        return text.text(`Name: ${i["Player"]}`);
-        })
-  
-            .on("mouseout", function(d){
+              .attr("fill", "yellow")
+            return text.text(`Name: ${i["Player"]}`);
+          })
+          .on("mouseout", function(d, i){
+            console.log("mouseout: " + i["Player"])
+            if (currPlayers.size != 0 && currPlayers.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
             d3.select(this)
             .attr("fill", function(d){
+              console.log(d[selectValue])
             return dotColor(d[selectValue])
           })
           return text.text("Name: ")
         })
+          .on("click", function(){
+            d3.select(this)
+              .attr("fill", function(d){
+                console.log(d.Player)
+                var currFill = dotColor(d[selectValue])
+                //var currFill = d3.select(this).attr("fill")
+                // check if selected 
+                // (cannot look at currPlayers since it's not a set yet)
+                // thanks Javascript for not allowing hard-typed values!
+                if (d3.select(this).attr("stroke") == "black"){ 
+                  console.log("TEST")
+                  d3.select(this).attr("stroke", "none") // remove stroke
+                  currPlayers.delete(d.Player)
+                }
+                else{
+                  console.log("ENTERED ELSE")
+                  currPlayers.add(d.Player)
+                  currFill = "yellow"
+                  d3.select(this).attr("stroke", "black") // add stroke
+                }
+                console.log(currPlayers)
+                setPlayer_TeamViz2(currPlayers)
+                
+                return currFill
+
+
+              })
+          })
 
           svg_scatter.select("#og")
           .remove()
@@ -484,9 +593,14 @@ else {
             .attr("cy", function(d){if (d["Tm"] == team){return yScale(d[selectValue]);}})
             .attr("r", function(d){if (d["Tm"] == team){return dotSize(d["WS"])}})
 
-        dots.attr("fill", function(d){
-          return dotColor(d[selectValue])
-          })
+            dots.attr("fill", function(d){
+              if (d3.select(this).attr("stroke") == "black"){
+                return "yellow"
+              }
+              else{
+              return dotColor(d[selectValue])
+              } 
+              })
 
             .on("mouseover", function(d, i){
             d3.select(this)
@@ -534,7 +648,12 @@ else {
         .attr("r", function(d){if (d["Tm"] == team){return dotSize(d["WS"])}})
 
         dots.attr("fill", function(d){
+          if (d3.select(this).attr("stroke") == "black"){
+            return "yellow"
+          }
+          else{
           return dotColor(d[selectValue])
+          } 
           })
 
             .on("mouseover", function(d, i){
@@ -578,10 +697,16 @@ else {
           .attr("cx", function(d){if(d["Tm"] == team){return xScale(d["WS"])}})
           .attr("cy", function(d){if (d["Tm"] == team){return yScale(d[selectValue]);}})
           .attr("r", function(d){if (d["Tm"] == team){return dotSize(d["WS"])}})
-          .attr("fill", function(d){return dotColor(d[selectValue]);})
 
 
-          dots.attr("fill", function(d){return dotColor(d[selectValue]);})
+          dots.attr("fill", function(d){
+            if (d3.select(this).attr("stroke") == "black"){
+              return "yellow"
+            }
+            else{
+            return dotColor(d[selectValue])
+            } 
+            })
 
           .on("mouseover", function(d, i){
             d3.select(this)
