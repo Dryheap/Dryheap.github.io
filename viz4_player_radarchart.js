@@ -247,4 +247,3 @@ window.setPlayer_TeamViz2 = function(player) {
     }
   )
 }
-
