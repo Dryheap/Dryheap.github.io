@@ -187,20 +187,23 @@ d3.csv("nba_adv_data.csv").then(
     .attr("r", 40)
     .attr("fill", "#69b3a2")
     // .attr("transform", "translate(40, 300) rotate(-90)")
-
   // create a tooltip
-  var tooltip = d3.select("#viz1_team_rankings")
-              .append("div")
+  var tooltip = d3.select("body").append("g")
                 .style("position", "absolute")
                 .style("visibility", "hidden")
                 .text("I'm a rectangle!");  
 
    d3.select("#circleBasicTooltip")
       .on("mouseover", function(){ 
-        
+        console.log(tooltip.style("visibility"))
         return tooltip.style("visibility", "visible");
       })
-      .on("mousemove", function(d){return tooltip.style("top", (d3.select(this).attr("cy"))+"px").style("left",(d3.select(this).attr("cx"))+"px");})
+      .on("mousemove", function(d){
+        console.log(tooltip.style("visibility"))
+        console.log(tooltip.style("top") + " : " + tooltip.style("left"))
+        console.log(d3.pointer(d))
+        return tooltip.style("top", (d3.pointer(d)[0])+"px").style("left",(d3.pointer(d)[1])+"px");
+      })
       .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 
   
