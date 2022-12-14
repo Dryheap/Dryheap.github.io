@@ -87,9 +87,12 @@ function drawDefaultViz3() {
                           .attr("fill", "yellow")
                         return text.text(`Name: ${i["Player"]}`);
                       })
-                      .on("mouseout", function(d){
+                      .on("mouseout", function(d, i){
+                        console.log("mouseout: " + i["Player"])
+                        if (currPlayers.size != 0 && currPlayers.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
                         d3.select(this)
                         .attr("fill", function(d){
+                          console.log(d[selectValue])
                         return dotColor(d[selectValue])
                       })
                       return text.text("Name: ")
@@ -99,13 +102,20 @@ function drawDefaultViz3() {
                           .attr("fill", function(d){
                             console.log(d.Player)
                             var currFill = dotColor(d[selectValue])
-                            if (d3.select(this).attr("fill") != currFill){
-                              currPlayers.add(d.Player)
-                              currFill = "yellow"
+                            //var currFill = d3.select(this).attr("fill")
+                            // check if selected 
+                            // (cannot look at currPlayers since it's not a set yet)
+                            // thanks Javascript for not allowing hard-typed values!
+                            if (d3.select(this).attr("stroke") == "black"){ 
+                              console.log("TEST")
+                              d3.select(this).attr("stroke", "none") // remove stroke
+                              currPlayers.delete(d.Player)
                             }
                             else{
-                              currPlayers = "none"
-                              currPlayers.delete(d.Player)
+                              console.log("ENTERED ELSE")
+                              currPlayers.add(d.Player)
+                              currFill = "yellow"
+                              d3.select(this).attr("stroke", "black") // add stroke
                             }
                             console.log(currPlayers)
                             setPlayer_TeamViz2(currPlayers)
