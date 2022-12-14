@@ -59,7 +59,7 @@ function drawDefaultViz3() {
                     .domain([-.4, 1.6])
                     .range([dimensions.height-dimensions.margin.bottom, dimensions.margin.top])
     
-      var dotSize = d3.scaleLinear().domain(yScale.domain()).range([1.75, 4.25])
+      var dotSize = d3.scaleLinear().domain(yScale.domain()).range([3, 6])
       var dotColor =  d3.scaleLinear().interpolate(d3.interpolateRgb).range(["red","#39FF14"])
 
       var text = svg_scatter
@@ -164,7 +164,7 @@ function drawDefaultViz3() {
     
         changing_axis_y.transition().call(yAxisGen)
 
-        dotSize = d3.scaleLinear().domain(yScale.domain()).range([1.75, 4.25])
+        dotSize = d3.scaleLinear().domain(yScale.domain()).range([3, 6])
         dotColor =  d3.scaleLinear().interpolate(d3.interpolateRgb).range(["red","#39FF14"])
 
 
@@ -250,7 +250,7 @@ function drawDefaultViz3() {
           changing_axis_y.transition().call(yAxisGen)
 
 
-          dotSize = d3.scaleLinear().domain(xScale.domain()).range([2, 6.5])
+          dotSize = d3.scaleLinear().domain(xScale.domain()).range([3, 6])
           dotColor =  d3.scaleLinear().interpolate(d3.interpolateRgb).range(["red","green"])
         
         dots.transition()
@@ -476,7 +476,7 @@ else {
                     .domain([-.4, 1.6])
                     .range([dimensions.height-dimensions.margin.bottom, dimensions.margin.top])
     
-      var dotSize = d3.scaleLinear().domain(yScale.domain()).range([1.75, 4.25])
+      var dotSize = d3.scaleLinear().domain(yScale.domain()).range([3, 6])
       var dotColor =  d3.scaleLinear().interpolate(d3.interpolateRgb).range(["red","#39FF14"])
 
       var text = svg_newScatter2
@@ -585,7 +585,7 @@ else {
     
         changing_axis_y.transition().call(yAxisGen)
 
-        dotSize = d3.scaleLinear().domain(yScale.domain()).range([1.75, 4.25])
+        dotSize = d3.scaleLinear().domain(yScale.domain()).range([3, 6])
         dotColor =  d3.scaleLinear().interpolate(d3.interpolateRgb).range(["red","#39FF14"])
 
         dots.transition()
@@ -601,20 +601,50 @@ else {
               return dotColor(d[selectValue])
               } 
               })
+    
+              .on("mouseover", function(d, i){
+                d3.select(this)
+                  .attr("fill", "yellow")
+                return text.text(`Name: ${i["Player"]}`);
+              })
+              .on("mouseout", function(d, i){
+                console.log("mouseout: " + i["Player"])
+                if (currPlayers2.size != 0 && currPlayers2.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
+                d3.select(this)
+                .attr("fill", function(d){
+                  console.log(d[selectValue])
+                return dotColor(d[selectValue])
+              })
+              return text.text("Name: ")
+            })
+              .on("click", function(){
+                d3.select(this)
+                  .attr("fill", function(d){
+                    console.log(d.Player)
+                    var currFill = dotColor(d[selectValue])
+                    //var currFill = d3.select(this).attr("fill")
+                    // check if selected 
+                    // (cannot look at currPlayers since it's not a set yet)
+                    // thanks Javascript for not allowing hard-typed values!
+                    if (d3.select(this).attr("stroke") == "black"){ 
+                      console.log("TEST")
+                      d3.select(this).attr("stroke", "none") // remove stroke
+                      currPlayers2.delete(d.Player)
+                    }
+                    else{
+                      console.log("ENTERED ELSE")
+                      currPlayers2.add(d.Player)
+                      currFill = "yellow"
+                      d3.select(this).attr("stroke", "black") // add stroke
+                    }
+                    console.log(currPlayers2)
+                    setPlayer_TeamViz2(currPlayers2)
+                    
+                    return currFill
 
-            .on("mouseover", function(d, i){
-            d3.select(this)
-            .attr("fill", "yellow")
-        return text.text(`Name: ${i["Player"]}`);
-        })
 
-            .on("mouseout", function(d){
-          d3.select(this)
-            .attr("fill", function(d){
-            return dotColor(d[selectValue])
-          })
-            return text.text("Name: ")
-        })
+                  })
+              })
 
           svg_newScatter2.select("#og")
           .remove()
@@ -639,7 +669,7 @@ else {
           changing_axis_y.transition().call(yAxisGen)
 
 
-          dotSize = d3.scaleLinear().domain(xScale.domain()).range([2, 6.5])
+          dotSize = d3.scaleLinear().domain(xScale.domain()).range([3, 6])
           dotColor =  d3.scaleLinear().interpolate(d3.interpolateRgb).range(["red","green"])
         
         dots.transition()
@@ -656,19 +686,49 @@ else {
           } 
           })
 
-            .on("mouseover", function(d, i){
+          .on("mouseover", function(d, i){
             d3.select(this)
-            .attr("fill", "yellow")
-        return text.text(`Name: ${i["Player"]}`);
-        })
-
-            .on("mouseout", function(d){
-          d3.select(this)
+              .attr("fill", "yellow")
+            return text.text(`Name: ${i["Player"]}`);
+          })
+          .on("mouseout", function(d, i){
+            console.log("mouseout: " + i["Player"])
+            if (currPlayers2.size != 0 && currPlayers2.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
+            d3.select(this)
             .attr("fill", function(d){
+              console.log(d[selectValue])
             return dotColor(d[selectValue])
           })
           return text.text("Name: ")
         })
+          .on("click", function(){
+            d3.select(this)
+              .attr("fill", function(d){
+                console.log(d.Player)
+                var currFill = dotColor(d[selectValue])
+                //var currFill = d3.select(this).attr("fill")
+                // check if selected 
+                // (cannot look at currPlayers since it's not a set yet)
+                // thanks Javascript for not allowing hard-typed values!
+                if (d3.select(this).attr("stroke") == "black"){ 
+                  console.log("TEST")
+                  d3.select(this).attr("stroke", "none") // remove stroke
+                  currPlayers2.delete(d.Player)
+                }
+                else{
+                  console.log("ENTERED ELSE")
+                  currPlayers2.add(d.Player)
+                  currFill = "yellow"
+                  d3.select(this).attr("stroke", "black") // add stroke
+                }
+                console.log(currPlayers2)
+                setPlayer_TeamViz2(currPlayers2)
+                
+                return currFill
+
+
+              })
+          })
 
         svg_newScatter2.select("#og")
           .remove()
@@ -706,17 +766,50 @@ else {
             return dotColor(d[selectValue])
             } 
             })
+  
+            .on("mouseover", function(d, i){
+              d3.select(this)
+                .attr("fill", "yellow")
+              return text.text(`Name: ${i["Player"]}`);
+            })
+            .on("mouseout", function(d, i){
+              console.log("mouseout: " + i["Player"])
+              if (currPlayers2.size != 0 && currPlayers2.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
+              d3.select(this)
+              .attr("fill", function(d){
+                console.log(d[selectValue])
+              return dotColor(d[selectValue])
+            })
+            return text.text("Name: ")
+          })
+            .on("click", function(){
+              d3.select(this)
+                .attr("fill", function(d){
+                  console.log(d.Player)
+                  var currFill = dotColor(d[selectValue])
+                  //var currFill = d3.select(this).attr("fill")
+                  // check if selected 
+                  // (cannot look at currPlayers since it's not a set yet)
+                  // thanks Javascript for not allowing hard-typed values!
+                  if (d3.select(this).attr("stroke") == "black"){ 
+                    console.log("TEST")
+                    d3.select(this).attr("stroke", "none") // remove stroke
+                    currPlayers2.delete(d.Player)
+                  }
+                  else{
+                    console.log("ENTERED ELSE")
+                    currPlayers2.add(d.Player)
+                    currFill = "yellow"
+                    d3.select(this).attr("stroke", "black") // add stroke
+                  }
+                  console.log(currPlayers2)
+                  setPlayer_TeamViz2(currPlayers2)
+                  
+                  return currFill
 
-          .on("mouseover", function(d, i){
-            d3.select(this)
-              .attr("fill", "yellow")
-            return text.text(`Name : ${i["Player"]}`);
-          })
-          .on("mouseout", function(d){
-            d3.select(this)
-            .attr("fill", function(d){return dotColor(d[selectValue]);})
-            return text.text("Name : ")
-          })
+
+                })
+            })
 
           svg_newScatter2.select("#og")
           .remove()
