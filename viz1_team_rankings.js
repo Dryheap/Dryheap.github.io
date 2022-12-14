@@ -26,6 +26,7 @@ d3.csv("nba_adv_data.csv").then(
   }
 
 
+    // create the svg area
     var svg =  d3.select("#viz1_team_rankings")
       .style("width", dimensions.width)
       .style("height", dimensions.height)
@@ -46,6 +47,10 @@ d3.csv("nba_adv_data.csv").then(
                     .attr("y", 25)
                     .attr("width", dimensions.width)
                     .attr("height", dimensions.height)
+
+   
+
+    
 
 
     // This is where the fun begins
@@ -157,6 +162,10 @@ d3.csv("nba_adv_data.csv").then(
                       })
 
 
+  
+                  
+                  
+
 
   var yAxisGen = d3.axisLeft().scale(y)
   var yAxis = svg.append("g")
@@ -169,6 +178,30 @@ d3.csv("nba_adv_data.csv").then(
     .attr("text-anchor", "end")
     .text("Games Won")
     .attr("transform", "translate(40, 300) rotate(-90)")
+
+  // Append a circle
+  svg.append("circle")
+    .attr("id", "circleBasicTooltip")
+    .attr("cx", 400)
+    .attr("cy", 300)
+    .attr("r", 40)
+    .attr("fill", "#69b3a2")
+    // .attr("transform", "translate(40, 300) rotate(-90)")
+
+  // create a tooltip
+  var tooltip = d3.select("#viz1_team_rankings")
+              .append("div")
+                .style("position", "absolute")
+                .style("visibility", "hidden")
+                .text("I'm a rectangle!");  
+
+   d3.select("#circleBasicTooltip")
+      .on("mouseover", function(){ 
+        
+        return tooltip.style("visibility", "visible");
+      })
+      .on("mousemove", function(d){return tooltip.style("top", (d3.select(this).attr("cy"))+"px").style("left",(d3.select(this).attr("cx"))+"px");})
+      .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 
   
 
