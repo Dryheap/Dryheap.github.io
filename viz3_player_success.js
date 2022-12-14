@@ -1,5 +1,6 @@
 function drawDefaultViz3() {
   console.log("CALLED DEFAULT")
+  d3.select("#svg2").selectAll("svg > *").remove()
   var svg_2 =  d3.select("#playersuccess_viz1")
                 .attr("id", "svg2")
 
@@ -42,7 +43,7 @@ function drawDefaultViz3() {
       var title = svg_scatter.append("text") 
                       .text('Player Success') 
                       .attr("text-anchor", "middle") 
-                      .style("font-size", '22.5px') 
+                      .style("font-size", '24px') 
                       .attr("dy", 20)
                       .attr("dx", border_2.attr("width") / 2)
                       .attr("transform", "translate(-4, 0)");
