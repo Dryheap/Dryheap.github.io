@@ -62,7 +62,7 @@ function drawDefaultViz3() {
       var dotSize = d3.scaleLinear().domain(yScale.domain()).range([3, 6])
       var dotColor =  d3.scaleLinear().interpolate(d3.interpolateRgb).range(["red","#39FF14"])
 
-      var text = svg_scatter
+     /* var text = svg_scatter
       .append('text')
       .attr("id", 'topbartext')
       .attr("x", 500)
@@ -71,7 +71,15 @@ function drawDefaultViz3() {
       .attr("dy", ".15em")
       .attr("font-family", "sans-serif")
       .text("Name: ")
-      .attr("transform", "translate(140, 0)")
+      .attr("transform", "translate(140, 0)")*/
+
+
+      var tooltip_scatter = d3.select("body").append("g")
+                    .style("position", "absolute")
+                    .style("visibility", "hidden")
+                    .style("background-color", "white")
+                    .style("fill", "green")
+                    .text("I'm a circle!");  
 
 
       var dots = svg_scatter.append("g")
@@ -85,8 +93,20 @@ function drawDefaultViz3() {
                       .attr("fill", function(d){return dotColor(d[selectValue])})
                       .on("mouseover", function(d, i){
                         d3.select(this)
-                          .attr("fill", "yellow")
-                        return text.text(`Name: ${i["Player"]}`);
+                          .attr("fill", function(d){
+                            tooltip_scatter.style("visibility", "visible")
+                            var tooltipPlayerName = dataset.find(function(element){ 
+                              return element.Player == d.Player})
+                            tooltip_scatter.text(tooltipPlayerName)
+                            return "yellow"
+                          })
+                        //return text.text(`Name: ${i["Player"]}`);
+                      })
+                      .on("mousemove", function(d){
+                        console.log(tooltip_scatter.style("visibility"))
+                        console.log(tooltip_scatter.style("top") + " : " + tooltip_scatter.style("left"))
+                        console.log(d3.select(this).attr("id"))
+                        return tooltip_scatter.style("top", (d3.pointer(d)[1])+"px").style("left",(d3.pointer(d)[0])+"px");
                       })
                       .on("mouseout", function(d, i){
                         console.log("mouseout: " + i["Player"])
@@ -96,7 +116,7 @@ function drawDefaultViz3() {
                           console.log(d[selectValue])
                         return dotColor(d[selectValue])
                       })
-                      return text.text("Name: ")
+                      //return text.text("Name: ")
                     })
                       .on("click", function(){
                         d3.select(this)
@@ -118,7 +138,6 @@ function drawDefaultViz3() {
                               currFill = "yellow"
                               d3.select(this).attr("stroke", "black") // add stroke
                             }
-                            console.log(currPlayers)
                             setPlayer_TeamViz2(currPlayers)
                             
                             return currFill
