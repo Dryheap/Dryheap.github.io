@@ -121,9 +121,9 @@ window.setTeam_TeamViz2_Set = function(teams, teamColor) {
 
     // initially prepare radarchart
     let radialScale = d3.scaleLinear()
-                        .domain([0,0.2]) // change
+                        .domain([0,0.25]) // change
                         .range([0,250]); // change
-    let ticks = [0.025,0.05,0.1,0.125,0.15] // will change based on data
+    let ticks = [0.0,0.05,0.1,0.15,0.2] // will change based on data
     
 
     // make a circle for each tick
@@ -148,8 +148,8 @@ window.setTeam_TeamViz2_Set = function(teams, teamColor) {
     for (var i = 0; i < features.length; i++) {
         let ft_name = features[i];
         let angle = (Math.PI / 2) + (2 * Math.PI * i / features.length);
-        let line_coordinate = angleToCoordinate(angle, 0.15);
-        let label_coordinate = angleToCoordinate(angle, 0.175);
+        let line_coordinate = angleToCoordinate(angle, 0.20);
+        let label_coordinate = angleToCoordinate(angle, 0.22);
     
         //draw axis line
         svg_2.append("line")
@@ -169,8 +169,7 @@ window.setTeam_TeamViz2_Set = function(teams, teamColor) {
     // preparing lines and colors
     let line = d3.line()
                 .x(d => d.x + dimensions.margin.left)
-                .y(d => d.y);
-    let colors = ["darkorange", "gray", "navy"];
+                .y(d => d.y)
 
 
     // TEMP TESTING
