@@ -8,7 +8,7 @@ function drawDefaultViz3() {
 
     function(dataset) {
       var dimensions = {
-        width: 800,
+        width: 850,
         height: 675,
         margin:{
             top: 60,
@@ -437,7 +437,7 @@ else {
 
     function(dataset) {
       var dimensions = {
-        width: 800,
+        width: 850,
         height: 675,
         margin:{
             top: 60,
