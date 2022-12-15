@@ -369,7 +369,7 @@ function drawDefaultViz3() {
 
 
         d3.select("#TS").on('click', function(){
-          selectValue = "TSpercent"
+          selectValue = "Tspercent_Divided"
     
           yScale = d3.scaleLinear()
                   .domain([0, 1.5])
@@ -861,7 +861,7 @@ else {
 
 
         d3.select("#TS").on('click', function(){
-          selectValue = "TSpercent"
+          selectValue = "Tspercent_Divided"
     
           yScale = d3.scaleLinear()
                   .domain([0, 1.5])
