@@ -7,7 +7,7 @@ var dimensions = {
       top: 60,
       bottom: 70,
       right: 10,
-      left: 100
+      left: 120
   }
 }
   var svg_2 =  d3.select("#teamsuccess_viz2")
@@ -18,13 +18,16 @@ var dimensions = {
   
   
   let teamviz2_border = svg_2.append("g")
-                .append("rect")
-                .attr("stroke-width", 2)
-                .attr("stroke", "black")
-                .attr("fill", "none")
-                .attr("y", 25)
-                .attr("width", dimensions.width*0.6)
-                .attr("height", dimensions.height-25)
+                            .append("rect")
+                            .attr("rx", 20)
+                            .attr("ry", 20)
+                            .attr("stroke-width","1px")
+                            .attr("stroke", "#5D5958")
+                            .attr("fill", "None")
+                            .attr("y", 0)
+                            .attr("width", dimensions.width * 0.6)
+                            .attr("height", dimensions.height - 25)
+                            .attr("transform", "translate(0, 25)")
   
   var title = svg_2.append("text") 
                 .text("No Team Selected") 
@@ -66,21 +69,26 @@ window.setTeam_TeamViz2 = function(teams, teamColor) {
 
 
       teamviz2_border = svg_2.append("g")
-                    .append("rect")
-                    .attr("stroke-width", 2)
-                    .attr("stroke", "black")
-                    .attr("fill", "none")
-                    .attr("y", 25)
-                    .attr("width", dimensions.width*0.6)
-                    .attr("height", dimensions.height-25)
+                            .append("rect")
+                            .attr("rx", 20)
+                            .attr("ry", 20)
+                            .attr("stroke-width","1px")
+                            .attr("stroke", "#5D5958")
+                            .attr("fill", "None")
+                            .attr("y", 0)
+                            .attr("width", dimensions.width * 0.6)
+                            .attr("height", dimensions.height - 25)
+                            .attr("transform", "translate(0, 25)")
+  
+      title = svg_2.append("text") 
+                .text("Team Breakdown") 
+                .attr("text-anchor", "middle") 
+                .style("font-size", '24px') 
+                .attr("dy", 20)
+                .attr("dx", teamviz2_border.attr("width") / 2)
 
     
-      title = svg_2.append("text") 
-                      .text("Teams") // TODO: Change 
-                      .attr("text-anchor", "middle") 
-                      .style("font-size", '24px') 
-                      .attr("dy", 20)
-                      .attr("dx", teamviz2_border.attr("width") / 2);
+      
 
     
     
