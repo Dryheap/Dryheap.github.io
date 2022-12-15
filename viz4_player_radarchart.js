@@ -179,7 +179,7 @@ window.setPlayer_TeamViz2 = function(player) {
     let line2 = d3.line()
                 .x(d => d.x + dimensions.margin.left)
                 .y(d => d.y);
-    let colors = ["darkorange", "gray", "navy"];
+    let colors = ["#ff4040","#e78d0b","#a7d503","#58fc2a","#18f472","#00bfbf","#1872f4","#582afc","#a703d5","#e70b8d","#ff4040"];
 
 
     // TEMP TESTING
