@@ -63,17 +63,6 @@ function drawDefaultViz3() {
       var dotSize = d3.scaleLinear().domain(yScale.domain()).range([3, 6])
       var dotColor =  d3.scaleLinear().interpolate(d3.interpolateRgb).range(["red","#39FF14"])
 
-     /* var text = svg_scatter
-      .append('text')
-      .attr("id", 'topbartext')
-      .attr("x", 500)
-      .attr("y", 20)
-      .attr("dx", "-.8em")
-      .attr("dy", ".15em")
-      .attr("font-family", "sans-serif")
-      .text("Name: ")
-      .attr("transform", "translate(140, 0)")*/
-
 
       var tooltip_scatter = d3.select("body").append("g")
                     .style("position", "absolute")
@@ -109,7 +98,7 @@ function drawDefaultViz3() {
                         //var mouseY = window.innerHeight - d3.pointer(d)[1]
                         //var mouseX = window.innerWidth - d3.pointer(d)[0]
                         var mouseY = d3.pointer(d)[1] + document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset
-                        var mouseX = d3.pointer(d)[0] + document.getElementById("scatterplot").getBoundingClientRect().x
+                        var mouseX = d3.pointer(d)[0] + document.getElementById("scatterplot").getBoundingClientRect().x/2
                         console.log(mouseX + " : " + mouseY)
                         return tooltip_scatter.style("top", mouseY+"px").style("left",mouseX+"px");
                       })

@@ -15,7 +15,7 @@ d3.csv("nba_adv_data.csv").then(
 
 
     var dimensions = {
-      width: 1000,
+      width: 800,
       height: 700,
       margin:{
           top: 60,

@@ -1,7 +1,7 @@
 import Color from './colors.js';
   
   var dimensions = {
-    width: 1400,
+    width: 700,
     height: 600,
     margin:{
         top: 60,
@@ -14,7 +14,7 @@ import Color from './colors.js';
     .style("width", dimensions.width)
     .style("height", dimensions.height)
     .attr("x", 950)
-    //.attr("transform", "translate(300,155)")
+    //.attr("transform", "translate(200,155)")
   
   
   let teamviz2_border = svg_2.append("g")
@@ -45,7 +45,7 @@ window.setTeam_TeamViz2 = function(teams, teamColor) {
 
 
       var dimensions = {
-        width: 1400,
+        width: 900,
         height: 600,
         margin:{
             top: 60,
@@ -60,7 +60,7 @@ window.setTeam_TeamViz2 = function(teams, teamColor) {
         .style("width", dimensions.width)
         .style("height", dimensions.height)
         .attr("x", 950)
-        //.attr("transform", "translate(300,155)")
+        //.attr("transform", "translate(200,155)")
 
       svg_2.selectAll("*").remove()
 
@@ -115,7 +115,7 @@ window.setTeam_TeamViz2 = function(teams, teamColor) {
       function angleToCoordinate(angle, value){
           let x = Math.cos(angle) * radialScale(value);
           let y = Math.sin(angle) * radialScale(value);
-          return {"x": 300 + x, "y": 300 - y};
+          return {"x": 175 + x, "y": 300 - y};
       }
 
 
@@ -129,7 +129,7 @@ window.setTeam_TeamViz2 = function(teams, teamColor) {
       // make a circle for each tick
       ticks.forEach(t =>
           svg_2.append("circle")
-          .attr("cx", 300 + dimensions.margin.left)
+          .attr("cx", 175 + dimensions.margin.left)
           .attr("cy", 300)
           .attr("fill", "none")
           .attr("stroke", "gray")
@@ -139,7 +139,7 @@ window.setTeam_TeamViz2 = function(teams, teamColor) {
       // add text for each circle
       ticks.forEach(t =>
           svg_2.append("text")
-          .attr("x", 305 + dimensions.margin.left)
+          .attr("x", 180 + dimensions.margin.left)
           .attr("y", 300 - radialScale(t))
           .text(t.toString())
       )
@@ -153,7 +153,7 @@ window.setTeam_TeamViz2 = function(teams, teamColor) {
       
           //draw axis line
           svg_2.append("line")
-          .attr("x1", 300 + dimensions.margin.left)
+          .attr("x1", 175 + dimensions.margin.left)
           .attr("y1", 300)
           .attr("x2", line_coordinate.x + dimensions.margin.left)
           .attr("y2", line_coordinate.y)
