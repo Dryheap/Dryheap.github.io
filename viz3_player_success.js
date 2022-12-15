@@ -2,7 +2,7 @@ function drawDefaultViz3() {
   console.log("CALLED DEFAULT")
   d3.select("#svg2").selectAll("svg > *").remove()
   var svg_2 =  d3.select("#playersuccess_viz1")
-                .attr("id", "svg2")
+                //.attr("id", "svg2")
 
   d3.csv("nba_adv_data.csv").then(
 
@@ -22,7 +22,7 @@ function drawDefaultViz3() {
 
       // set's the initial value to VORP
       var selectValue = "VORP"
-      svg_scatter =  d3.select("#svg2")
+      svg_scatter =  d3.select("#playersuccess_viz1")
         .style("width", dimensions.width)
         .style("height", dimensions.height)
         .attr("x", 850)
@@ -448,10 +448,10 @@ else {
       }
       var currPlayers2 = new Set()
       var selectValue = "VORP"
-      var svg_newScatter = d3.select("#svg2").selectAll("svg > *").remove()
+      var svg_newScatter = d3.select("#playersuccess_viz1").selectAll("svg > *").remove()
 
 
-      var svg_newScatter2 = d3.select("#svg2")
+      var svg_newScatter2 = d3.select("#playersuccess_viz1")
         .style("width", dimensions.width)
         .style("height", dimensions.height)
         .attr("x", 850)

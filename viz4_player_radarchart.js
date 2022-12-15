@@ -33,7 +33,8 @@ function drawPlayerRadar(){
               .attr("text-anchor", "middle") 
               .style("font-size", '24px') 
               .attr("dy", 20)
-              .attr("dx", playviz2_border.attr("width") / 2);
+              .attr("dx", playviz2_border.attr("width")/ 2)
+              .attr("transform", "translate(90, 200)")
 
 
 
