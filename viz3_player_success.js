@@ -552,8 +552,17 @@ else {
       .text("Name: ")
       .attr("transform", "translate(140, 0)")
 
+      var tooltip_scatter = d3.select("body").append("g")
+                    .style("position", "absolute")
+                    .style("visibility", "hidden")
+                    .style("background-color", "white")
+                    .style("fill", "black")
+                    .text("I'm a circle!");  
+                    
+
 
       var dots = svg_newScatter2.append("g")
+                      .attr("id", "scatterplot")
                       .selectAll("circle")
                       .data(dataset, function(d){return d})
                       .enter()
@@ -567,6 +576,7 @@ else {
                         }
                       })
                       .on("mouseover", function(d, i){
+                        console.log("HERE!!!!")
                         d3.select(this)
                           .attr("fill", function(d){
                             tooltip_scatter.style("visibility", "visible")
@@ -581,15 +591,15 @@ else {
                         console.log(document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset)
                         //var mouseY = window.innerHeight - d3.pointer(d)[1]
                         //var mouseX = window.innerWidth - d3.pointer(d)[0]
-                        var mouseY = d3.pointer(d)[1] + document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset
-                        var mouseX = d3.pointer(d)[0] + document.getElementById("scatterplot").getBoundingClientRect().x/2
+                        var mouseY = d3.pointer(d)[1] + document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset - 300
+                        var mouseX = d3.pointer(d)[0] + document.getElementById("scatterplot").getBoundingClientRect().x/2 - 20
                         console.log(mouseX + " : " + mouseY)
                         return tooltip_scatter.style("top", mouseY+"px").style("left",mouseX+"px");
                       })
                       .on("mouseout", function(d, i){
                         console.log("mouseout: " + i["Player"])
                         tooltip_scatter.style("visibility", "hidden")
-                        if (currPlayers.size != 0 && currPlayers.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
+                        if (currPlayers2.size != 0 && currPlayers2.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
                         d3.select(this)
                         .attr("fill", function(d){
                           console.log(d[selectValue])
