@@ -437,7 +437,7 @@ else {
 
     function(dataset) {
       var dimensions = {
-        width: 860,
+        width: 800,
         height: 675,
         margin:{
             top: 60,
