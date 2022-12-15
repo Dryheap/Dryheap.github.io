@@ -70,6 +70,14 @@
     <!-- team visualization #1 -->
     <div id="app">
       <div id="chart">
+        <h2>
+          Team Analysis
+        </h2>
+        <h4>
+          Select a team from the Bar Chart to display that team on the associated Radar Chart. You can make multiple selections to compare their statistics.
+          <br>
+          Selecting a team will also filter the Scatter Plot below to display only players for that selected team.
+        </h4>
         <svg id="viz1_team_rankings"></svg>
         <svg id="teamsuccess_viz2"></svg>
       </div>
@@ -81,6 +89,12 @@
     <!-- player visualizations -->
     <div id="app">
       <div id="chart">
+        <h2>
+          Player Analysis
+        </h2>
+        <h4>
+          Select a player from the Scatter Plot to display that player on the associated Radar Chart. You can make multiple selections to compare thair statistics.
+        </h4>
         <svg id="playersuccess_viz1"></svg>
         <button id="VORP"
         style="background:#3630a3;color:white;"
@@ -123,8 +137,6 @@
 
 
     <script type="module" src="colors.js"></script> <!-- Colors for teams -->
-    
-    <script src="list_of_nba_teams.js"></script>
     
     <script type="module" src="viz1_team_rankings.js"></script>
     
