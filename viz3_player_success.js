@@ -97,7 +97,7 @@ function drawDefaultViz3() {
                           .attr("fill", function(d){
                             tooltip_scatter.style("visibility", "visible")
                             var tooltipPlayerName = dataset.find(function(element){ 
-                              return element.Player == d.Player})
+                              return element.Player})
                             tooltip_scatter.text(tooltipPlayerName)
                             return "yellow"
                           })
