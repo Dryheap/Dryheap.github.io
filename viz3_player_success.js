@@ -2,13 +2,13 @@ function drawDefaultViz3() {
   console.log("CALLED DEFAULT")
   d3.select("#svg2").selectAll("svg > *").remove()
   var svg_2 =  d3.select("#playersuccess_viz1")
-                .attr("id", "svg2")
+                //.attr("id", "svg2")
 
   d3.csv("nba_adv_data.csv").then(
 
     function(dataset) {
       var dimensions = {
-        width: 800,
+        width: 850,
         height: 675,
         margin:{
             top: 60,
@@ -22,7 +22,7 @@ function drawDefaultViz3() {
 
       // set's the initial value to VORP
       var selectValue = "VORP"
-      svg_scatter =  d3.select("#svg2")
+      svg_scatter =  d3.select("#playersuccess_viz1")
         .style("width", dimensions.width)
         .style("height", dimensions.height)
         .attr("x", 850)
@@ -198,18 +198,34 @@ function drawDefaultViz3() {
 
           .on("mouseover", function(d, i){
             d3.select(this)
-              .attr("fill", "yellow")
-            return text.text(`Name: ${i["Player"]}`);
+              .attr("fill", function(d){
+                tooltip_scatter.style("visibility", "visible")
+                tooltip_scatter.text(d.Player)
+                return "yellow"
+              })
+            //return text.text(`Name: ${i["Player"]}`);
+          })
+          .on("mousemove", function(d){
+            console.log(tooltip_scatter.style("visibility"))
+            console.log(tooltip_scatter.style("top") + " : " + tooltip_scatter.style("left"))
+            console.log(document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset)
+            //var mouseY = window.innerHeight - d3.pointer(d)[1]
+            //var mouseX = window.innerWidth - d3.pointer(d)[0]
+            var mouseY = d3.pointer(d)[1] + document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset
+            var mouseX = d3.pointer(d)[0] + document.getElementById("scatterplot").getBoundingClientRect().x/2
+            console.log(mouseX + " : " + mouseY)
+            return tooltip_scatter.style("top", mouseY+"px").style("left",mouseX+"px");
           })
           .on("mouseout", function(d, i){
             console.log("mouseout: " + i["Player"])
+            tooltip_scatter.style("visibility", "hidden")
             if (currPlayers.size != 0 && currPlayers.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
             d3.select(this)
             .attr("fill", function(d){
               console.log(d[selectValue])
             return dotColor(d[selectValue])
           })
-          return text.text("Name: ")
+          //return text.text("Name: ")
         })
           .on("click", function(){
             d3.select(this)
@@ -283,18 +299,34 @@ function drawDefaultViz3() {
 
           .on("mouseover", function(d, i){
             d3.select(this)
-              .attr("fill", "yellow")
-            return text.text(`Name: ${i["Player"]}`);
+              .attr("fill", function(d){
+                tooltip_scatter.style("visibility", "visible")
+                tooltip_scatter.text(d.Player)
+                return "yellow"
+              })
+            //return text.text(`Name: ${i["Player"]}`);
+          })
+          .on("mousemove", function(d){
+            console.log(tooltip_scatter.style("visibility"))
+            console.log(tooltip_scatter.style("top") + " : " + tooltip_scatter.style("left"))
+            console.log(document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset)
+            //var mouseY = window.innerHeight - d3.pointer(d)[1]
+            //var mouseX = window.innerWidth - d3.pointer(d)[0]
+            var mouseY = d3.pointer(d)[1] + document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset
+            var mouseX = d3.pointer(d)[0] + document.getElementById("scatterplot").getBoundingClientRect().x/2
+            console.log(mouseX + " : " + mouseY)
+            return tooltip_scatter.style("top", mouseY+"px").style("left",mouseX+"px");
           })
           .on("mouseout", function(d, i){
             console.log("mouseout: " + i["Player"])
+            tooltip_scatter.style("visibility", "hidden")
             if (currPlayers.size != 0 && currPlayers.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
             d3.select(this)
             .attr("fill", function(d){
               console.log(d[selectValue])
             return dotColor(d[selectValue])
           })
-          return text.text("Name: ")
+          //return text.text("Name: ")
         })
           .on("click", function(){
             d3.select(this)
@@ -337,7 +369,7 @@ function drawDefaultViz3() {
 
 
         d3.select("#TS").on('click', function(){
-          selectValue = "TSpercent"
+          selectValue = "Tspercent_Divided"
     
           yScale = d3.scaleLinear()
                   .domain([0, 1.5])
@@ -367,18 +399,34 @@ function drawDefaultViz3() {
   
             .on("mouseover", function(d, i){
               d3.select(this)
-                .attr("fill", "yellow")
-              return text.text(`Name: ${i["Player"]}`);
+                .attr("fill", function(d){
+                  tooltip_scatter.style("visibility", "visible")
+                  tooltip_scatter.text(d.Player)
+                  return "yellow"
+                })
+              //return text.text(`Name: ${i["Player"]}`);
+            })
+            .on("mousemove", function(d){
+              console.log(tooltip_scatter.style("visibility"))
+              console.log(tooltip_scatter.style("top") + " : " + tooltip_scatter.style("left"))
+              console.log(document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset)
+              //var mouseY = window.innerHeight - d3.pointer(d)[1]
+              //var mouseX = window.innerWidth - d3.pointer(d)[0]
+              var mouseY = d3.pointer(d)[1] + document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset
+              var mouseX = d3.pointer(d)[0] + document.getElementById("scatterplot").getBoundingClientRect().x/2
+              console.log(mouseX + " : " + mouseY)
+              return tooltip_scatter.style("top", mouseY+"px").style("left",mouseX+"px");
             })
             .on("mouseout", function(d, i){
               console.log("mouseout: " + i["Player"])
+              tooltip_scatter.style("visibility", "hidden")
               if (currPlayers.size != 0 && currPlayers.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
               d3.select(this)
               .attr("fill", function(d){
                 console.log(d[selectValue])
               return dotColor(d[selectValue])
             })
-            return text.text("Name: ")
+            //return text.text("Name: ")
           })
             .on("click", function(){
               d3.select(this)
@@ -437,7 +485,7 @@ else {
 
     function(dataset) {
       var dimensions = {
-        width: 860,
+        width: 850,
         height: 675,
         margin:{
             top: 60,
@@ -448,10 +496,10 @@ else {
       }
       var currPlayers2 = new Set()
       var selectValue = "VORP"
-      var svg_newScatter = d3.select("#svg2").selectAll("svg > *").remove()
+      var svg_newScatter = d3.select("#playersuccess_viz1").selectAll("svg > *").remove()
 
 
-      var svg_newScatter2 = d3.select("#svg2")
+      var svg_newScatter2 = d3.select("#playersuccess_viz1")
         .style("width", dimensions.width)
         .style("height", dimensions.height)
         .attr("x", 850)
@@ -504,17 +552,8 @@ else {
       .text("Name: ")
       .attr("transform", "translate(140, 0)")
 
-      var tooltip_scatter = d3.select("body").append("g")
-                    .style("position", "absolute")
-                    .style("visibility", "hidden")
-                    .style("background-color", "white")
-                    .style("fill", "black")
-                    .text("I'm a circle!");  
-                    
-
 
       var dots = svg_newScatter2.append("g")
-                      .attr("id", "scatterplot")
                       .selectAll("circle")
                       .data(dataset, function(d){return d})
                       .enter()
@@ -528,7 +567,6 @@ else {
                         }
                       })
                       .on("mouseover", function(d, i){
-                        console.log("HERE!!!!")
                         d3.select(this)
                           .attr("fill", function(d){
                             tooltip_scatter.style("visibility", "visible")
@@ -543,21 +581,21 @@ else {
                         console.log(document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset)
                         //var mouseY = window.innerHeight - d3.pointer(d)[1]
                         //var mouseX = window.innerWidth - d3.pointer(d)[0]
-                        var mouseY = d3.pointer(d)[1] + document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset - 300
-                        var mouseX = d3.pointer(d)[0] + document.getElementById("scatterplot").getBoundingClientRect().x/2 - 20
+                        var mouseY = d3.pointer(d)[1] + document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset
+                        var mouseX = d3.pointer(d)[0] + document.getElementById("scatterplot").getBoundingClientRect().x/2
                         console.log(mouseX + " : " + mouseY)
                         return tooltip_scatter.style("top", mouseY+"px").style("left",mouseX+"px");
                       })
                       .on("mouseout", function(d, i){
                         console.log("mouseout: " + i["Player"])
                         tooltip_scatter.style("visibility", "hidden")
-                        if (currPlayers2.size != 0 && currPlayers2.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
+                        if (currPlayers.size != 0 && currPlayers.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
                         d3.select(this)
                         .attr("fill", function(d){
                           console.log(d[selectValue])
                         return dotColor(d[selectValue])
                       })
-                      return text.text("Name: ")
+                      //return text.text("Name: ")
                     })
                       .on("click", function(){
                         d3.select(this)
@@ -644,18 +682,43 @@ else {
     
               .on("mouseover", function(d, i){
                 d3.select(this)
-                  .attr("fill", "yellow")
-                return text.text(`Name: ${i["Player"]}`);
+                  .attr("fill", function(d){
+                    tooltip_scatter.style("visibility", "visible")
+                    tooltip_scatter.text(d.Player)
+                    return "yellow"
+                  })
+                //return text.text(`Name: ${i["Player"]}`);
+              })
+              .on("mouseover", function(d, i){
+                d3.select(this)
+                  .attr("fill", function(d){
+                    tooltip_scatter.style("visibility", "visible")
+                    tooltip_scatter.text(d.Player)
+                    return "yellow"
+                  })
+                //return text.text(`Name: ${i["Player"]}`);
+              })
+              .on("mousemove", function(d){
+                console.log(tooltip_scatter.style("visibility"))
+                console.log(tooltip_scatter.style("top") + " : " + tooltip_scatter.style("left"))
+                console.log(document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset)
+                //var mouseY = window.innerHeight - d3.pointer(d)[1]
+                //var mouseX = window.innerWidth - d3.pointer(d)[0]
+                var mouseY = d3.pointer(d)[1] + document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset
+                var mouseX = d3.pointer(d)[0] + document.getElementById("scatterplot").getBoundingClientRect().x/2
+                console.log(mouseX + " : " + mouseY)
+                return tooltip_scatter.style("top", mouseY+"px").style("left",mouseX+"px");
               })
               .on("mouseout", function(d, i){
                 console.log("mouseout: " + i["Player"])
-                if (currPlayers2.size != 0 && currPlayers2.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
+                tooltip_scatter.style("visibility", "hidden")
+                if (currPlayers.size != 0 && currPlayers.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
                 d3.select(this)
                 .attr("fill", function(d){
                   console.log(d[selectValue])
                 return dotColor(d[selectValue])
               })
-              return text.text("Name: ")
+              //return text.text("Name: ")
             })
               .on("click", function(){
                 d3.select(this)
@@ -728,18 +791,34 @@ else {
 
           .on("mouseover", function(d, i){
             d3.select(this)
-              .attr("fill", "yellow")
-            return text.text(`Name: ${i["Player"]}`);
+              .attr("fill", function(d){
+                tooltip_scatter.style("visibility", "visible")
+                tooltip_scatter.text(d.Player)
+                return "yellow"
+              })
+            //return text.text(`Name: ${i["Player"]}`);
+          })
+          .on("mousemove", function(d){
+            console.log(tooltip_scatter.style("visibility"))
+            console.log(tooltip_scatter.style("top") + " : " + tooltip_scatter.style("left"))
+            console.log(document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset)
+            //var mouseY = window.innerHeight - d3.pointer(d)[1]
+            //var mouseX = window.innerWidth - d3.pointer(d)[0]
+            var mouseY = d3.pointer(d)[1] + document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset
+            var mouseX = d3.pointer(d)[0] + document.getElementById("scatterplot").getBoundingClientRect().x/2
+            console.log(mouseX + " : " + mouseY)
+            return tooltip_scatter.style("top", mouseY+"px").style("left",mouseX+"px");
           })
           .on("mouseout", function(d, i){
             console.log("mouseout: " + i["Player"])
-            if (currPlayers2.size != 0 && currPlayers2.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
+            tooltip_scatter.style("visibility", "hidden")
+            if (currPlayers.size != 0 && currPlayers.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
             d3.select(this)
             .attr("fill", function(d){
               console.log(d[selectValue])
             return dotColor(d[selectValue])
           })
-          return text.text("Name: ")
+          //return text.text("Name: ")
         })
           .on("click", function(){
             d3.select(this)
@@ -782,7 +861,7 @@ else {
 
 
         d3.select("#TS").on('click', function(){
-          selectValue = "TSpercent"
+          selectValue = "Tspercent_Divided"
     
           yScale = d3.scaleLinear()
                   .domain([0, 1.5])
@@ -809,18 +888,34 @@ else {
   
             .on("mouseover", function(d, i){
               d3.select(this)
-                .attr("fill", "yellow")
-              return text.text(`Name: ${i["Player"]}`);
+                .attr("fill", function(d){
+                  tooltip_scatter.style("visibility", "visible")
+                  tooltip_scatter.text(d.Player)
+                  return "yellow"
+                })
+              //return text.text(`Name: ${i["Player"]}`);
+            })
+            .on("mousemove", function(d){
+              console.log(tooltip_scatter.style("visibility"))
+              console.log(tooltip_scatter.style("top") + " : " + tooltip_scatter.style("left"))
+              console.log(document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset)
+              //var mouseY = window.innerHeight - d3.pointer(d)[1]
+              //var mouseX = window.innerWidth - d3.pointer(d)[0]
+              var mouseY = d3.pointer(d)[1] + document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset
+              var mouseX = d3.pointer(d)[0] + document.getElementById("scatterplot").getBoundingClientRect().x/2
+              console.log(mouseX + " : " + mouseY)
+              return tooltip_scatter.style("top", mouseY+"px").style("left",mouseX+"px");
             })
             .on("mouseout", function(d, i){
               console.log("mouseout: " + i["Player"])
-              if (currPlayers2.size != 0 && currPlayers2.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
+              tooltip_scatter.style("visibility", "hidden")
+              if (currPlayers.size != 0 && currPlayers.has(i["Player"])) return // keep formatting if palyer is in currPlayers set
               d3.select(this)
               .attr("fill", function(d){
                 console.log(d[selectValue])
               return dotColor(d[selectValue])
             })
-            return text.text("Name: ")
+            //return text.text("Name: ")
           })
             .on("click", function(){
               d3.select(this)
