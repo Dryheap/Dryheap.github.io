@@ -1,7 +1,7 @@
 function drawPlayerRadar(){
   var dimensions = {
     width: 900,
-    height: 700,
+    height: 900,
     margin:{
         top: 60,
         bottom: 70,
@@ -12,28 +12,30 @@ function drawPlayerRadar(){
     
    // var features = ["WS", "VORP", "TS%", "BPM", "FG%"]
     var svg_3 =  d3.select("#spiderchart")
-    .style("width", dimensions.width*0.6)
+    .style("width", dimensions.width)
     .style("height", dimensions.height)
-    .attr("x", 850)
+    .attr("x", 950)
 
-    let playviz2_border = svg_3.append("g")
-                                .append("rect")
-                                .attr("rx", 20)
-                                .attr("ry", 20)
-                                .attr("stroke-width","1px")
-                                .attr("stroke", "#5D5958")
-                                .attr("fill", "None")
-                                .attr("y", 25)
-                                .attr("width", dimensions.width)
-                                .attr("height", dimensions.height *.935)
+    playviz2_border = svg_3.append("g")
+                            .append("rect")
+                            .attr("rx", 20)
+                            .attr("ry", 20)
+                            .attr("stroke-width","1px")
+                            .attr("stroke", "#5D5958")
+                            .attr("fill", "None")
+                            .attr("y", 0)
+                            .attr("width", dimensions.width * .68)
+                            .attr("height", dimensions.height * .68)
+                            .attr("transform", "translate(90, 230)")
 
     title2 = svg_3.append("text") 
-              .text("Test") 
+              .text("No Player Selected") 
               .attr("text-anchor", "middle") 
               .style("font-size", '24px') 
               .attr("dy", 20)
               .attr("dx", playviz2_border.attr("width") / 2);
-    
+
+
 
   }
 

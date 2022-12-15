@@ -1,15 +1,15 @@
 import Color from './colors.js';
   
-  var dimensions = {
-    width: 700,
-    height: 600,
-    margin:{
-        top: 60,
-        bottom: 70,
-        right: 10,
-        left: 100
-    }
+var dimensions = {
+  width: 900,
+  height: 600,
+  margin:{
+      top: 60,
+      bottom: 70,
+      right: 10,
+      left: 100
   }
+}
   var svg_2 =  d3.select("#teamsuccess_viz2")
     .style("width", dimensions.width)
     .style("height", dimensions.height)
