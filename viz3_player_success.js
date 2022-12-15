@@ -96,7 +96,7 @@ function drawDefaultViz3() {
                           .attr("fill", function(d){
                             tooltip_scatter.style("visibility", "visible")
                             var tooltipPlayerName = dataset.find(function(element){ 
-                              return element.Player == d.Player})
+                              return element.Player})
                             tooltip_scatter.text(tooltipPlayerName)
                             return "yellow"
                           })
@@ -106,7 +106,7 @@ function drawDefaultViz3() {
                         console.log(tooltip_scatter.style("visibility"))
                         console.log(tooltip_scatter.style("top") + " : " + tooltip_scatter.style("left"))
                         console.log(d3.select(this).attr("id"))
-                        return tooltip_scatter.style("top", (d3.pointer(d)[1])+"px").style("left",(d3.pointer(d)[0])+"px");
+                        return tooltip_scatter.style("top", (d3.pointer(d)[1] + 815)+"px").style("left",(d3.pointer(d)[0] + 75)+"px");
                       })
                       .on("mouseout", function(d, i){
                         console.log("mouseout: " + i["Player"])
