@@ -206,7 +206,7 @@ window.setPlayer_TeamViz2 = function(player) {
     .attr("dy", ".15em")
     .attr("font-family", "sans-serif")
     .attr("font-size", "20")
-    .text("Name: ")
+    .text("")
     .attr("transform", "translate(0, 225)")
 
 
