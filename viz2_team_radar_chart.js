@@ -27,7 +27,7 @@ var dimensions = {
                 .attr("height", dimensions.height-25)
   
   var title = svg_2.append("text") 
-                .text("No Team Selected") 
+                .text("Team Breakdown") 
                 .attr("text-anchor", "middle") 
                 .style("font-size", '24px') 
                 .attr("dy", 20)
@@ -60,6 +60,7 @@ window.setTeam_TeamViz2 = function(teams, teamColor) {
         .style("width", dimensions.width)
         .style("height", dimensions.height)
         .attr("x", 950)
+        .attr("id", "svg_2")
         //.attr("transform", "translate(200,155)")
 
       svg_2.selectAll("*").remove()
@@ -182,6 +183,15 @@ window.setTeam_TeamViz2 = function(teams, teamColor) {
           }
           return coordinates;
       }
+
+      // create a tooltip
+    /*var tooltip = d3.select("body").append("g")
+                    .style("position", "absolute")
+                    .style("visibility", "hidden")
+                    .style("background-color", "white")
+                    .style("fill", "black")
+                    .text("I'm a rectangle!");  */
+
 
       // draw the radar chart lines given data
       for (var i = 0; i < teams.size; i++) {
