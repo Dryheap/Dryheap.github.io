@@ -92,7 +92,7 @@ window.setPlayer_TeamViz2 = function(player) {
     // Radar Chart funny business
     // ----------------------------------------------------------------------------------------
 
-    let features2 = ["DRB%","ORB%","STL%","AST%","TRB%","BLK%"]; // the features we wish to investigate (must match headers)
+    let features2 = ["DRB%","ORB%","STL%","AST%","TS%","BLK%"]; // the features we wish to investigate (must match headers)
     // preparing the data
     let playerAverages = []
     console.log(typeof player)

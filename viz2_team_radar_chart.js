@@ -96,7 +96,7 @@ window.setTeam_TeamViz2 = function(teams, teamColor) {
       // Radar Chart funny business
       // ----------------------------------------------------------------------------------------
 
-      let features = ["DRB%","ORB%","STL%","AST%","TRB%","BLK%"]; // the features we wish to investigate (must match headers)
+      let features = ["DRB%","ORB%","STL%","AST%","TS%","BLK%"]; // the features we wish to investigate (must match headers)
 
       // preparing the data
       let teamAverages = []
