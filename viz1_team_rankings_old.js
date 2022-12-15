@@ -19,8 +19,8 @@ d3.csv("nba_adv_data.csv").then(
       height: 700,
       margin:{
           top: 60,
-          bottom: 20,
-          right: 30,
+          bottom: 30,
+          right: 50,
           left: 80
       }
   }
@@ -40,13 +40,16 @@ d3.csv("nba_adv_data.csv").then(
                   .attr("dx", dimensions.width / 2);
 
     let border = svg.append("g")
-                    .append("rect")
-                    .attr("stroke-width", 2)
-                    .attr("stroke", "black")
-                    .attr("fill", "none")
-                    .attr("y", 25)
-                    .attr("width", dimensions.width)
-                    .attr("height", dimensions.height)
+                  .append("rect")
+                  .attr("rx", 20)
+                  .attr("ry", 20)
+                  .attr("stroke-width","1px")
+                  .attr("stroke", "#5D5958")
+                  .attr("fill", "None")
+                  .attr("y", 25)
+                  .attr("width", dimensions.width * .95)
+                  .attr("height", dimensions.height * .95)
+                  .attr("transform", "translate(15, -2.5)")
 
    
 

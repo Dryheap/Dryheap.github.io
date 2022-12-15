@@ -7,7 +7,7 @@ var dimensions = {
       top: 60,
       bottom: 70,
       right: 10,
-      left: 100
+      left: 120
   }
 }
   var svg_2 =  d3.select("#teamsuccess_viz2")
@@ -18,13 +18,16 @@ var dimensions = {
   
   
   let teamviz2_border = svg_2.append("g")
-                .append("rect")
-                .attr("stroke-width", 2)
-                .attr("stroke", "black")
-                .attr("fill", "none")
-                .attr("y", 25)
-                .attr("width", dimensions.width*0.6)
-                .attr("height", dimensions.height-25)
+                            .append("rect")
+                            .attr("rx", 20)
+                            .attr("ry", 20)
+                            .attr("stroke-width","1px")
+                            .attr("stroke", "#5D5958")
+                            .attr("fill", "None")
+                            .attr("y", 0)
+                            .attr("width", dimensions.width * 0.6)
+                            .attr("height", dimensions.height - 25)
+                            .attr("transform", "translate(0, 25)")
   
   var title = svg_2.append("text") 
                 .text("Team Breakdown") 
@@ -67,21 +70,26 @@ window.setTeam_TeamViz2 = function(teams, teamColor) {
 
 
       teamviz2_border = svg_2.append("g")
-                    .append("rect")
-                    .attr("stroke-width", 2)
-                    .attr("stroke", "black")
-                    .attr("fill", "none")
-                    .attr("y", 25)
-                    .attr("width", dimensions.width*0.6)
-                    .attr("height", dimensions.height-25)
+                            .append("rect")
+                            .attr("rx", 20)
+                            .attr("ry", 20)
+                            .attr("stroke-width","1px")
+                            .attr("stroke", "#5D5958")
+                            .attr("fill", "None")
+                            .attr("y", 0)
+                            .attr("width", dimensions.width * 0.6)
+                            .attr("height", dimensions.height - 25)
+                            .attr("transform", "translate(0, 25)")
+  
+      title = svg_2.append("text") 
+                .text("Team Breakdown") 
+                .attr("text-anchor", "middle") 
+                .style("font-size", '24px') 
+                .attr("dy", 20)
+                .attr("dx", teamviz2_border.attr("width") / 2)
 
     
-      title = svg_2.append("text") 
-                      .text("Teams") // TODO: Change 
-                      .attr("text-anchor", "middle") 
-                      .style("font-size", '24px') 
-                      .attr("dy", 20)
-                      .attr("dx", teamviz2_border.attr("width") / 2);
+      
 
     
     
@@ -89,7 +97,7 @@ window.setTeam_TeamViz2 = function(teams, teamColor) {
       // Radar Chart funny business
       // ----------------------------------------------------------------------------------------
 
-      let features = ["DRB%","ORB%","STL%","AST%","TRB%","BLK%"]; // the features we wish to investigate (must match headers)
+      let features = ["DRB%","ORB%","STL%", "TRB%", "AST%","TS%","BLK%"]; // the features we wish to investigate (must match headers)
 
       // preparing the data
       let teamAverages = []
@@ -211,6 +219,39 @@ window.setTeam_TeamViz2 = function(teams, teamColor) {
             .attr("fill", color)
             .attr("stroke-opacity", 1)
             .attr("opacity", 0.65)
+            // adding mouseover and mouseout styling and tooltip
+            .on("mouseover", function(d) {
+                  //tooltip.style("visibility", "visible")
+                 // var tooltipTeamName = dataset.find(function(element){ return element.Tm == d.key})["TeamFullName"]
+                  //var tooltipTeamWins = dataset.find(function(element){ return element.Tm == d.key})["TeamWins"]
+                  //console.log(tooltipTeamName + "Wins: " + tooltipTeamWins)
+                  //tooltip.text(tooltipTeamName + ": " + tooltipTeamWins)
+                  //if (d3.select(this).attr("fill") == "#010101") return "#202020" // silly addition to make the black rect brighter
+                  //return (d3.color(Color[d.key]["colors"][Color[d.key]["mainColor"]]["hex"]).brighter())
+            })
+            .on("mousemove", function(d){
+              var mouseY = d3.pointer(d)[1] + document.getElementById("svg_2").getBoundingClientRect().y + window.pageYOffset
+              var mouseX = d3.pointer(d)[0] + document.getElementById("svg_2").getBoundingClientRect().x + 20
+              console.log(mouseX + " : " + mouseY)
+              //return tooltip.style("top", mouseY+"px").style("left",mouseX+"px")
+            })
+            .on("mouseout", function(d) {
+              //tooltip.style("visibility", "hidden")
+            })
+            .on("click", function(d){
+              var myCol = "None"
+              d3.select(this)
+                  .attr("fill", function(){
+                    if (d3.select(this).attr("fill") != "yellow"){
+                      myCol = "yellow"
+                      return "yellow"
+                    }
+                    else{
+                      return color
+                    }
+              
+              })
+            })
 
 
       }
