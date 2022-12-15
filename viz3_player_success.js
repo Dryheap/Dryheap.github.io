@@ -109,7 +109,7 @@ function drawDefaultViz3() {
                         //var mouseY = window.innerHeight - d3.pointer(d)[1]
                         //var mouseX = window.innerWidth - d3.pointer(d)[0]
                         var mouseY = d3.pointer(d)[1] + document.getElementById("scatterplot").getBoundingClientRect().y + window.pageYOffset
-                        var mouseX = d3.pointer(d)[0] + document.getElementById("scatterplot").getBoundingClientRect().x/2
+                        var mouseX = d3.pointer(d)[0] + document.getElementById("scatterplot").getBoundingClientRect().x
                         console.log(mouseX + " : " + mouseY)
                         return tooltip_scatter.style("top", mouseY+"px").style("left",mouseX+"px");
                       })
