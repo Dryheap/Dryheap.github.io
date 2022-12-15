@@ -56,6 +56,30 @@
         text-align: center;
         
       }
+      
+            .tooltip {
+   position: relative;
+    }
+      .tooltip::before {
+        background-color: #444;
+        border: 1px solid #888;
+        border-radius: 2px;
+        color: #ffff;
+        content: attr(data-title);
+        display: none;
+        font-family: sans-serif;
+        font-size: 14px;
+        padding: 2px 5px;
+        position: absolute;
+        top: 20px;
+        left: 75px;
+        z-index: 1;
+        width: 250px
+      }
+      .tooltip:hover::before {
+        display: block;
+      }
+      
     </style>
     <script src="https://d3js.org/d3.v7.min.js"></script>
 
@@ -99,15 +123,26 @@
         <svg id="spiderchart"></svg>
         <button id="VORP"
         style="background:#3630a3;color:white;"
+        class="tooltip"
+        data-title="Value Over Replacement Player:
+        A box score estimate of the points per 100 TEAM possessions that a player
+         contributed above a replacement-level (-2.0) player, translated to an 
+         average team and prorated to an 82-game season"
         >
         VORP</button>
 
         <button id="TS"
         style="background:#3630a3;color:white;"
+        class="tooltip"
+        data-title="True Shooting Percentage: A measure of shooting efficiency that take into account 2-point field goals, 3-point field goals, and free throws."
         >TS%</button>
 
         <button id ="BPM"
         style="background:#3630a3;color:white;"
+        class="tooltip"
+        data-title="Box Plus/Minus:
+        A box score estimate of the points per 100 possessions a player 
+        contributed above a league-average player, translated to an average team."
         >BPM</button>
       </div>
     </div>
