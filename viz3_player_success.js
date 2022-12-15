@@ -20,6 +20,7 @@ function drawDefaultViz3() {
       var currPlayers = new Set()
 
 
+      // set's the initial value to VORP
       var selectValue = "VORP"
       svg_scatter =  d3.select("#svg2")
         .style("width", dimensions.width)
@@ -78,7 +79,7 @@ function drawDefaultViz3() {
                     .style("position", "absolute")
                     .style("visibility", "hidden")
                     .style("background-color", "white")
-                    .style("fill", "green")
+                    .style("fill", "black")
                     .text("I'm a circle!");  
 
 
@@ -106,7 +107,7 @@ function drawDefaultViz3() {
                         console.log(tooltip_scatter.style("visibility"))
                         console.log(tooltip_scatter.style("top") + " : " + tooltip_scatter.style("left"))
                         console.log(d3.select(this).attr("id"))
-                        return tooltip_scatter.style("top", (d3.pointer(d)[1])+"px").style("left",(d3.pointer(d)[0])+"px");
+                        return tooltip_scatter.style("top", (d3.pointer(d)[1] + 1300)+"px").style("left",(d3.pointer(d)[0] + 75)+"px");
                       })
                       .on("mouseout", function(d, i){
                         console.log("mouseout: " + i["Player"])
