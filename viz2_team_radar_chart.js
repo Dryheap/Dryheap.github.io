@@ -30,7 +30,7 @@ var dimensions = {
                             .attr("transform", "translate(0, 25)")
   
   var title = svg_2.append("text") 
-                .text("No Team Selected") 
+                .text("Team Breakdown") 
                 .attr("text-anchor", "middle") 
                 .style("font-size", '24px') 
                 .attr("dy", 20)
@@ -63,6 +63,7 @@ window.setTeam_TeamViz2 = function(teams, teamColor) {
         .style("width", dimensions.width)
         .style("height", dimensions.height)
         .attr("x", 950)
+        .attr("id", "svg_2")
         //.attr("transform", "translate(200,155)")
 
       svg_2.selectAll("*").remove()
@@ -191,6 +192,15 @@ window.setTeam_TeamViz2 = function(teams, teamColor) {
           return coordinates;
       }
 
+      // create a tooltip
+    /*var tooltip = d3.select("body").append("g")
+                    .style("position", "absolute")
+                    .style("visibility", "hidden")
+                    .style("background-color", "white")
+                    .style("fill", "black")
+                    .text("I'm a rectangle!");  */
+
+
       // draw the radar chart lines given data
       for (var i = 0; i < teams.size; i++) {
         let d = teamAverages[i]
@@ -209,6 +219,25 @@ window.setTeam_TeamViz2 = function(teams, teamColor) {
             .attr("fill", color)
             .attr("stroke-opacity", 1)
             .attr("opacity", 0.65)
+            // adding mouseover and mouseout styling and tooltip
+            .on("mouseover", function(d) {
+                  //tooltip.style("visibility", "visible")
+                 // var tooltipTeamName = dataset.find(function(element){ return element.Tm == d.key})["TeamFullName"]
+                  //var tooltipTeamWins = dataset.find(function(element){ return element.Tm == d.key})["TeamWins"]
+                  //console.log(tooltipTeamName + "Wins: " + tooltipTeamWins)
+                  //tooltip.text(tooltipTeamName + ": " + tooltipTeamWins)
+                  //if (d3.select(this).attr("fill") == "#010101") return "#202020" // silly addition to make the black rect brighter
+                  //return (d3.color(Color[d.key]["colors"][Color[d.key]["mainColor"]]["hex"]).brighter())
+            })
+            .on("mousemove", function(d){
+              var mouseY = d3.pointer(d)[1] + document.getElementById("svg_2").getBoundingClientRect().y + window.pageYOffset
+              var mouseX = d3.pointer(d)[0] + document.getElementById("svg_2").getBoundingClientRect().x + 20
+              console.log(mouseX + " : " + mouseY)
+              //return tooltip.style("top", mouseY+"px").style("left",mouseX+"px")
+            })
+            .on("mouseout", function(d) {
+              //tooltip.style("visibility", "hidden")
+            })
             .on("click", function(d){
               var myCol = "None"
               d3.select(this)
