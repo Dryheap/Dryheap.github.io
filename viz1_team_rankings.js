@@ -97,7 +97,7 @@ d3.csv("nba_adv_data.csv").then(
                     .style("position", "absolute")
                     .style("visibility", "hidden")
                     .style("background-color", "white")
-                    .style("fill", "green")
+                    .style("fill", "black")
                     .text("I'm a rectangle!");  
 
     
@@ -139,7 +139,8 @@ d3.csv("nba_adv_data.csv").then(
                         console.log(tooltip.style("visibility"))
                         console.log(tooltip.style("top") + " : " + tooltip.style("left"))
                         console.log(d3.select(this).attr("id"))
-                        return tooltip.style("top", (d3.pointer(d)[1])+"px").style("left",(d3.pointer(d)[0])+"px");
+                        // this controls the y and x coordinates of the tooltip
+                        return tooltip.style("top", (d3.pointer(d)[1] + 350)+"px").style("left",(d3.pointer(d)[0])+"px");
                       })
                       .on("mouseout", function(d) {
                         tooltip.style("visibility", "hidden")
