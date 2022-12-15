@@ -47,32 +47,25 @@
       .label {
         fill: #4f009e;
       }
+
+      button {
+        border-radius: 12px;
+        height: 30px;
+        width: 70px;
+        display:grid;
+        text-align: center;
+        
+      }
     </style>
     <script src="https://d3js.org/d3.v7.min.js"></script>
 
   </head>
   <body bgcolor="E1E1E1">
 
-    <h1>Analyzing Success in the NBA</h1>
-    <h6>
-      Kaleb Knect, Casey Blue, and Reagan Hay
-    </h6>
+    <h1>Our Wonderful CPSC-4030 Project</h1>
 
     <!-- BANNER: list of nba teams -->
-    <div id="app">
-      <div id="chart">
-        <h2>
-          About this project
-        </h2>
-        <h4>
-          In this project, you can analyze success in the NBA both at the team and individual level. This dataset covers the NBA's 2021-2022 season's advanced statistics. 
-          The visualization system below will allow you to easily compare teams and players and analyze the statisical categories in which they excel. From this, you can determine which players and stats 
-          contribute the most when it comes to winning in the NBA. 
-          <br><br>
-          If you need more information for any team, player, or statistic, there are multiple on-hover features implemented to help give you more context.
-        </h4>
-      </div>
-    </div>
+
 
     <!-- team visualization #1 -->
     <div id="app">
@@ -103,16 +96,23 @@
           Select a player from the Scatter Plot to display that player on the associated Radar Chart. You can make multiple selections to compare thair statistics.
         </h4>
         <svg id="playersuccess_viz1"></svg>
-        
+        <button id="VORP"
+        style="background:#3630a3;color:white;"
+        >
+        VORP</button>
+
+        <button id="TS"
+        style="background:#3630a3;color:white;"
+        >TS%</button>
+
+        <button id ="BPM"
+        style="background:#3630a3;color:white;"
+        >BPM</button>
       <!-- </div> -->
     <!-- </div> -->
     <!-- <div id="app"> -->
       <!-- <div id="chart"> -->
         <svg id="spiderchart"></svg>
-        <br>
-        <button id="VORP">VORP</button>
-        <button id="TS">TS%</button>
-        <button id ="BPM">BPM</button>
       </div>
     </div>
 
