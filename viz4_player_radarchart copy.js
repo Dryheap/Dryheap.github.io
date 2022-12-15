@@ -33,8 +33,7 @@ function drawPlayerRadar(){
               .attr("text-anchor", "middle") 
               .style("font-size", '24px') 
               .attr("dy", 20)
-              .attr("dx", playviz2_border.attr("width")/ 2)
-              .attr("transform", "translate(90, 200)")
+              .attr("dx", playviz2_border.attr("width") / 2);
 
 
 
@@ -92,7 +91,7 @@ window.setPlayer_TeamViz2 = function(player) {
     // Radar Chart funny business
     // ----------------------------------------------------------------------------------------
 
-    let features2 = ["DRB%","ORB%","STL%", "TRB%", "AST%","TS%","BLK%"]; // the features we wish to investigate (must match headers)
+    let features2 = ["DRB%","ORB%","STL%","AST%","TRB%","BLK%"]; // the features we wish to investigate (must match headers)
     // preparing the data
     let playerAverages = []
     console.log(typeof player)
@@ -179,7 +178,7 @@ window.setPlayer_TeamViz2 = function(player) {
     let line2 = d3.line()
                 .x(d => d.x + dimensions.margin.left)
                 .y(d => d.y);
-    let colors = ["#ff4040","#e78d0b","#a7d503","#58fc2a","#18f472","#00bfbf","#1872f4","#582afc","#a703d5","#e70b8d","#ff4040"];
+    let colors = ["darkorange", "gray", "navy"];
 
 
     // TEMP TESTING
